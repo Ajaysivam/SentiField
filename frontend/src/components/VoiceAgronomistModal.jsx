@@ -19,7 +19,7 @@ import {
  *  - Supports single farm focus or whole multi-farm portfolio roadmap
  */
 
-const QUICK_PROMPTS = {
+const QUICK_PROMPTS_PORTFOLIO = {
   en: [
     { label: '💧 Which farm needs water today?', text: 'Which farm needs water today and how much should I irrigate?' },
     { label: '🚨 What is my #1 priority?', text: 'What is my top priority today across all my farms?' },
@@ -37,6 +37,27 @@ const QUICK_PROMPTS = {
     { label: '🚨 आज की पहली प्राथमिकता क्या है?', text: 'मेरे सभी खेतों में आज की सबसे पहली प्राथमिकता क्या है?' },
     { label: '🧪 खाद और उर्वरक की सलाह', text: 'फसलों के लिए किस खाद और पोषण की सिफारिश करते हैं?' },
     { label: '🌾 फसलों की सेहत का हाल', text: 'मेरी फसलों की संपूर्ण सेहत और ग्रेड के बारे में बताएं।' },
+  ],
+};
+
+const QUICK_PROMPTS_SINGLE = {
+  en: [
+    { label: '💧 How much water does this plot need?', text: 'How much water does this analyzed plot need today?' },
+    { label: '🚨 What is the #1 priority here?', text: 'What is the top priority action for this analyzed field?' },
+    { label: '🧪 What fertilizer should I apply?', text: 'What fertilizer or nutrient spray should I apply to this crop?' },
+    { label: '🗺️ How do I fix the problem zone?', text: 'How do I treat the stressed problem zone highlighted in the satellite scan?' },
+  ],
+  ta: [
+    { label: '💧 எவ்வளவு தண்ணீர் தேவை?', text: 'இந்த நிலத்திற்கு எவ்வளவு தண்ணீர் பாய்ச்ச வேண்டும்?' },
+    { label: '🚨 முதல் முன்னுரிமை என்ன?', text: 'இந்த பயிரில் உடனடியாக செய்ய வேண்டிய முதல் வேலை என்ன?' },
+    { label: '🧪 என்ன உரம் கொடுக்க வேண்டும்?', text: 'இந்த பயிரின் வளர்ச்சிக்கு என்ன உரம் மற்றும் நுண்ணூட்டம் தெளிக்க வேண்டும்?' },
+    { label: '🗺️ பிரச்சனை பகுதியை எப்படி சரிசெய்வது?', text: 'செயற்கைக்கோளில் காட்டப்படும் பிரச்சனை பகுதியை எவ்வாறு சரி செய்வது?' },
+  ],
+  hi: [
+    { label: '💧 कितने पानी की आवश्यकता है?', text: 'इस विश्लेषित खेत को आज कितने पानी की आवश्यकता है?' },
+    { label: '🚨 पहली प्राथमिकता क्या है?', text: 'इस फसल के लिए आज की सबसे पहली प्राथमिकता क्या है?' },
+    { label: '🧪 कौन सा उर्वरक डालें?', text: 'इस फसल के लिए किस खाद और पोषण का छिड़काव करना चाहिए?' },
+    { label: '🗺️ तनावग्रस्त क्षेत्र का उपचार?', text: 'उपग्रह में दिखाए गए तनावग्रस्त क्षेत्र को कैसे ठीक करें?' },
   ],
 };
 
@@ -68,6 +89,11 @@ export default function VoiceAgronomistModal({
   const currentUtteranceRef = useRef(null);
   const chatScrollRef = useRef(null);
   const pendingAiResponseRef = useRef(null);
+
+  const isCombinedMode = activeContext?.contextMode === 'combined';
+  const quickPromptList = isCombinedMode
+    ? (QUICK_PROMPTS_PORTFOLIO[selectedLang] || QUICK_PROMPTS_PORTFOLIO.en)
+    : (QUICK_PROMPTS_SINGLE[selectedLang] || QUICK_PROMPTS_SINGLE.en);
 
   // Initialize SpeechSynthesis and check STT support
   useEffect(() => {
@@ -120,6 +146,10 @@ export default function VoiceAgronomistModal({
       }
     }
 
+    const activePromptList = isCombined
+      ? (QUICK_PROMPTS_PORTFOLIO[selectedLang] || QUICK_PROMPTS_PORTFOLIO.en)
+      : (QUICK_PROMPTS_SINGLE[selectedLang] || QUICK_PROMPTS_SINGLE.en);
+
     setMessages([
       {
         id: 'msg-greeting',
@@ -127,8 +157,8 @@ export default function VoiceAgronomistModal({
         displayText: greetingText,
         spokenText: greetingSpoken,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        keyMetrics: isCombined ? ['Total: 3 Plots', '1 Critical Attention'] : ['Crop Health Loaded'],
-        followUps: QUICK_PROMPTS[selectedLang]?.slice(0, 3).map((p) => p.text) || [],
+        keyMetrics: isCombined ? ['Total: 3 Plots', '1 Critical Attention'] : ['Crop Health Telemetry Active'],
+        followUps: activePromptList.slice(0, 3).map((p) => p.text),
       },
     ]);
   }, [isOpen, activeContext]);
@@ -870,7 +900,7 @@ export default function VoiceAgronomistModal({
           <span style={{ fontSize: '0.72rem', color: '#64748b', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
             Quick Ask:
           </span>
-          {QUICK_PROMPTS[selectedLang]?.map((p, i) => (
+          {quickPromptList.map((p, i) => (
             <button
               key={i}
               onClick={() => handleFarmerQuestion(p.text)}

@@ -79,8 +79,8 @@ export default function Header({
           <span>🗄️ Database</span>
         </a>
 
-        {/* AI Voice Agronomist Button (Available for Both Guest & Farmer) */}
-        {onOpenVoiceAgent && (
+        {/* AI Voice Agronomist Button (Available for Authenticated Farmers) */}
+        {user && onOpenVoiceAgent && (
           <button
             onClick={onOpenVoiceAgent}
             style={{

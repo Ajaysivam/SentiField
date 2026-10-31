@@ -1037,7 +1037,7 @@ def voice_agronomist_agent(
     """
     context: Dict[str, Any] = {}
     
-    # 1. Start with client-supplied context if available (e.g. active view on dashboard)
+    # 1. Start with client-supplied context if available (e.g. active view on dashboard or analyzed plot)
     if req.client_context and isinstance(req.client_context, dict):
         context.update(req.client_context)
 
@@ -1046,6 +1046,7 @@ def voice_agronomist_agent(
         if req.farm_id:
             farm = get_farm_by_id(req.farm_id, current_user["user_id"])
             if farm:
+                context["context_mode"] = "single"
                 context["farm_name"] = farm.get("farm_name")
                 context["crop_type"] = farm.get("crop_type")
                 context["area_acres"] = farm.get("area_acres")
@@ -1066,8 +1067,8 @@ def voice_agronomist_agent(
                     context["zone_description"] = an_data.get("problem_zones", {}).get("zone_description", "")
                     context["weather"] = an_data.get("weather_correlation", {})
                     context["action_plan"] = an_data.get("gemini_recommendations", {}).get("action_plan", {})
-        elif req.context_mode == "combined" or not context:
-            # Aggregate portfolio context
+        elif req.context_mode == "combined":
+            # Aggregate authenticated portfolio context
             portfolio = get_farmer_portfolio_summary(current_user)
             context["context_mode"] = "combined"
             context["total_farms"] = portfolio.get("total_farms", 0)
@@ -1079,8 +1080,14 @@ def voice_agronomist_agent(
             context["ranked_action_items"] = portfolio.get("ranked_action_items", [])
             context["farms"] = portfolio.get("farms", [])
 
-    # If context is still sparse, supply realistic fallback defaults
-    if not context.get("farms") and not context.get("farm_name"):
+    # 3. Context mode isolation: if single plot mode, ensure no combined portfolio contamination
+    if req.context_mode == "single":
+        context["context_mode"] = "single"
+        context.pop("ranked_action_items", None)
+        context.pop("farms", None)
+        context.pop("total_farms", None)
+    elif req.context_mode == "combined" and not context.get("farms") and not current_user:
+        # Fallback portfolio demo only if explicitly requested combined mode with no auth
         context["context_mode"] = "combined"
         context["total_farms"] = 3
         context["total_acres"] = 8.5

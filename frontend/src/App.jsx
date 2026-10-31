@@ -665,7 +665,7 @@ function MainDashboard() {
         showFarmsList={showFarmsList}
         farmerView={farmerView}
         onToggleFarmerView={() => setFarmerView(farmerView === 'dashboard' ? 'map' : 'dashboard')}
-        onOpenVoiceAgent={() => setIsVoiceModalOpen(true)}
+        onOpenVoiceAgent={user ? () => setIsVoiceModalOpen(true) : null}
       />
 
       <main className="main-content">
@@ -1001,28 +1001,6 @@ function MainDashboard() {
                 style={{ padding: '0.8rem 1.5rem', fontSize: '0.95rem' }}
               >
                 🔄 REDRAW BOUNDARY
-              </button>
-
-              <button
-                onClick={() => setIsVoiceModalOpen(true)}
-                style={{
-                  background: 'linear-gradient(135deg, rgba(0,245,160,0.18) 0%, rgba(0,217,245,0.18) 100%)',
-                  border: '1.5px solid #00f5a0',
-                  color: '#00f5a0',
-                  borderRadius: '10px',
-                  padding: '0.8rem 1.4rem',
-                  fontSize: '0.95rem',
-                  fontWeight: '800',
-                  cursor: 'pointer',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.45rem',
-                  boxShadow: '0 0 16px rgba(0,245,160,0.25)',
-                }}
-                title="Ask AI Voice Agronomist about this marked polygon"
-              >
-                <span>🎙️</span>
-                <span>Ask AI About Marked Field</span>
               </button>
 
               <button
@@ -1866,41 +1844,43 @@ function MainDashboard() {
           initialTab={authModalInitialTab}
         />
 
-        {/* Floating AI Voice Agronomist Button (Available for Guests & Map View) */}
-        <button
-          onClick={() => setIsVoiceModalOpen(true)}
-          style={{
-            position: 'fixed',
-            bottom: '26px',
-            right: '26px',
-            zIndex: 999,
-            background: 'linear-gradient(135deg, #00f5a0 0%, #00d9f5 100%)',
-            border: 'none',
-            borderRadius: '9999px',
-            padding: '0.8rem 1.35rem',
-            color: '#030712',
-            fontSize: '0.92rem',
-            fontWeight: '900',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.55rem',
-            boxShadow: '0 10px 30px rgba(0, 245, 160, 0.45), 0 0 20px rgba(0, 217, 245, 0.35)',
-            transition: 'all 0.25s ease',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-3px) scale(1.04)';
-            e.currentTarget.style.boxShadow = '0 15px 40px rgba(0, 245, 160, 0.65)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0) scale(1)';
-            e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 245, 160, 0.45), 0 0 20px rgba(0, 217, 245, 0.35)';
-          }}
-          title="Open Conversational Voice & Chat Agronomist"
-        >
-          <span style={{ fontSize: '1.25rem' }}>🎙️</span>
-          <span>Ask AI Agronomist</span>
-        </button>
+        {/* Floating AI Voice Agronomist Button: Only shown for authenticated Farmers, or in Guest Mode AFTER plot analysis is complete */}
+        {(user || Boolean(analysisData)) && (
+          <button
+            onClick={() => setIsVoiceModalOpen(true)}
+            style={{
+              position: 'fixed',
+              bottom: '26px',
+              right: '26px',
+              zIndex: 999,
+              background: 'linear-gradient(135deg, #00f5a0 0%, #00d9f5 100%)',
+              border: 'none',
+              borderRadius: '9999px',
+              padding: '0.8rem 1.35rem',
+              color: '#030712',
+              fontSize: '0.92rem',
+              fontWeight: '900',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.55rem',
+              boxShadow: '0 10px 30px rgba(0, 245, 160, 0.45), 0 0 20px rgba(0, 217, 245, 0.35)',
+              transition: 'all 0.25s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-3px) scale(1.04)';
+              e.currentTarget.style.boxShadow = '0 15px 40px rgba(0, 245, 160, 0.65)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0) scale(1)';
+              e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 245, 160, 0.45), 0 0 20px rgba(0, 217, 245, 0.35)';
+            }}
+            title="Open Conversational Voice & Chat Agronomist"
+          >
+            <span style={{ fontSize: '1.25rem' }}>🎙️</span>
+            <span>Ask AI Agronomist</span>
+          </button>
+        )}
 
         {/* Voice & Chat Agronomist Modal for Guest / Map */}
         <VoiceAgronomistModal

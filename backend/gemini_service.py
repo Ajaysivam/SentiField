@@ -532,6 +532,46 @@ def _build_rule_based_fallback(
     }
 
 
+def _build_no_analysis_guardrail_reply(language: str = "en") -> Dict[str, Any]:
+    """
+    Guardrail response returned when a user attempts to query the Voice Agronomist
+    in single farm mode without having outlined or analyzed a farm polygon.
+    Ensures the assistant NEVER hallucinated random farms or generic advice.
+    """
+    if language == "ta":
+        spoken = "வரைபடத்தில் உங்கள் பண்ணை எல்லையைக் குறித்து செயற்கைக்கோள் பகுப்பாய்வை இயக்கவும். அப்போதுதான் உங்கள் பயிரைப் பற்றிய துல்லியமான நேரடி ஆலோசனையை வழங்க முடியும்."
+        display = (
+            "⚠️ **பண்ணை பகுப்பாய்வு கிடைக்கவில்லை**\n\n"
+            "தயவுசெய்து வரைபடத்தில் உங்கள் பண்ணை எல்லையைக் குறித்து **'ANALYZE CROP HEALTH & SENTINEL MAP'** என்பதை அழுத்தவும்.\n\n"
+            "பகுப்பாய்வு முடிந்ததும், சென்டினல்-2 செயற்கைக்கோள் தரவுகளின் அடிப்படையில் உங்கள் வயலுக்கான நேரடி ஆலோசனை வழங்கப்படும்."
+        )
+    elif language == "hi":
+        spoken = "कृपया मानचित्र पर अपने खेत की सीमा बनाएं और पहले उपग्रह विश्लेषण चलाएं। इसके बाद ही आपकी फसल का सटीक मार्गदर्शन उपलब्ध होगा।"
+        display = (
+            "⚠️ **कोई खेत विश्लेषण नहीं मिला**\n\n"
+            "कृपया इंटरेक्टिव मानचित्र पर अपने खेत की सीमा बनाएं और **'ANALYZE CROP HEALTH & SENTINEL MAP'** पर क्लिक करें।\n\n"
+            "विश्लेषण पूरा होने के बाद, आपकी फसल के आंकड़ों के आधार पर सटीक जानकारी दी जाएगी।"
+        )
+    else:
+        spoken = "Please outline your farm boundary on the map and run the satellite analysis first. Once analyzed, I will answer your questions based on your live crop data."
+        display = (
+            "⚠️ **No Plot Analysis Available**\n\n"
+            "Please draw your farm field boundary on the interactive map and click **'ANALYZE CROP HEALTH & SENTINEL MAP'**.\n\n"
+            "Once the Sentinel-2 scan completes, the AI Voice Agronomist will provide precise guidance based on your field's live NDVI vigor, moisture, and problem zones."
+        )
+    return {
+        "spoken_text": spoken,
+        "display_text": display,
+        "key_metrics": ["Status: Awaiting Farm Boundary Analysis"],
+        "suggested_follow_ups": [
+            "How do I mark my farm on the map?",
+            "What satellite data does SentiField use?"
+        ],
+        "source": "system_guardrail",
+        "language": language
+    }
+
+
 def generate_voice_agronomist_reply(
     question: str,
     context: Dict[str, Any],
@@ -548,6 +588,16 @@ def generate_voice_agronomist_reply(
     
     # 1. Format Grounded Agronomic Context
     is_combined = context.get("context_mode") == "combined" or "ranked_action_items" in context
+    
+    # Strict Guardrail: In single plot mode, verify that an actual field was analyzed
+    if not is_combined:
+        ndvi = context.get("ndvi")
+        acres = context.get("area_acres")
+        grade = context.get("health_grade")
+        has_analysis = (ndvi is not None and float(ndvi) > 0) or (acres is not None and float(acres) > 0) or (grade is not None and str(grade).strip() not in ["N/A", ""])
+        if not has_analysis:
+            return _build_no_analysis_guardrail_reply(language)
+
     context_lines = []
 
     if is_combined:
@@ -613,6 +663,15 @@ def generate_voice_agronomist_reply(
         "hi": "Hindi (हिंदी). The spoken_text must be friendly, clear Hindi (using Devanagari script) that sounds natural to a Kisan. display_text should also be in Hindi."
     }.get(language, "English")
 
+    single_plot_directive = ""
+    if not is_combined:
+        single_plot_directive = f"""
+CRITICAL GROUNDING DIRECTIVE:
+You are advising EXCLUSIVELY on this single analyzed plot: '{farm_name}' ({crop_type}, {area_acres:.2f} acres, Health Grade {grade}, Mean NDVI {ndvi:.2f}, Problem Area {prob_pct:.1f}%).
+DO NOT mention or invent any other farm plots (such as "East Sugarcane Block", "Salem Cotton", or "Namakkal Paddy") unless that is the exact name of this field.
+All recommendations (water litres, fertilizer amounts, spray timings) MUST be calculated strictly for this {area_acres:.2f} acre field.
+"""
+
     prompt = f"""
 You are "Sentifield Kisan Mitra", an expert precision agronomist voice assistant. You are talking directly to a farmer who is asking a question via microphone.
 
@@ -624,6 +683,8 @@ ACTIVE SATELLITE & WEATHER TELEMETRY:
 
 TARGET LANGUAGE: {lang_instructions}
 
+{single_plot_directive}
+
 MANDATORY RULES:
 1. "spoken_text": This will be read aloud immediately by the browser's speech synthesis engine.
    - Keep it concise: 2 to 3 sentences maximum (approx 45-75 words).
@@ -634,7 +695,7 @@ MANDATORY RULES:
    - Format with clean markdown, line breaks, bold key numbers, and helpful emojis (💧, 🌾, ⚠️, 🧪, 🛡️).
    - Easy to scan on mobile or computer.
 3. "suggested_follow_ups": Provide exactly 2 or 3 short, relevant follow-up questions the farmer can tap or ask next.
-4. "key_metrics": 1 to 3 short highlights (e.g., ["East Sugarcane: 38% Stressed", "ET₀ Water Deficit: 24.5mm"]).
+4. "key_metrics": 1 to 3 short highlights (e.g., ["Field: {farm_name}", "NDVI: {ndvi:.2f}"] or ["East Sugarcane: 38% Stressed"]).
 
 Return ONLY a raw valid JSON object (no markdown code fence, no ```json):
 {{
@@ -705,13 +766,23 @@ def _build_rule_based_voice_reply(
     """
     Rule-based agronomist engine that parses question keywords and context telemetry
     to provide high-fidelity voice and chat guidance without external API dependency.
+    Strictly differentiates between single analyzed plots and multi-farm portfolios.
     """
     q_lower = question.lower()
     is_combined = context.get("context_mode") == "combined" or "ranked_action_items" in context
     farms = context.get("farms", [])
     ranked = context.get("ranked_action_items", [])
 
-    # Identify critical farm if available
+    # Strict guardrail: If single farm mode, ensure plot has been analyzed
+    if not is_combined:
+        ndvi = context.get("ndvi")
+        acres = context.get("area_acres")
+        grade = context.get("health_grade")
+        has_analysis = (ndvi is not None and float(ndvi) > 0) or (acres is not None and float(acres) > 0) or (grade is not None and str(grade).strip() not in ["N/A", ""])
+        if not has_analysis:
+            return _build_no_analysis_guardrail_reply(language)
+
+    # Identify critical farm if available (for portfolio mode)
     crit_farm = None
     for f in farms:
         if f.get("health_grade") in ["C", "D"] or f.get("urgency_level") == "CRITICAL":
@@ -720,8 +791,29 @@ def _build_rule_based_voice_reply(
     if not crit_farm and farms:
         crit_farm = farms[0]
 
+    # Single-farm extraction
+    single_name = context.get("farm_name", "your field")
+    single_crop = context.get("crop_type", "crop")
+    try:
+        single_acres = float(context.get("area_acres", 1.0) or 1.0)
+    except Exception:
+        single_acres = 1.0
+    try:
+        single_prob_pct = float(context.get("problem_area_pct", 0.0) or 0.0)
+    except Exception:
+        single_prob_pct = 0.0
+    try:
+        single_prob_acres = float(context.get("problem_area_acres", 0.0) or 0.0)
+    except Exception:
+        single_prob_acres = round(single_acres * (single_prob_pct / 100.0), 2)
+    single_grade = str(context.get("health_grade") or context.get("grade") or "B")
+    try:
+        single_ndvi = float(context.get("ndvi", 0.45) or 0.45)
+    except Exception:
+        single_ndvi = 0.45
+
     # Rule 1: Water / Irrigation / Drought questions
-    if any(k in q_lower for k in ["water", "irrigat", "dry", "drought", "moist", "thirst"]):
+    if any(k in q_lower for k in ["water", "irrigat", "dry", "drought", "moist", "thirst", "தண்ணீர்", "பாசனம்", "पानी", "सिंचाई"]):
         if is_combined and crit_farm:
             farm_name = crit_farm.get("farm_name", "East Sugarcane Block")
             crop = crit_farm.get("crop_type", "Sugarcane")
@@ -739,29 +831,34 @@ def _build_rule_based_voice_reply(
                 f"• **Timing**: Apply during late afternoon to minimize ET₀ evaporation losses."
             )
             metrics = [f"{farm_name}: {prob_pct:.0f}% Stressed", "ET₀ Water Loss: 24.5 mm"]
+            follow_ups = [
+                "What fertilizer should I apply next?",
+                "Which farm should I inspect after this?",
+                "Are there any fungal disease risks?"
+            ]
         else:
-            name = context.get("farm_name", "your farm")
-            prob_pct = context.get("problem_area_pct", 30.0)
+            litres_per_acre = 40000 if single_prob_pct > 25 else 25000
+            total_litres = int(litres_per_acre * single_acres)
             spoken = (
-                f"For {name}, satellite moisture indices show that {int(prob_pct)} percent of the field needs urgent watering. "
-                f"The soil water loss is high this week. We recommend scheduling irrigation within twenty-four hours."
+                f"For {single_name}, satellite moisture telemetry indicates that {single_prob_pct:.1f} percent of the field has active water stress. "
+                f"We recommend applying approximately {total_litres:,} litres of water during late afternoon to restore root zone moisture."
             )
             display = (
-                f"💧 **Field Moisture Alert for {name}**\n\n"
-                f"• **Stressed Canopy**: **{prob_pct:.1f}%** indicates significant dry stress.\n"
-                f"• **Recommendation**: Irrigate within 24–48 hours to restore root zone moisture.\n"
-                f"• **Tip**: Inspect drip lines in the southern perimeter for uniform water pressure."
+                f"💧 **Field Irrigation Advisory: {single_name}**\n\n"
+                f"• **Crop**: {single_crop} ({single_acres:.2f} acres)\n"
+                f"• **Moisture Deficit Zone**: **{single_prob_pct:.1f}%** ({single_prob_acres:.2f} acres) under water stress.\n"
+                f"• **Recommended Volume**: Approximately **{total_litres:,} Litres** ({litres_per_acre:,} L/acre).\n"
+                f"• **Timing**: Apply late afternoon or early morning to minimize solar evaporation."
             )
-            metrics = [f"Stressed Zone: {prob_pct:.1f}%", "Drought Risk: HIGH"]
-
-        follow_ups = [
-            "What fertilizer should I apply next?",
-            "Which farm should I inspect after this?",
-            "Are there any fungal disease risks?"
-        ]
+            metrics = [f"Field: {single_name}", f"Water Volume: {total_litres:,} L"]
+            follow_ups = [
+                "What fertilizer should I apply?",
+                "What is my top priority for this crop?",
+                "Are there any disease risks today?"
+            ]
 
     # Rule 2: Fertilizer / Nutrients / Yellowing
-    elif any(k in q_lower for k in ["fertiliz", "urea", "dap", "npk", "nutrient", "yellow", "feed"]):
+    elif any(k in q_lower for k in ["fertiliz", "urea", "dap", "npk", "nutrient", "yellow", "feed", "உரம்", "யூரியா", "खाद", "उर्वरक"]):
         if is_combined and crit_farm:
             farm_name = crit_farm.get("farm_name", "East Sugarcane Block")
             spoken = (
@@ -776,28 +873,34 @@ def _build_rule_based_voice_reply(
                 f"• ⚠️ **Crucial**: Hydrate soil first before applying nitrogen to prevent fertilizer root scorch."
             )
             metrics = ["NDRE: 0.21 (Chlorophyll Low)", "Recommended: 45 kg Urea/ac"]
+            follow_ups = [
+                "Which farm needs water today?",
+                "What is my highest priority task?",
+                "How is my crop health grade?"
+            ]
         else:
+            urea_kg = int(single_acres * 40)
             spoken = (
-                f"The satellite chlorophyll reading shows yellowing sectors. "
-                f"We suggest a foliar spray of one percent urea and micro-nutrients in the morning to rapidly boost leaf vigor."
+                f"For {single_name}, the satellite NDVI vigor is {single_ndvi:.2f} with Health Grade {single_grade}. "
+                f"We suggest a foliar spray of one percent urea and micronutrient zinc in the early morning to boost leaf chlorophyll."
             )
             display = (
-                f"🧪 **Nutrient & Fertilizer Recommendation**\n\n"
-                f"• **Observation**: Leaf yellowing detected in lower canopy sectors.\n"
-                f"• **Action**: 1% foliar spray of Urea + Zinc/Micronutrient blend.\n"
-                f"• **Best Time**: Spray early morning (7:00 AM – 9:30 AM) when stomata are open."
+                f"🧪 **Nutrient & Fertilizer Advisory: {single_name}**\n\n"
+                f"• **Crop**: {single_crop} ({single_acres:.2f} acres)\n"
+                f"• **Vigor Index**: Health Grade **{single_grade}** (NDVI: **{single_ndvi:.2f}**).\n"
+                f"• **Recommendation**: 1% foliar spray of Urea + Zinc/Micronutrient blend (approx. **{urea_kg} kg Urea** total).\n"
+                f"• **Application Window**: Spray early morning (7:00 AM – 9:30 AM) when stomata are open."
             )
-            metrics = ["Canopy Health: Moderate", "Foliar Spray Recommended"]
-
-        follow_ups = [
-            "Which farm needs water today?",
-            "What is my highest priority task?",
-            "How is my crop health grade?"
-        ]
+            metrics = [f"Grade: {single_grade}", f"NDVI: {single_ndvi:.2f}", f"Urea: ~{urea_kg} kg"]
+            follow_ups = [
+                "How much water does this plot need?",
+                "What is the top priority for this crop?",
+                "What are the disease risks?"
+            ]
 
     # Rule 3: Priority / Rank / Roadmap ("what to do first", "which farm first")
-    elif any(k in q_lower for k in ["priority", "rank", "first", "order", "which farm", "top suggestion", "what to do"]):
-        if ranked:
+    elif any(k in q_lower for k in ["priority", "rank", "first", "order", "which farm", "top suggestion", "what to do", "முன்னுரிமை", "முதலில்", "प्राथमिकता"]):
+        if is_combined and ranked:
             top1 = ranked[0]
             top2 = ranked[1] if len(ranked) > 1 else None
             spoken = (
@@ -820,41 +923,50 @@ def _build_rule_based_voice_reply(
                     f"   • **Reason**: {top2.get('reason')}\n"
                 )
             metrics = [f"#1: {top1.get('farm_name')}", f"Status: {top1.get('urgency_level')}"]
+            follow_ups = [
+                "Which farm needs water today?",
+                "What fertilizer do you recommend?",
+                "How is my paddy crop doing?"
+            ]
         else:
             spoken = (
-                "Your highest priority is to inspect the red problem zones identified in the satellite scan "
-                "and ensure soil moisture levels are maintained."
+                f"For {single_name}, your highest priority is to inspect the {single_prob_acres:.2f} acre red problem zone "
+                f"highlighted in the satellite map and ensure soil moisture levels are maintained."
             )
             display = (
-                "🚨 **Top Farm Priority**\n\n"
-                "• Address highlighted problem zones first.\n"
-                "• Verify irrigation system and schedule nutrient supplementation."
+                f"🚨 **Top Field Priority: {single_name}**\n\n"
+                f"• **Primary Step**: Inspect the **{single_prob_acres:.2f} acre ({single_prob_pct:.1f}%)** problem zone.\n"
+                f"• **Inspection Checklist**: Verify irrigation distribution and scout for weed or pest patches.\n"
+                f"• **Action**: Apply corrective watering or foliar micronutrients to stressed sub-sectors."
             )
-            metrics = ["Priority: High", "Status: Active Monitoring"]
-
-        follow_ups = [
-            "Which farm needs water today?",
-            "What fertilizer do you recommend?",
-            "How is my paddy crop doing?"
-        ]
+            metrics = [f"Problem Zone: {single_prob_acres:.2f} ac", f"Stress Area: {single_prob_pct:.1f}%"]
+            follow_ups = [
+                "How much water does this plot need?",
+                "What fertilizer do you recommend?",
+                "What is my crop health grade?"
+            ]
 
     # Rule 4: Pests / Fungal / Disease
-    elif any(k in q_lower for k in ["pest", "fung", "disease", "blight", "spray", "insect", "rot"]):
+    elif any(k in q_lower for k in ["pest", "fung", "disease", "blight", "spray", "insect", "rot", "பூச்சி", "நோய்", "कीट", "रोग"]):
+        weather = context.get("weather", {}) or context.get("weather_correlation", {})
+        hum = float(weather.get("humidity_pct", 72.0) or 72.0)
+        temp = float(weather.get("temperature_c", 29.0) or 29.0)
         spoken = (
-            "Current weather shows relative humidity above seventy percent, which creates moderate risk for fungal leaf blight. "
-            "We advise inspecting the lower canopy and applying a preventative bio-fungicide like Trichoderma before the weekend."
+            f"Current weather shows relative humidity around {int(hum)} percent, which creates moderate risk for fungal leaf blight. "
+            f"We advise inspecting the lower canopy and applying a preventative bio-fungicide like Trichoderma before the weekend."
         )
         display = (
-            "🛡️ **Pest & Fungal Disease Prevention Alert**\n\n"
-            "• **Weather Risk**: Elevated humidity (>70%) increases fungal blight vulnerability.\n"
-            "• **Action**: Inspect lower canopy for brown spots or sheath rot.\n"
-            "• **Control**: Apply preventative bio-fungicide (*Trichoderma viride* or Mancozeb 2g/L)."
+            f"🛡️ **Pest & Fungal Disease Prevention Alert: {single_name}**\n\n"
+            f"• **Ag-Weather Conditions**: **{hum:.0f}%** Humidity, **{temp:.1f}°C** Temperature.\n"
+            f"• **Vulnerability**: High humidity creates favorable conditions for fungal blight or sheath rot.\n"
+            f"• **Action**: Inspect lower canopy for leaf spots.\n"
+            f"• **Control**: Apply preventative bio-agent (*Trichoderma viride* or Mancozeb 2g/L)."
         )
-        metrics = ["Fungal Risk: MODERATE", "Humidity: 74%"]
+        metrics = [f"Fungal Risk: MODERATE", f"Humidity: {hum:.0f}%"]
         follow_ups = [
-            "Which farm needs water today?",
-            "What fertilizer should I apply?",
-            "Show me my overall farm roadmap"
+            "How much water should I apply?",
+            "What fertilizer is best right now?",
+            "What is my top priority for this field?"
         ]
 
     # Rule 5: Specific crop or general status inquiry
@@ -874,45 +986,69 @@ def _build_rule_based_voice_reply(
                 f"👉 **Next Step**: Start with East Sugarcane Block irrigation."
             )
             metrics = ["Total Farms: 3", "1 Critical Farm", "1 Optimal Farm"]
+            follow_ups = [
+                "Which farm needs water today?",
+                "What is my highest priority issue?",
+                "What fertilizer do you recommend?"
+            ]
         else:
-            name = context.get("farm_name", "your farm")
-            grade = context.get("health_grade") or context.get("grade", "B")
             spoken = (
-                f"{name} is currently holding a health grade of {grade}. "
-                f"The majority of the field canopy is healthy, with localized stress in the perimeter zones. "
+                f"{single_name} is currently holding a health grade of {single_grade} with an average Sentinel-2 NDVI of {single_ndvi:.2f}. "
+                f"The majority of the field canopy is healthy, with localized stress in the {single_prob_pct:.1f} percent problem zone. "
                 f"Focus on uniform watering and your crop will recover within seven days."
             )
             display = (
-                f"🌾 **Field Diagnostic Summary for {name}**\n\n"
-                f"• **Health Grade**: **{grade}**\n"
-                f"• **Canopy Status**: Main sectors are growing steadily.\n"
+                f"🌾 **Field Diagnostic Summary for {single_name}**\n\n"
+                f"• **Field**: {single_name} ({single_crop}, {single_acres:.2f} acres)\n"
+                f"• **Health Grade**: **{single_grade}**\n"
+                f"• **Satellite NDVI**: **{single_ndvi:.2f}**\n"
+                f"• **Problem Zone**: **{single_prob_pct:.1f}%** ({single_prob_acres:.2f} acres) under observation.\n"
                 f"• **Recovery Outlook**: Estimated full recovery within 7 days with prompt action."
             )
-            metrics = [f"Grade: {grade}", "Recovery: 7 Days"]
-
-        follow_ups = [
-            "Which farm needs water today?",
-            "What is my highest priority issue?",
-            "What fertilizer do you recommend?"
-        ]
+            metrics = [f"Grade: {single_grade}", f"NDVI: {single_ndvi:.2f}", f"Recovery: ~7 Days"]
+            follow_ups = [
+                "How much water does this plot need?",
+                "What is my top priority for this crop?",
+                "What fertilizer do you recommend?"
+            ]
 
     # Tamil localization if requested
     if language == "ta":
-        if "water" in q_lower or "irrigat" in q_lower or "தண்ணீர்" in q_lower or "பாசனம்" in q_lower:
-            spoken = "உங்கள் முதல் பாசன முன்னுரிமை கிழக்கு கரும்பு தோட்டம். முப்பத்தெட்டு சதவீத பயிர்கள் வறட்சியால் பாதிக்கப்பட்டுள்ளன. உடனடியாக தண்ணீர் பாய்ச்சவும்."
-        elif "priority" in q_lower or "முன்னுரிமை" in q_lower:
-            spoken = "உங்கள் முதல் முன்னுரிமை கிழக்கு கரும்பு தோட்டம். உடனடியாக தண்ணீர் பாய்ச்சவும். இரண்டாவதாக சேலம் பருத்தி தோட்டத்தில் பூச்சி கண்காணிப்பு செய்யவும்."
+        if is_combined:
+            if "water" in q_lower or "irrigat" in q_lower or "தண்ணீர்" in q_lower or "பாசனம்" in q_lower:
+                spoken = "உங்கள் முதல் பாசன முன்னுரிமை கிழக்கு கரும்பு தோட்டம். முப்பத்தெட்டு சதவீத பயிர்கள் வறட்சியால் பாதிக்கப்பட்டுள்ளன. உடனடியாக தண்ணீர் பாய்ச்சவும்."
+            elif "priority" in q_lower or "முன்னுரிமை" in q_lower:
+                spoken = "உங்கள் முதல் முன்னுரிமை கிழக்கு கரும்பு தோட்டம். உடனடியாக தண்ணீர் பாய்ச்சவும். இரண்டாவதாக சேலம் பருத்தி தோட்டத்தில் பூச்சி கண்காணிப்பு செய்யவும்."
+            else:
+                spoken = "உங்கள் மூன்று பண்ணைகளில் நாமக்கல் நெல் தோட்டம் மிக சிறப்பாக உள்ளது. ஆனால் கிழக்கு கரும்பு தோட்டத்திற்கு இன்று உடனடி தண்ணீர் தேவைப்படுகிறது."
         else:
-            spoken = "உங்கள் மூன்று பண்ணைகளில் நாமக்கல் நெல் தோட்டம் மிக சிறப்பாக உள்ளது. ஆனால் கிழக்கு கரும்பு தோட்டத்திற்கு இன்று உடனடி தண்ணீர் தேவைப்படுகிறது."
+            if "water" in q_lower or "irrigat" in q_lower or "தண்ணீர்" in q_lower or "பாசனம்" in q_lower:
+                spoken = f"{single_name} நிலத்திற்கு செயற்கைக்கோள் தரவுகளின்படி {single_prob_pct:.0f} சதவீத பகுதியில் தண்ணீர் பற்றாக்குறை உள்ளது. இன்று மாலை பாசனம் செய்யவும்."
+            elif "fertiliz" in q_lower or "urea" in q_lower or "உரம்" in q_lower:
+                spoken = f"{single_name} நிலத்தில் பயிர் வளர்ச்சிக்கு ஒரு சதவீத யூரியா மற்றும் துத்தநாக நுண்ணூட்டக் கரைசல் தெளிக்க பரிந்துரைக்கப்படுகிறது."
+            elif "priority" in q_lower or "முன்னுரிமை" in q_lower:
+                spoken = f"{single_name} நிலத்தில் சிவப்பு நிறத்தில் குறிக்கப்பட்ட பிரச்சனைப் பகுதியை நேரடியாக சென்று ஆய்வு செய்வதே உங்கள் முதல் வேலை."
+            else:
+                spoken = f"{single_name} நிலத்தின் பயிர் ஆரோக்கியம் கிரேட் {single_grade} நிலையில் உள்ளது. சீரான பாசனமும் உரமும் அளித்தால் பயிர் செழிப்பாக வளரும்."
 
     # Hindi localization if requested
     elif language == "hi":
-        if "water" in q_lower or "irrigat" in q_lower or "पानी" in q_lower or "सिंचाई" in q_lower:
-            spoken = "आपकी पहली सिंचाई प्राथमिकता पूर्वी गन्ना खेत है। अड़तीस प्रतिशत फसल पानी की कमी से जूझ रही है। आज ही गहरी सिंचाई करें।"
-        elif "priority" in q_lower or "प्राथमिकता" in q_lower:
-            spoken = "आपकी सर्वोच्च प्राथमिकता पूर्वी गन्ना खेत है, जहां तुरंत पानी देना जरूरी है। इसके बाद सलेम कपास खेत में कीटों की जांच करें।"
+        if is_combined:
+            if "water" in q_lower or "irrigat" in q_lower or "पानी" in q_lower or "सिंचाई" in q_lower:
+                spoken = "आपकी पहली सिंचाई प्राथमिकता पूर्वी गन्ना खेत है। अड़तीस प्रतिशत फसल पानी की कमी से जूझ रही है। आज ही गहरी सिंचाई करें।"
+            elif "priority" in q_lower or "प्राथमिकता" in q_lower:
+                spoken = "आपकी सर्वोच्च प्राथमिकता पूर्वी गन्ना खेत है, जहां तुरंत पानी देना जरूरी है। इसके बाद सलेम कपास खेत में कीटों की जांच करें।"
+            else:
+                spoken = "आपके तीन खेतों में नामक्कल धान का खेत ग्रेड ए पर बहुत अच्छा प्रदर्शन कर रहा है। लेकिन पूर्वी गन्ना खेत को आज तुरंत पानी की जरूरत है।"
         else:
-            spoken = "आपके तीन खेतों में नामक्कल धान का खेत ग्रेड ए पर बहुत अच्छा प्रदर्शन कर रहा है। लेकिन पूर्वी गन्ना खेत को आज तुरंत पानी की जरूरत है।"
+            if "water" in q_lower or "irrigat" in q_lower or "पानी" in q_lower or "सिंचाई" in q_lower:
+                spoken = f"{single_name} में उपग्रह आंकड़ों के अनुसार {single_prob_pct:.0f} प्रतिशत भाग में पानी की कमी है। शाम के समय उचित सिंचाई करें।"
+            elif "fertiliz" in q_lower or "urea" in q_lower or "खाद" in q_lower or "उर्वरक" in q_lower:
+                spoken = f"{single_name} की फसल के लिए एक प्रतिशत यूरिया और जिंक का पर्णीय छिड़काव सुबह के समय करें।"
+            elif "priority" in q_lower or "प्राथमिकता" in q_lower:
+                spoken = f"{single_name} में चिन्हित तनावग्रस्त क्षेत्र की तुरंत जांच करना और नमी बनाए रखना आपकी पहली प्राथमिकता है।"
+            else:
+                spoken = f"{single_name} का स्वास्थ्य स्तर ग्रेड {single_grade} है। सही सिंचाई और खाद प्रबंधन से फसल का पूरा विकास होगा।"
 
     return {
         "spoken_text": spoken,
