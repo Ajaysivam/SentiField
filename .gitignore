@@ -1,0 +1,45 @@
+# Environment & Secret Variables
+.env
+*.env
+*.env.local
+backend/.env
+frontend/.env
+
+# Python Virtual Environments & Bytecode
+venv/
+.venv/
+env/
+ENV/
+backend/venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.pytest_cache/
+.coverage
+htmlcov/
+
+# Node & Frontend Build
+node_modules/
+frontend/node_modules/
+frontend/dist/
+dist/
+.npm/
+
+# IDE & OS Files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Local Logs & Generated Data
+*.log
+*.sqlite
+*.sqlite3
+farm_data.db
+backend/farm_data.db
+reports/*.pdf
+backend/reports/*.pdf
