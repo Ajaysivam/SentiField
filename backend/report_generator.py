@@ -220,6 +220,49 @@ def generate_pdf_report(analysis_data, output_path):
                 story.append(t_ap)
                 story.append(Spacer(1, 8))
 
+    # Feature 7: Dual-Lens Ground-Truth Leaf Pathology & Zoned Prescription
+    depth_data = analysis_data.get("depth_analysis") or analysis_data.get("depth_result")
+    if depth_data and isinstance(depth_data, dict):
+        story.append(HRFlowable(width="100%", thickness=1.5, color=colors.HexColor('#00f5a0'), spaceBefore=8, spaceAfter=8))
+        story.append(Paragraph("🔬 Dual-Lens Ground-Truth Leaf Pathology Verification (Gemini Vision AI)", section_heading))
+        
+        leaf_p = depth_data.get("leaf_pathology", {})
+        presc = depth_data.get("targeted_prescription", {})
+        spread = depth_data.get("spread_risk_forecast", {})
+        corr = depth_data.get("macro_micro_correlation", {})
+
+        depth_table_data = [
+            [
+                Paragraph(f"<b>Identified Disease:</b> {leaf_p.get('disease_name', 'Pathology Detected')}", body_style),
+                Paragraph(f"<b>Pathogen Category:</b> {leaf_p.get('pathogen_category', 'FUNGAL')} (Severity: {leaf_p.get('severity_grade', 'Moderate')})", body_style)
+            ],
+            [
+                Paragraph(f"<b>Scientific Pathogen:</b> <i>{leaf_p.get('scientific_pathogen', 'N/A')}</i>", body_style),
+                Paragraph(f"<b>Multimodal AI Confidence:</b> {leaf_p.get('confidence_pct', 95.0)}%", body_style)
+            ],
+            [
+                Paragraph(f"<b>Targeted Prescription:</b> <b>{presc.get('primary_treatment', 'Fungicide')}</b> at {presc.get('dosage', 'Standard Dose')}", body_style),
+                Paragraph(f"<b>Application Area:</b> {presc.get('application_area', 'Problem sub-zone + 5m buffer')}", body_style)
+            ],
+            [
+                Paragraph(f"<b>Organic Bio-Alternative:</b> {presc.get('organic_alternative', 'Bio-fungicide spray')}", body_style),
+                Paragraph(f"<b>5-Day Spread Risk:</b> <b>{spread.get('risk_level', 'MODERATE')}</b> ({spread.get('forecast_summary', '')})", body_style)
+            ]
+        ]
+
+        t_depth = Table(depth_table_data, colWidths=[265, 265])
+        t_depth.setStyle(TableStyle([
+            ('BACKGROUND', (0,0), (-1,-1), colors.HexColor('#f0fdf4')),
+            ('BOX', (0,0), (-1,-1), 1.5, colors.HexColor('#22c55e')),
+            ('INNERGRID', (0,0), (-1,-1), 0.5, colors.HexColor('#bbf7d0')),
+            ('PADDING', (0,0), (-1,-1), 4),
+        ]))
+        story.append(t_depth)
+
+        if corr.get("headline") or corr.get("spatial_link"):
+            story.append(Spacer(1, 4))
+            story.append(Paragraph(f"<b>Macro-Micro Causal Link:</b> {corr.get('headline', '')} — {corr.get('spatial_link', corr.get('ndvi_impact', ''))}", ParagraphStyle('CorrText', parent=body_style, fontSize=8.5, textColor=colors.HexColor('#166534'))))
+
     story.append(Spacer(1, 8))
     story.append(HRFlowable(width="100%", thickness=1, color=colors.HexColor('#cbd5e1'), spaceAfter=6))
     story.append(Paragraph("© 2026 AI Precision Agriculture System — Executive Enterprise PDF Report featuring Gemini AI", ParagraphStyle('Footer', parent=styles['Normal'], fontSize=8, textColor=colors.HexColor('#94a3b8'), alignment=1)))

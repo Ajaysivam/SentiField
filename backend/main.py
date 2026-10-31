@@ -1173,6 +1173,22 @@ def depth_analysis_json_endpoint(
         crop_type=req.crop_type or "General Crop",
         language=req.language or "en"
     )
+
+    # Re-compile unified PDF report with dual-lens leaf pathology if session_id provided
+    session_id = (req.satellite_context or {}).get("farm_session_id")
+    if session_id:
+        result["pdf_download_url"] = f"/api/reports/download/{session_id}"
+        try:
+            backend_dir = os.path.dirname(__file__)
+            pdf_path = os.path.join(backend_dir, "reports", f"{session_id}.pdf")
+            combined_pdf_data = dict(req.satellite_context or {})
+            combined_pdf_data["farm_session_id"] = session_id
+            combined_pdf_data["depth_analysis"] = result
+            generate_pdf_report(combined_pdf_data, pdf_path)
+            print(f"[DUAL-LENS PDF] Recompiled unified master PDF with leaf diagnosis: {pdf_path}")
+        except Exception as pdf_err:
+            print(f"[DUAL-LENS PDF] Could not recompile PDF: {pdf_err}")
+
     return result
 
 if __name__ == "__main__":

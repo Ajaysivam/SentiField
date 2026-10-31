@@ -655,6 +655,28 @@ def generate_voice_agronomist_reply(
         if actions:
             context_lines.append(f"IMMEDIATE ACTIONS: {'; '.join(str(a) for a in actions[:3])}")
 
+        # Ground-truth micro leaf pathology from Step 2 if available
+        depth_data = context.get("depth_result") or context.get("depth_analysis") or {}
+        leaf_p = depth_data.get("leaf_pathology") or context.get("leaf_pathology")
+        if leaf_p and isinstance(leaf_p, dict):
+            dis_name = leaf_p.get("disease_name", "")
+            cat = leaf_p.get("pathogen_category", "")
+            sev = leaf_p.get("severity_grade", "")
+            conf = leaf_p.get("confidence_pct", 95.0)
+            context_lines.append(f"GROUND-TRUTH LEAF PATHOLOGY: {dis_name} ({cat}, Severity: {sev}, Confidence: {conf}%)")
+        
+        presc = depth_data.get("targeted_prescription") or context.get("targeted_prescription")
+        if presc and isinstance(presc, dict):
+            treat = presc.get("primary_treatment", "")
+            dose = presc.get("dosage", "")
+            area = presc.get("application_area", "")
+            organic = presc.get("organic_alternative", "")
+            context_lines.append(f"TARGETED PRESCRIPTION: {treat} at {dose} on {area}. Organic alternative: {organic}")
+        
+        spread = depth_data.get("spread_risk_forecast") or context.get("spread_risk_forecast")
+        if spread and isinstance(spread, dict):
+            context_lines.append(f"5-DAY SPREAD RISK: {spread.get('risk_level', 'MODERATE')} ({spread.get('forecast_summary', '')})")
+
     grounded_context_str = "\n".join(context_lines)
 
     lang_instructions = {

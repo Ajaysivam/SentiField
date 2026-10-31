@@ -8,6 +8,7 @@ import PriorityTimeline from './components/PriorityTimeline';
 import FarmerDashboard from './components/FarmerDashboard';
 import VoiceAgronomistModal from './components/VoiceAgronomistModal';
 import DepthAnalysisModal from './components/DepthAnalysisModal';
+import DualLensStepper from './components/DualLensStepper';
 
 // Error Boundary Component to catch any UI Error cleanly
 class ErrorBoundary extends Component {
@@ -133,6 +134,7 @@ function MainDashboard() {
   const [saveFarmSuccess, setSaveFarmSuccess] = useState(null);
   const [isVoiceModalOpen, setIsVoiceModalOpen] = useState(false);
   const [isDepthModalOpen, setIsDepthModalOpen] = useState(false);
+  const [depthResult, setDepthResult] = useState(null);
 
   const fetchSavedFarms = async (authToken) => {
     const t = authToken || token;
@@ -565,6 +567,7 @@ function MainDashboard() {
 
   const fetchLatestSatelliteAnalysis = async (sessionId, geojson) => {
     setAnalysisLoading(true);
+    setDepthResult(null);
     try {
       const response = await fetch('/api/satellite/analyze-latest', {
         method: 'POST',
@@ -1247,6 +1250,19 @@ function MainDashboard() {
         {/* ENTERPRISE DASHBOARD WITH DIRECT SENTINEL-2 MAP INTEGRATION */}
         {analysisData && (
           <>
+            {/* OPTION B: GUIDED TWO-STAGE DUAL-LENS STEPPER (Macro Orbit + Micro Leaf Pathology Fusion) */}
+            <DualLensStepper
+              analysisData={analysisData}
+              farmData={farmData}
+              searchLocationName={searchLocationName}
+              saveCropType={saveCropType}
+              token={token}
+              depthResult={depthResult}
+              onDepthResultUpdate={(res) => setDepthResult(res)}
+              onOpenVoiceAgronomist={() => setIsVoiceModalOpen(true)}
+              pdfUrl={depthResult?.pdf_download_url || analysisData.pdf_download_url}
+            />
+
             {/* Executive Summary Bar & PDF Download */}
             <section className="farm-card" style={{ borderColor: 'rgba(52, 211, 153, 0.4)', marginTop: '2rem' }}>
               <div className="farm-card-header" style={{ flexWrap: 'wrap', gap: '1rem' }}>
@@ -1890,10 +1906,11 @@ function MainDashboard() {
             contextMode: 'single',
             activeFarm: {
               farm_name: searchLocationName || 'Marked Farm Field',
-              crop_type: saveCropType || 'Crop',
-              area_acres: farmData?.area?.acres || analysisData?.statistics?.area_acres || 0,
+              crop_type: saveCropType || depthResult?.crop_identified || 'Crop',
+              area_acres: analysisData?.statistics?.area_acres || farmData?.area?.acres || 0,
             },
             analysisData: analysisData,
+            depthResult: depthResult,
           }}
           token={token}
         />
@@ -1905,12 +1922,13 @@ function MainDashboard() {
           activeContext={{
             activeFarm: {
               farm_name: searchLocationName || 'Marked Farm Field',
-              crop_type: saveCropType || 'Crop',
-              area_acres: farmData?.area?.acres || analysisData?.statistics?.area_acres || 0,
+              crop_type: saveCropType || depthResult?.crop_identified || 'Crop',
+              area_acres: analysisData?.statistics?.area_acres || farmData?.area?.acres || 0,
             },
             analysisData: analysisData,
           }}
           token={token}
+          onDepthAnalysisComplete={(res) => setDepthResult(res)}
         />
       </main>
 

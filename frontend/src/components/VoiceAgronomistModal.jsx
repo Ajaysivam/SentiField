@@ -61,6 +61,27 @@ const QUICK_PROMPTS_SINGLE = {
   ],
 };
 
+const QUICK_PROMPTS_DUAL_LENS = {
+  en: [
+    { label: '🧪 What chemical & dosage to spray?', text: 'What chemical and dosage should I spray on the problem zone?' },
+    { label: '🎯 How to target problem zone?', text: 'Where exactly should I spray and how much cost will I save?' },
+    { label: '🌿 Organic bio-treatment alternative?', text: 'What organic or biological spray can I use instead of chemical fungicide?' },
+    { label: '⚠️ 5-day disease spread risk?', text: 'How fast will this disease spread in 5 days under current weather?' },
+  ],
+  ta: [
+    { label: '🧪 என்ன மருந்து மற்றும் அளவு?', text: 'பிரச்சனை பகுதியில் என்ன மருந்து மற்றும் எந்த அளவில் தெளிக்க வேண்டும்?' },
+    { label: '🎯 பிரச்சனை பகுதியை எங்கு தெளிப்பது?', text: 'பிரச்சனை பகுதியை மட்டும் தெளிப்பதால் எவ்வளவு மருந்து செலவு மிச்சமாகும்?' },
+    { label: '🌿 இயற்கை மருந்து ஆலோசனை?', text: 'ரசாயன மருந்துக்கு பதிலாக என்ன இயற்கை உயிரியல் மருந்து பயன்படுத்தலாம்?' },
+    { label: '⚠️ நோய் பரவும் வேகம் என்ன?', text: 'தற்போதைய காலநிலையில் அடுத்த 5 நாட்களில் இந்த நோய் எவ்வாறு பரவும்?' },
+  ],
+  hi: [
+    { label: '🧪 कौन सी दवा और खुराक डालें?', text: 'तनावग्रस्त क्षेत्र में कौन सी दवा और कितनी खुराक का छिड़काव करें?' },
+    { label: '🎯 लक्षित क्षेत्र पर छिड़काव?', text: 'केवल समस्याग्रस्त क्षेत्र पर छिड़काव करने से कितनी बचत होगी?' },
+    { label: '🌿 जैविक उपचार का विकल्प?', text: 'रासायनिक दवा के स्थान पर कौन सा जैविक फफूंदनाशी इस्तेमाल करें?' },
+    { label: '⚠️ 5 दिनों में रोग फैलाव का जोखिम?', text: 'वर्तमान मौसम में अगले 5 दिनों में यह रोग कितनी तेजी से फैल सकता है?' },
+  ],
+};
+
 const LANG_CONFIG = {
   en: { label: 'English (IN)', speechCode: 'en-IN', flag: '🇬🇧' },
   ta: { label: 'தமிழ் (Tamil)', speechCode: 'ta-IN', flag: '🇮🇳' },
@@ -91,8 +112,11 @@ export default function VoiceAgronomistModal({
   const pendingAiResponseRef = useRef(null);
 
   const isCombinedMode = activeContext?.contextMode === 'combined';
+  const isDualLensMode = Boolean(activeContext?.depthResult);
   const quickPromptList = isCombinedMode
     ? (QUICK_PROMPTS_PORTFOLIO[selectedLang] || QUICK_PROMPTS_PORTFOLIO.en)
+    : isDualLensMode
+    ? (QUICK_PROMPTS_DUAL_LENS[selectedLang] || QUICK_PROMPTS_DUAL_LENS.en)
     : (QUICK_PROMPTS_SINGLE[selectedLang] || QUICK_PROMPTS_SINGLE.en);
 
   // Initialize SpeechSynthesis and check STT support
@@ -131,7 +155,16 @@ export default function VoiceAgronomistModal({
       const acres = activeContext?.activeFarm?.area_acres || activeContext?.analysisData?.statistics?.area_acres || 0;
       const hasAnalysis = Boolean(activeContext?.analysisData);
 
-      if (hasAnalysis) {
+      if (hasAnalysis && activeContext?.depthResult) {
+        const dRes = activeContext.depthResult;
+        const disease = dRes?.leaf_pathology?.disease_name || 'Crop Leaf Pathology';
+        const cat = dRes?.leaf_pathology?.pathogen_category || 'FUNGAL';
+        const treat = dRes?.targeted_prescription?.primary_treatment || 'Targeted Prescription';
+        const dose = dRes?.targeted_prescription?.dosage || '';
+        const probAcres = activeContext?.analysisData?.problem_zones?.problem_area_acres || 0.4;
+        greetingText = `👋 **Namaste! I have evaluated the Combined Dual-Lens Diagnostic for ${farmName} (${crop}).**\n\n🛰️ **Satellite Macro**: Health Grade **${grade}** (NDVI: **${ndviVal}**), with **${probAcres.toFixed(2)} acre** red problem zone.\n🔬 **Ground Micro**: Confirmed **${disease}** [${cat}].\n🧪 **Zoned Prescription**: Spray **${treat}** (${dose}) targeted strictly to the problem zone.\n\nAsk me anything by voice or chat!`;
+        greetingSpoken = `Namaste! I have combined your satellite scan and leaf photo for ${farmName}. The leaf vision identified ${disease}. I have formulated a targeted prescription for your ${probAcres.toFixed(1)} acre problem zone. How can I assist you?`;
+      } else if (hasAnalysis) {
         const grade = activeContext?.analysisData?.gemini_recommendations?.executive_summary?.overall_health_grade || 'B';
         const ndvi = activeContext?.analysisData?.historical_comparison?.current_mean_ndvi || activeContext?.analysisData?.statistics?.ndvi?.mean || 0.45;
         const ndviVal = typeof ndvi === 'number' ? ndvi.toFixed(2) : ndvi;
@@ -146,8 +179,11 @@ export default function VoiceAgronomistModal({
       }
     }
 
+    const isDualLens = Boolean(activeContext?.depthResult);
     const activePromptList = isCombined
       ? (QUICK_PROMPTS_PORTFOLIO[selectedLang] || QUICK_PROMPTS_PORTFOLIO.en)
+      : isDualLens
+      ? (QUICK_PROMPTS_DUAL_LENS[selectedLang] || QUICK_PROMPTS_DUAL_LENS.en)
       : (QUICK_PROMPTS_SINGLE[selectedLang] || QUICK_PROMPTS_SINGLE.en);
 
     setMessages([
@@ -359,6 +395,10 @@ export default function VoiceAgronomistModal({
             zone_description: activeContext?.analysisData?.problem_zones?.zone_description || '',
             weather: activeContext?.analysisData?.weather_correlation || {},
             action_plan: activeContext?.analysisData?.gemini_recommendations?.action_plan || {},
+            depth_result: activeContext?.depthResult || null,
+            leaf_pathology: activeContext?.depthResult?.leaf_pathology || null,
+            targeted_prescription: activeContext?.depthResult?.targeted_prescription || null,
+            spread_risk_forecast: activeContext?.depthResult?.spread_risk_forecast || null,
           };
 
       const res = await fetch('/api/ai/voice-agent', {
