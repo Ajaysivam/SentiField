@@ -261,14 +261,14 @@ export default function Map({
               className="tool-btn primary-draw"
               onClick={handleStartDrawing}
             >
-              ✏️ Start Drawing Farm Boundary
+              Start Drawing Boundary
             </button>
           )}
 
           {isDrawing && (
             <>
               <button className="tool-btn active-draw" style={{ pointerEvents: 'none' }}>
-                📍 Click Boundary Points (Placed: {points.length})
+                Click Boundary Points (Placed: {points.length})
               </button>
 
               {liveStats && (
@@ -284,7 +284,7 @@ export default function Map({
                   alignItems: 'center',
                   gap: '0.4rem'
                 }}>
-                  <span>📐</span>
+                  
                   <span>{liveStats.acres.toFixed(2)} Acres</span>
                   <span style={{ color: '#94a3b8', fontWeight: '400' }}>({Math.round(liveStats.perimeterMeters)}m perim)</span>
                 </div>
@@ -307,14 +307,14 @@ export default function Map({
                   cursor: points.length >= 3 ? 'pointer' : 'not-allowed'
                 }}
               >
-                ✅ Finish Boundary ({points.length} Points)
+                Finish Boundary ({points.length} Points)
               </button>
             </>
           )}
 
           {(points.length > 0 || completedPolygon) && (
             <button className="tool-btn secondary-tool" onClick={handleClearDrawing}>
-              🧹 Clear & Start Over
+              Clear Boundary
             </button>
           )}
         </div>
@@ -332,7 +332,7 @@ export default function Map({
                 fontWeight: '800'
               }}
             >
-              🛰️ Multispectral RGB Map ({selectedDate || 'Latest'})
+              Satellite RGB Map ({selectedDate || 'Latest'})
             </button>
           )}
 
@@ -347,7 +347,7 @@ export default function Map({
                 fontWeight: '800'
               }}
             >
-              🟣 False Color NIR (Infrared Spectrum)
+              False Color NIR Map
             </button>
           )}
 
@@ -362,7 +362,7 @@ export default function Map({
                 fontWeight: '700'
               }}
             >
-              🔴/🟢 Crop Damage & Health Heatmap
+              Crop Health Map
             </button>
           )}
 
@@ -370,14 +370,14 @@ export default function Map({
             className={`layer-chip ${mapLayer === 'google_hybrid' ? 'active' : ''}`}
             onClick={() => setMapLayer('google_hybrid')}
           >
-            🌍 Base Satellite
+            Satellite Base
           </button>
 
           <button
             className={`layer-chip ${mapLayer === 'osm' ? 'active' : ''}`}
             onClick={() => setMapLayer('osm')}
           >
-            🗺️ Street Map
+            Street Map
           </button>
         </div>
       </div>
@@ -515,7 +515,7 @@ export default function Map({
                     {canClose && (
                       <Popup>
                         <div style={{ textAlign: 'center', padding: '0.2rem' }}>
-                          <strong style={{ color: '#10b981' }}>🎯 Point 1 (Start)</strong>
+                          <strong style={{ color: '#10b981' }}>Point 1 (Start)</strong>
                           <br />
                           Click to complete and close your farm boundary!
                         </div>
@@ -565,7 +565,7 @@ export default function Map({
             <Marker position={markerPosition}>
               <Popup>
                 <div style={{ padding: '0.2rem', textAlign: 'center' }}>
-                  <strong style={{ color: '#059669', fontSize: '0.95rem' }}>📍 Selected Location Center</strong>
+                  <strong style={{ color: '#059669', fontSize: '0.95rem' }}>Selected Location Center</strong>
                   <br />
                   Latitude: {markerPosition[0].toFixed(5)}° N
                   <br />

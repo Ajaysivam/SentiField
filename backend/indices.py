@@ -220,7 +220,7 @@ def process_farm_satellite_analysis(geojson_feature, image_id):
     if (mean_ndbi > 0.18 and mean_ndvi < 0.10) or (mean_ndbi > 0.24 and mean_ndvi < 0.12):
         is_farmland = False
         land_type_category = "NON_AGRICULTURAL_STRUCTURE"
-        land_warning = "⚠️ Building / Non-Agricultural Structure Detected: The selected area is a building rooftop, house, concrete structure, or non-farmland. Please select an active crop field."
+        land_warning = "Building / Non-Agricultural Structure Detected: The selected area is a building rooftop, house, concrete structure, or non-farmland. Please select an active crop field."
     elif mean_ndvi < 0.0 and mean_ndbi < 0.0:
         # Water body or farm irrigation pond
         land_type_category = "WATER_BODY_FARM_POND"
@@ -335,7 +335,7 @@ def process_farm_satellite_analysis(geojson_feature, image_id):
     if not is_farmland:
         simplified_recommendations.append({
             "status": "WARNING",
-            "icon": "🏠",
+            "icon": "",
             "title": "Select a Real Crop Field",
             "simple_advice": "The selected area is a building roof or paved land. Please redraw your boundary on an active crop field."
         })
@@ -343,21 +343,21 @@ def process_farm_satellite_analysis(geojson_feature, image_id):
         if pct_red > 40.0:
             simplified_recommendations.append({
                 "status": "CRITICAL",
-                "icon": "🔴",
+                "icon": "",
                 "title": "High Crop Damage Detected in Red Sectors",
                 "simple_advice": f"Around {pct_red}% of your field (Red Shade) shows severe crop damage or weak plant growth. Inspect these red sectors immediately for water dryness, pests, or poor soil."
             })
         elif pct_red > 15.0:
             simplified_recommendations.append({
                 "status": "ATTENTION",
-                "icon": "🟡",
+                "icon": "",
                 "title": "Minor Crop Stress in Red Sectors",
                 "simple_advice": f"About {pct_red}% of your field (Red Shade) has low vegetation growth. Check soil moisture and give extra water or fertilizer to those specific spots."
             })
         else:
             simplified_recommendations.append({
                 "status": "HEALTHY",
-                "icon": "🟢",
+                "icon": "",
                 "title": "Crops are Mostly Healthy",
                 "simple_advice": f"{pct_green}% of your farm (Green Shade) has strong, healthy crop growth! Continue your regular watering and farming schedule."
             })
@@ -365,7 +365,7 @@ def process_farm_satellite_analysis(geojson_feature, image_id):
         if farm_stats["ndre"]["mean"] < 0.15:
             simplified_recommendations.append({
                 "status": "ACTION_NEEDED",
-                "icon": "🌾",
+                "icon": "",
                 "title": "Apply Nitrogen / Fertilizer",
                 "simple_advice": "Plant leaf chlorophyll (greenness) is low. Apply nitrogen fertilizer to boost leaf growth and crop vigor."
             })
@@ -373,7 +373,7 @@ def process_farm_satellite_analysis(geojson_feature, image_id):
         if farm_stats["savi"]["mean"] < 0.18:
             simplified_recommendations.append({
                 "status": "ACTION_NEEDED",
-                "icon": "💧",
+                "icon": "",
                 "title": "Increase Field Irrigation",
                 "simple_advice": "Soil moisture response is low. Give extra water to the dry sectors of your farm."
             })

@@ -1,18 +1,6 @@
 import React from 'react';
 
-const CROP_ICONS = {
-  'Paddy / Rice': '🌾',
-  'Cotton': '🌿',
-  'Sugarcane': '🎋',
-  'Maize / Corn': '🌽',
-  'Wheat': '🌾',
-  'Vegetables': '🥦',
-  'Vegetables / Tomato': '🍅',
-  'Coconut / Orchard': '🌴',
-  'Coconut': '🥥',
-  'Banana': '🍌',
-  'General Crop': '🌱',
-};
+const CROP_ICONS = {};
 
 export default function SavedFarmsList({
   farms = [],
@@ -37,7 +25,7 @@ export default function SavedFarmsList({
             justifyContent: 'center',
             fontSize: '1.4rem'
           }}>
-            🚜
+            PLOTS
           </div>
           <div>
             <h3 style={{ color: '#ffffff', fontSize: '1.25rem', fontWeight: '800', margin: 0, letterSpacing: '-0.02em' }}>
@@ -54,14 +42,14 @@ export default function SavedFarmsList({
             className="btn-secondary"
             style={{ padding: '0.4rem 0.85rem', fontSize: '0.82rem' }}
           >
-            ✕ Close Drawer
+            Close Drawer
           </button>
         )}
       </div>
 
       {loading && (
         <div style={{ textAlign: 'center', color: '#94a3b8', padding: '1.5rem' }}>
-          ⏳ Loading your registered farm plots...
+          Loading your registered farm plots...
         </div>
       )}
 
@@ -74,10 +62,10 @@ export default function SavedFarmsList({
           border: '1px dashed rgba(255, 255, 255, 0.15)'
         }}>
           <p style={{ color: '#cbd5e1', fontSize: '1.05rem', fontWeight: '700', margin: 0 }}>
-            🌾 No farm plots saved yet in this profile
+            No farm plots saved yet in this profile
           </p>
           <p style={{ color: '#94a3b8', fontSize: '0.88rem', marginTop: '0.4rem', maxWidth: '450px', margin: '0.4rem auto 0 auto' }}>
-            Draw a boundary polygon around any field on the map below, then click <strong>"💾 Save Farm"</strong> to store it permanently.
+            Draw a boundary polygon around any field on the map below, then click <strong>"Save Farm"</strong> to store it permanently.
           </p>
         </div>
       )}
@@ -86,7 +74,7 @@ export default function SavedFarmsList({
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))', gap: '1.15rem' }}>
           {farms.map((farm) => {
             const isSelected = activeFarmId === farm.id;
-            const icon = CROP_ICONS[farm.crop_type] || '🌱';
+            const icon = CROP_ICONS[farm.crop_type] || '';
 
             return (
               <div
@@ -128,7 +116,7 @@ export default function SavedFarmsList({
                   </div>
 
                   <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', fontSize: '0.88rem', color: '#e2e8f0', marginBottom: '0.6rem' }}>
-                    <span style={{ fontSize: '1.1rem' }}>{icon}</span>
+                    
                     <strong style={{ color: '#cbd5e1' }}>{farm.crop_type || 'General Crop'}</strong>
                   </div>
 
@@ -141,8 +129,8 @@ export default function SavedFarmsList({
                     borderRadius: '8px',
                     border: '1px solid rgba(255, 255, 255, 0.05)'
                   }}>
-                    <div>📍 Center: {farm.center_lat}°, {farm.center_lon}°</div>
-                    <div>📐 Geometry Area: {Math.round(farm.area_sq_m || 0).toLocaleString()} m²</div>
+                    <div>Center: {farm.center_lat}°, {farm.center_lon}°</div>
+                    <div>Geometry Area: {Math.round(farm.area_sq_m || 0).toLocaleString()} m²</div>
                   </div>
                 </div>
 
@@ -158,7 +146,7 @@ export default function SavedFarmsList({
                       justifyContent: 'center',
                     }}
                   >
-                    ⚡ Inspect & Analyze
+                    Inspect & Analyze
                   </button>
                   <button
                     onClick={() => onDeleteFarm(farm.id, farm.farm_name)}
@@ -174,7 +162,7 @@ export default function SavedFarmsList({
                     }}
                     title="Delete this saved plot"
                   >
-                    🗑️
+                    Delete
                   </button>
                 </div>
               </div>

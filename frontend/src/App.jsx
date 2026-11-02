@@ -39,7 +39,7 @@ class ErrorBoundary extends Component {
           padding: '2rem',
           textAlign: 'center'
         }}>
-          <span style={{ fontSize: '3rem', marginBottom: '1rem' }}>🌱</span>
+          <div style={{ fontSize: "2rem", fontWeight: "900", color: "#10b981", marginBottom: "1rem" }}>SENTIFIELD</div>
           <h2 style={{ fontSize: '1.6rem', color: '#00f5a0', fontWeight: '900', marginBottom: '0.5rem' }}>SENTIFIELD AI</h2>
           <p style={{ color: '#cbd5e1', maxWidth: '500px', marginBottom: '1.5rem' }}>
             Click below to load your dashboard cleanly.
@@ -56,7 +56,7 @@ class ErrorBoundary extends Component {
               cursor: 'pointer'
             }}
           >
-            🔄 Open App Dashboard
+             Open App Dashboard
           </button>
         </div>
       );
@@ -688,7 +688,7 @@ function MainDashboard() {
             boxShadow: editingFarm ? '0 4px 20px rgba(59,130,246,0.25)' : '0 4px 20px rgba(0, 245, 160, 0.08)'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', fontSize: '0.9rem', color: '#e2e8f0' }}>
-              <span style={{ fontSize: '1.3rem' }}>{editingFarm ? '📍' : '🌾'}</span>
+              <span style={{ fontSize: '1.3rem' }}>{editingFarm ? '' : ''}</span>
               <div>
                 <strong>
                   {editingFarm
@@ -715,7 +715,7 @@ function MainDashboard() {
                       fontSize: '0.82rem',
                     }}
                   >
-                    {saveFarmLoading ? 'Saving...' : '💾 Update Farm Location'}
+                    {saveFarmLoading ? 'Saving...' : ' Update Farm Location'}
                   </button>
                   <button
                     onClick={() => {
@@ -767,7 +767,7 @@ function MainDashboard() {
             boxShadow: '0 4px 20px rgba(0, 217, 245, 0.1)'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', fontSize: '0.9rem', color: '#e2e8f0' }}>
-              <span style={{ fontSize: '1.25rem' }}>🌍</span>
+              <span style={{ fontSize: '1.25rem' }}></span>
               <span><strong>Guest Agronomist Sandbox:</strong> Instant satellite field analysis mode active. Draw and analyze fields freely.</span>
             </div>
             <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
@@ -779,7 +779,7 @@ function MainDashboard() {
                   fontSize: '0.82rem',
                 }}
               >
-                👨‍🌾 Sign In to Save Plots
+                ‍ Sign In to Save Plots
               </button>
               <button
                 onClick={handleOpenPortal}
@@ -811,7 +811,7 @@ function MainDashboard() {
         <section className="toolbar-card">
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
             <div className="toolbar-title">
-              <span>📍 Agricultural Target Location:</span>
+              <span> Agricultural Target Location:</span>
               <span style={{ color: '#34d399', fontWeight: '800' }}>{searchLocationName}</span>
             </div>
             {/* Quick Regional Center Shortcuts */}
@@ -845,7 +845,7 @@ function MainDashboard() {
                     fontWeight: '600'
                   }}
                 >
-                  📍 {loc.name}
+                   {loc.name}
                 </button>
               ))}
             </div>
@@ -861,12 +861,12 @@ function MainDashboard() {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
               <button type="submit" className="btn-primary" disabled={searchLoading}>
-                {searchLoading ? 'Locating...' : '🔍 Locate Field'}
+                {searchLoading ? 'Locating...' : ' Locate Field'}
               </button>
             </form>
 
             <button onClick={handleGPSClick} className="btn-secondary" disabled={gpsLoading}>
-              {gpsLoading ? 'Acquiring GPS...' : '🎯 Device GPS'}
+              {gpsLoading ? 'Acquiring GPS...' : ' Device GPS'}
             </button>
           </div>
         </section>
@@ -886,15 +886,15 @@ function MainDashboard() {
 
         {!farmData && (
           <div className="draw-prompt">
-            <span style={{ fontSize: '1.75rem' }}>✏️</span>
+            <span style={{ fontSize: '1.75rem' }}>️</span>
             <div>
               <strong style={{ color: '#ffffff', fontSize: '1.05rem' }}>How to Select Your Farm Field:</strong>
               <p style={{ fontSize: '0.9rem', marginTop: '0.2rem' }}>
-                1. Click <strong>"✏️ Start Drawing Farm Boundary"</strong> above the map.
+                1. Click <strong>"️ Start Drawing Boundary"</strong> above the map.
                 <br />
                 2. Click corners around an active crop field (add as many points as needed).
                 <br />
-                3. Click <strong>"✅ Finish Polygon"</strong> when done!
+                3. Click <strong>" Finish Boundary"</strong> when done!
               </p>
             </div>
           </div>
@@ -905,15 +905,15 @@ function MainDashboard() {
           <section className="farm-card">
             <div className="farm-card-header">
               <div className="farm-title">
-                <span>🌾 Farm Boundary Selected & Calculated</span>
+                <span> Farm Boundary Selected & Calculated</span>
               </div>
               <div style={{ display: 'flex', gap: '0.5rem' }}>
                 <span className="badge badge-ready">
-                  {confirmedSession ? '✅ Boundary Validated' : 'Polygon Ready'}
+                  {confirmedSession ? ' Boundary Validated' : 'Polygon Ready'}
                 </span>
                 {geePreparedData && (
                   <span className="badge badge-ready" style={{ background: 'rgba(59, 130, 246, 0.2)', color: '#60a5fa', borderColor: 'rgba(59, 130, 246, 0.3)' }}>
-                    🛰️ GEE Integrated
+                    ️ GEE Integrated
                   </span>
                 )}
               </div>
@@ -964,19 +964,19 @@ function MainDashboard() {
 
             {expectedArea && Math.abs(farmData.area.acres - parseFloat(expectedArea)) > 0.25 * parseFloat(expectedArea) && (
               <div className="alert-warning">
-                ⚠️ <strong>Area Discrepancy Notice:</strong> Your expected area ({parseFloat(expectedArea).toFixed(2)} acres) differs from the detected polygon geometry area ({farmData.area.acres.toFixed(2)} acres).
+                ️ <strong>Area Discrepancy Notice:</strong> Your expected area ({parseFloat(expectedArea).toFixed(2)} acres) differs from the detected polygon geometry area ({farmData.area.acres.toFixed(2)} acres).
               </div>
             )}
 
             {validationError && (
               <div className="alert-warning" style={{ background: 'rgba(239, 68, 68, 0.15)', borderColor: 'rgba(239, 68, 68, 0.4)', color: '#f87171' }}>
-                ❌ <strong>Validation Error:</strong> {validationError}
+                 <strong>Validation Error:</strong> {validationError}
               </div>
             )}
 
             {confirmedSession && (
               <div className="alert-success">
-                ✅ <strong>Farm Boundary Confirmed!</strong>
+                 <strong>Farm Boundary Confirmed!</strong>
                 <br />
                 <strong>Session ID:</strong> <code>{confirmedSession.farm_session_id}</code>
                 <br />
@@ -994,8 +994,8 @@ function MainDashboard() {
                 {validationLoading
                   ? 'Fetching Direct Sentinel-2 Satellite Maps...'
                   : confirmedSession
-                  ? '✓ Farm Confirmed & Sentinel Map Integrated'
-                  : 'ANALYZE CROP HEALTH & SENTINEL MAP'}
+                  ? 'Farm Confirmed & Satellite Map Integrated'
+                  : 'Analyze Field Health'}
               </button>
 
               <button
@@ -1003,7 +1003,7 @@ function MainDashboard() {
                 className="btn-secondary"
                 style={{ padding: '0.8rem 1.5rem', fontSize: '0.95rem' }}
               >
-                🔄 REDRAW BOUNDARY
+                 Redraw Boundary
               </button>
 
               <button
@@ -1024,8 +1024,8 @@ function MainDashboard() {
                 }}
                 title="Upload leaf photo for Macro-to-Micro Depth Analysis"
               >
-                <span>🔬</span>
-                <span>Leaf Depth Analysis</span>
+                <span></span>
+                <span>Leaf Disease Diagnosis</span>
               </button>
             </div>
 
@@ -1035,7 +1035,7 @@ function MainDashboard() {
                 <div style={{ background: 'rgba(15, 23, 42, 0.6)', border: '1px solid rgba(52, 211, 153, 0.25)', borderRadius: '12px', padding: '1rem 1.25rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '0.5rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <span style={{ fontSize: '1.2rem' }}>💾</span>
+                      <span style={{ fontSize: '1.2rem' }}></span>
                       <strong style={{ color: '#ffffff', fontSize: '0.95rem' }}>Save This Farm to Farmer Profile</strong>
                     </div>
                     <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>
@@ -1075,15 +1075,15 @@ function MainDashboard() {
                         outline: 'none'
                       }}
                     >
-                      <option value="Paddy / Rice">🌾 Paddy / Rice</option>
-                      <option value="Cotton">🌱 Cotton</option>
-                      <option value="Sugarcane">🎋 Sugarcane</option>
-                      <option value="Maize / Corn">🌽 Maize / Corn</option>
-                      <option value="Wheat">🌾 Wheat</option>
-                      <option value="Vegetables / Tomato">🍅 Vegetables / Tomato</option>
-                      <option value="Coconut">🥥 Coconut</option>
-                      <option value="Banana">🍌 Banana</option>
-                      <option value="General Crop">🌿 General Crop</option>
+                      <option value="Paddy / Rice">Paddy / Rice</option>
+                      <option value="Cotton">Cotton</option>
+                      <option value="Sugarcane">Sugarcane</option>
+                      <option value="Maize / Corn">Maize / Corn</option>
+                      <option value="Wheat">Wheat</option>
+                      <option value="Vegetables / Tomato">Vegetables / Tomato</option>
+                      <option value="Coconut">Coconut</option>
+                      <option value="Banana">Banana</option>
+                      <option value="General Crop">General Crop</option>
                     </select>
 
                     {editingFarm ? (
@@ -1106,7 +1106,7 @@ function MainDashboard() {
                             boxShadow: '0 2px 8px rgba(37, 99, 235, 0.4)'
                           }}
                         >
-                          {saveFarmLoading ? 'Updating...' : `💾 Update "${editingFarm.farm_name}"`}
+                          {saveFarmLoading ? 'Updating...' : ` Update "${editingFarm.farm_name}"`}
                         </button>
                         <button
                           onClick={() => {
@@ -1146,14 +1146,14 @@ function MainDashboard() {
                           boxShadow: '0 2px 8px rgba(16, 185, 129, 0.3)'
                         }}
                       >
-                        {saveFarmLoading ? 'Saving...' : '💾 Save Farm'}
+                        {saveFarmLoading ? 'Saving...' : ' Save Farm'}
                       </button>
                     )}
                   </div>
 
                   {saveFarmSuccess && (
                     <div style={{ marginTop: '0.6rem', color: '#34d399', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                      <span>✓</span> {saveFarmSuccess}
+                      <span></span> {saveFarmSuccess}
                     </div>
                   )}
                 </div>
@@ -1170,7 +1170,7 @@ function MainDashboard() {
                   gap: '0.75rem'
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.88rem', color: '#cbd5e1' }}>
-                    <span>💡</span>
+                    <span></span>
                     <span>Want to save this boundary for instant 1-click analysis anytime?</span>
                   </div>
                   <button
@@ -1186,7 +1186,7 @@ function MainDashboard() {
                       cursor: 'pointer'
                     }}
                   >
-                    👤 Login / Register as Farmer
+                     Login / Register as Farmer
                   </button>
                 </div>
               )}
@@ -1197,7 +1197,7 @@ function MainDashboard() {
         {/* LOADING INDICATOR */}
         {analysisLoading && (
           <div className="draw-prompt" style={{ background: 'rgba(16, 185, 129, 0.1)', borderColor: 'rgba(16, 185, 129, 0.3)', color: '#34d399', marginTop: '2rem' }}>
-            <span style={{ fontSize: '1.75rem' }}>⏳</span>
+            <span style={{ fontSize: '1.75rem' }}></span>
             <div>
               <strong style={{ color: '#ffffff', fontSize: '1.05rem' }}>Integrating Direct Satellite Map Telemetry...</strong>
               <p style={{ fontSize: '0.9rem', marginTop: '0.2rem' }}>
@@ -1211,7 +1211,7 @@ function MainDashboard() {
         {analysisData && analysisData.land_safety && !analysisData.land_safety.is_farmland && (
           <section className="farm-card" style={{ borderColor: '#ef4444', background: 'rgba(239, 68, 68, 0.12)', marginTop: '2rem' }}>
             <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'flex-start' }}>
-              <span style={{ fontSize: '2.8rem' }}>🏢</span>
+              <span style={{ fontSize: '2.8rem' }}></span>
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
                   <span style={{ background: '#ef4444', color: '#fff', fontSize: '0.75rem', fontWeight: '800', padding: '0.2rem 0.5rem', borderRadius: '4px' }}>
@@ -1222,7 +1222,7 @@ function MainDashboard() {
                   </h3>
                 </div>
                 <p style={{ color: '#fca5a5', fontSize: '1rem', lineHeight: '1.6', margin: '0.5rem 0' }}>
-                  {analysisData.land_safety.warning || "⚠️ Building Detected: The selected area is a building rooftop, house, concrete structure, or non-farmland. Satellite crop health monitoring and fertilizer guidance cannot be run on buildings."}
+                  {analysisData.land_safety.warning || "️ Building Detected: The selected area is a building rooftop, house, concrete structure, or non-farmland. Satellite crop health monitoring and fertilizer guidance cannot be run on buildings."}
                 </p>
                 <div style={{ marginTop: '1.25rem', display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
                   <button
@@ -1236,7 +1236,7 @@ function MainDashboard() {
                     className="btn-primary"
                     style={{ background: '#dc2626', fontSize: '1rem', fontWeight: '700', padding: '0.75rem 1.5rem' }}
                   >
-                    🌾 Try Any Other Farming Place
+                     Try Any Other Farming Place
                   </button>
                   <span style={{ fontSize: '0.88rem', color: '#94a3b8' }}>
                     Click above to clear this selection and draw a boundary over active farmland.
@@ -1268,7 +1268,7 @@ function MainDashboard() {
               <div className="farm-card-header" style={{ flexWrap: 'wrap', gap: '1rem' }}>
                 <div>
                   <div className="farm-title" style={{ color: '#34d399', fontSize: '1.35rem' }}>
-                    <span>🛰️ Multispectral Precision Agriculture Dashboard ({activePassDate || analysisData.observation_details?.acquisition_date})</span>
+                    <span>️ Satellite Field Scan Dashboard ({activePassDate || analysisData.observation_details?.acquisition_date})</span>
                   </div>
                   <p style={{ fontSize: '0.85rem', color: '#94a3b8', marginTop: '0.2rem' }}>
                     Sensor Observation Payload: <strong style={{ color: '#ffffff' }}>{analysisData.observation_details?.spacecraft}</strong> | Active Acquisition Pass: <strong style={{ color: '#38bdf8' }}>{activePassDate || analysisData.observation_details?.acquisition_date}</strong>
@@ -1293,8 +1293,8 @@ function MainDashboard() {
                       boxShadow: '0 4px 18px rgba(0, 245, 160, 0.45)',
                     }}
                   >
-                    <span>🎙️</span>
-                    <span>Ask Voice Agronomist</span>
+                    <span>️</span>
+                    <span>Ask AI Agronomist</span>
                   </button>
 
                   <button
@@ -1315,8 +1315,8 @@ function MainDashboard() {
                     }}
                     title="Upload leaf image for unified satellite + leaf pathology depth analysis"
                   >
-                    <span>🔬</span>
-                    <span>Leaf Depth Analysis</span>
+                    <span></span>
+                    <span>Leaf Disease Diagnosis</span>
                   </button>
 
                   {analysisData.pdf_download_url && (
@@ -1333,7 +1333,7 @@ function MainDashboard() {
                         boxShadow: '0 8px 20px -4px rgba(37, 99, 235, 0.5)'
                       }}
                     >
-                      📥 Download Executive PDF Report
+                       Download Field Report
                     </a>
                   )}
                 </div>
@@ -1369,19 +1369,19 @@ function MainDashboard() {
               {analysisData.crop_damage_health && (
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.25rem', marginTop: '1rem' }}>
                   <div style={{ background: 'rgba(22, 163, 74, 0.15)', border: '2px solid #16a34a', borderRadius: '14px', padding: '1.25rem', boxShadow: '0 8px 20px -6px rgba(22, 163, 74, 0.3)' }}>
-                    <div style={{ fontSize: '0.82rem', color: '#4ade80', fontWeight: '800', letterSpacing: '0.04em' }}>🟢 HEALTHY CROPS (VIGOROUS)</div>
+                    <div style={{ fontSize: '0.82rem', color: '#4ade80', fontWeight: '800', letterSpacing: '0.04em' }}> HEALTHY CROPS (VIGOROUS)</div>
                     <div style={{ fontSize: '2.5rem', fontWeight: '900', color: '#ffffff', margin: '0.3rem 0' }}>{analysisData.crop_damage_health.healthy_green?.percentage}%</div>
                     <p style={{ fontSize: '0.85rem', color: '#bbf7d0', margin: 0 }}>Optimal photosynthetic activity & chlorophyll content.</p>
                   </div>
 
                   <div style={{ background: 'rgba(245, 158, 11, 0.15)', border: '2px solid #f59e0b', borderRadius: '14px', padding: '1.25rem', boxShadow: '0 8px 20px -6px rgba(245, 158, 11, 0.3)' }}>
-                    <div style={{ fontSize: '0.82rem', color: '#fbbf24', fontWeight: '800', letterSpacing: '0.04em' }}>🟡 MODERATE CANOPY GROWTH</div>
+                    <div style={{ fontSize: '0.82rem', color: '#fbbf24', fontWeight: '800', letterSpacing: '0.04em' }}> MODERATE CANOPY GROWTH</div>
                     <div style={{ fontSize: '2.5rem', fontWeight: '900', color: '#ffffff', margin: '0.3rem 0' }}>{analysisData.crop_damage_health.moderate_yellow?.percentage}%</div>
                     <p style={{ fontSize: '0.85rem', color: '#fef08a', margin: 0 }}>Canopy transition zone requiring monitoring.</p>
                   </div>
 
                   <div style={{ background: 'rgba(220, 38, 38, 0.18)', border: '2px solid #dc2626', borderRadius: '14px', padding: '1.25rem', boxShadow: '0 8px 20px -6px rgba(220, 38, 38, 0.3)' }}>
-                    <div style={{ fontSize: '0.82rem', color: '#f87171', fontWeight: '800', letterSpacing: '0.04em' }}>🔴 STRESSED / WATER DEFICIT</div>
+                    <div style={{ fontSize: '0.82rem', color: '#f87171', fontWeight: '800', letterSpacing: '0.04em' }}> STRESSED / WATER DEFICIT</div>
                     <div style={{ fontSize: '2.5rem', fontWeight: '900', color: '#ffffff', margin: '0.3rem 0' }}>{analysisData.crop_damage_health.damaged_red?.percentage}%</div>
                     <p style={{ fontSize: '0.85rem', color: '#fca5a5', margin: 0 }}>Stressed vegetation or moisture deficit zone.</p>
                   </div>
@@ -1396,7 +1396,7 @@ function MainDashboard() {
               <section className="farm-card" style={{ borderColor: '#3b82f6', marginTop: '1.5rem' }}>
                 <div className="farm-card-header" style={{ flexWrap: 'wrap', gap: '1rem' }}>
                   <div className="farm-title" style={{ color: '#60a5fa' }}>
-                    <span>📅 30-Day Sentinel-2 Satellite Passes (Unique 5-Day Revisit Dates)</span>
+                    <span> 30-Day Satellite Passes</span>
                   </div>
                   
                   <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
@@ -1408,14 +1408,14 @@ function MainDashboard() {
                       className={`layer-chip ${timelineViewMode === 'cards' ? 'active' : ''}`}
                       style={{ fontSize: '0.8rem', padding: '0.35rem 0.75rem' }}
                     >
-                      🎴 Cards View
+                       Cards View
                     </button>
                     <button
                       onClick={() => setTimelineViewMode('table')}
                       className={`layer-chip ${timelineViewMode === 'table' ? 'active' : ''}`}
                       style={{ fontSize: '0.8rem', padding: '0.35rem 0.75rem' }}
                     >
-                      📊 Table View
+                       Table View
                     </button>
                   </div>
                 </div>
@@ -1457,7 +1457,7 @@ function MainDashboard() {
                           </div>
 
                           <strong style={{ fontSize: '1.1rem', color: '#ffffff', display: 'block', marginBottom: '0.3rem' }}>
-                            📅 {passItem.acquisition_date}
+                             {passItem.acquisition_date}
                           </strong>
 
                           <div style={{ fontSize: '0.82rem', color: '#cbd5e1', marginBottom: '0.75rem' }}>
@@ -1474,7 +1474,7 @@ function MainDashboard() {
                             className={isSelected ? 'btn-primary' : 'btn-secondary'}
                             style={{ width: '100%', justifyContent: 'center', fontSize: '0.82rem', padding: '0.45rem' }}
                           >
-                            {isSelected ? '✓ Active Map Date' : '🛰️ View Sentinel-2 Map'}
+                            {isSelected ? ' Active Map Date' : '️ View Satellite Map'}
                           </button>
                         </div>
                       );
@@ -1510,7 +1510,7 @@ function MainDashboard() {
                               }}
                             >
                               <td style={{ padding: '0.75rem 1rem', fontWeight: '700', color: '#60a5fa' }}>#{passItem.pass_number}</td>
-                              <td style={{ padding: '0.75rem 1rem', fontWeight: '700', color: '#ffffff' }}>📅 {passItem.acquisition_date}</td>
+                              <td style={{ padding: '0.75rem 1rem', fontWeight: '700', color: '#ffffff' }}> {passItem.acquisition_date}</td>
                               <td style={{ padding: '0.75rem 1rem', color: '#94a3b8' }}>{passItem.acquisition_time}</td>
                               <td style={{ padding: '0.75rem 1rem', color: '#94a3b8' }}>{passItem.spacecraft}</td>
                               <td style={{ padding: '0.75rem 1rem', color: '#94a3b8' }}>{passItem.cloud_percentage}%</td>
@@ -1533,7 +1533,7 @@ function MainDashboard() {
                                   className={isSelected ? 'btn-primary' : 'btn-secondary'}
                                   style={{ fontSize: '0.78rem', padding: '0.35rem 0.85rem' }}
                                 >
-                                  {isSelected ? '✓ Active' : '🛰️ View Map'}
+                                  {isSelected ? ' Active' : '️ View Map'}
                                 </button>
                               </td>
                             </tr>
@@ -1549,12 +1549,12 @@ function MainDashboard() {
             {/* 4 HIGH-VALUE FEATURE CARDS GRID */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem', marginTop: '1.5rem' }}>
               
-              {/* FEATURE 1: 📅 HISTORICAL 30-DAY CROP HEALTH COMPARISON */}
+              {/* FEATURE 1:  HISTORICAL 30-DAY CROP HEALTH COMPARISON */}
               {analysisData.historical_comparison && (
                 <section className="farm-card" style={{ borderColor: '#3b82f6' }}>
                   <div className="farm-card-header">
                     <div className="farm-title" style={{ color: '#60a5fa' }}>
-                      <span>📅 30-Day Growth Comparison</span>
+                      <span> 30-Day Growth Trend</span>
                     </div>
                   </div>
 
@@ -1590,12 +1590,12 @@ function MainDashboard() {
                 </section>
               )}
 
-              {/* FEATURE 2: 🗺️ FIELD ZONING / PROBLEM AREA DETECTION */}
+              {/* FEATURE 2: ️ FIELD ZONING / PROBLEM AREA DETECTION */}
               {analysisData.problem_zones && (
                 <section className="farm-card" style={{ borderColor: '#ef4444' }}>
                   <div className="farm-card-header">
                     <div className="farm-title" style={{ color: '#f87171' }}>
-                      <span>🗺️ Field Zoning / Problem Areas</span>
+                      <span>️ Stressed Areas Map</span>
                     </div>
                   </div>
 
@@ -1616,12 +1616,12 @@ function MainDashboard() {
                 </section>
               )}
 
-              {/* FEATURE 3: 🌧️ WEATHER + CROP HEALTH CORRELATION */}
+              {/* FEATURE 3: ️ WEATHER + CROP HEALTH CORRELATION */}
               {analysisData.weather_correlation && (
                 <section className="farm-card" style={{ borderColor: '#38bdf8' }}>
                   <div className="farm-card-header">
                     <div className="farm-title" style={{ color: '#38bdf8' }}>
-                      <span>🌧️ Live Ag-Weather Correlation</span>
+                      <span>️ Weather & Water Forecast</span>
                     </div>
                   </div>
 
@@ -1653,12 +1653,12 @@ function MainDashboard() {
                 </section>
               )}
 
-              {/* FEATURE 4: 🔮 14-DAY CROP HEALTH TREND PREDICTION */}
+              {/* FEATURE 4:  14-DAY CROP HEALTH TREND PREDICTION */}
               {analysisData.trend_prediction && (
                 <section className="farm-card" style={{ borderColor: '#a78bfa' }}>
                   <div className="farm-card-header">
                     <div className="farm-title" style={{ color: '#a78bfa' }}>
-                      <span>🔮 14-Day AI Growth Trend Forecast</span>
+                      <span> 14-Day Growth Forecast</span>
                     </div>
                   </div>
 
@@ -1688,7 +1688,7 @@ function MainDashboard() {
                 <div className="farm-card-header" style={{ flexWrap: 'wrap', gap: '1rem', borderBottom: '1px solid rgba(16, 185, 129, 0.2)', paddingBottom: '1rem' }}>
                   <div>
                     <div className="farm-title" style={{ color: '#34d399', fontSize: '1.4rem', display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
-                      <span>🧠 Autonomous Agronomic Decision Intelligence Engine</span>
+                      <span> AI Agronomic Advisory</span>
                       <span style={{
                         background: analysisData.gemini_recommendations.is_ai_generated ? 'rgba(0, 245, 160, 0.15)' : 'rgba(56, 189, 248, 0.15)',
                         border: analysisData.gemini_recommendations.is_ai_generated ? '1px solid rgba(0, 245, 160, 0.4)' : '1px solid rgba(56, 189, 248, 0.4)',
@@ -1698,7 +1698,7 @@ function MainDashboard() {
                         fontSize: '0.78rem',
                         fontWeight: '800'
                       }}>
-                        {analysisData.gemini_recommendations.is_ai_generated ? '⚡ Gemini AI Active & Connected' : '🧠 Decision Diagnostic Engine'}
+                        {analysisData.gemini_recommendations.is_ai_generated ? ' AI Agronomic Advisory Active' : ' Agronomic Rules Engine Active'}
                       </span>
                     </div>
                     <p style={{ fontSize: '0.85rem', color: '#94a3b8', marginTop: '0.2rem' }}>
@@ -1800,7 +1800,7 @@ function MainDashboard() {
 
                           {cat.metrics_correlation && (
                             <div style={{ marginTop: '1rem', paddingTop: '0.6rem', borderTop: '1px solid rgba(255,255,255,0.08)', fontSize: '0.78rem', color: '#64748b' }}>
-                              📊 {cat.metrics_correlation}
+                               {cat.metrics_correlation}
                             </div>
                           )}
                         </div>
@@ -1830,7 +1830,7 @@ function MainDashboard() {
                   }}>
                     <div style={{ flex: 1, minWidth: '260px' }}>
                       <strong style={{ color: '#fbbf24', fontSize: '0.95rem', display: 'block' }}>
-                        ⚠️ Risk If No Action Taken:
+                        ️ Risk If No Action Taken:
                       </strong>
                       <p style={{ fontSize: '0.88rem', color: '#fef08a', margin: '0.2rem 0 0 0' }}>
                         {analysisData.gemini_recommendations.yield_impact.risk_if_no_action}
@@ -1839,7 +1839,7 @@ function MainDashboard() {
 
                     <div style={{ flex: 1, minWidth: '260px' }}>
                       <strong style={{ color: '#34d399', fontSize: '0.95rem', display: 'block' }}>
-                        💡 Expected Recovery With Recommended Actions:
+                         Expected Recovery With Recommended Actions:
                       </strong>
                       <p style={{ fontSize: '0.88rem', color: '#bbf7d0', margin: '0.2rem 0 0 0' }}>
                         {analysisData.gemini_recommendations.yield_impact.potential_gain_with_action} (Estimated Recovery: ~{analysisData.gemini_recommendations.yield_impact.estimated_recovery_days || 7} Days)
@@ -1893,7 +1893,7 @@ function MainDashboard() {
             }}
             title="Open Conversational Voice & Chat Agronomist"
           >
-            <span style={{ fontSize: '1.25rem' }}>🎙️</span>
+            <span style={{ fontSize: '1.25rem' }}>️</span>
             <span>Ask AI Agronomist</span>
           </button>
         )}

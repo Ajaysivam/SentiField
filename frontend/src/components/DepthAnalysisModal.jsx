@@ -112,12 +112,12 @@ export default function DepthAnalysisModal({
     setDepthResult(null);
 
     // Visual step sequence
-    setAnalysisStep('🔬 Scanning leaf cellular lesions with Gemini Multimodal Vision...');
+    setAnalysisStep(' Scanning leaf lesions with Multimodal Vision AI...');
     const stepTimer1 = setTimeout(() => {
-      setAnalysisStep('🛰️ Correlating leaf pathology with Sentinel-2 NDVI problem sub-zones...');
+      setAnalysisStep('️ Correlating leaf pathology with satellite problem sub-zones...');
     }, 1500);
     const stepTimer2 = setTimeout(() => {
-      setAnalysisStep('🧪 Formulating precision targeted prescription and spread forecast...');
+      setAnalysisStep(' Formulating precision targeted prescription and spread forecast...');
     }, 3200);
 
     try {
@@ -269,7 +269,7 @@ export default function DepthAnalysisModal({
                 boxShadow: '0 0 20px rgba(0, 245, 160, 0.4)',
               }}
             >
-              🔬
+              
             </div>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
@@ -292,7 +292,7 @@ export default function DepthAnalysisModal({
                 </span>
               </div>
               <div style={{ fontSize: '0.78rem', color: '#94a3b8', marginTop: '0.15rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span>🌱 <strong>Target Field:</strong> {farmName} {acres > 0 ? `(${acres.toFixed(2)} ac)` : ''}</span>
+                <span> <strong>Target Field:</strong> {farmName} {acres > 0 ? `(${acres.toFixed(2)} ac)` : ''}</span>
                 {hasSatellite && (
                   <span style={{ color: '#00f5a0' }}>• Sentinel-2 Grade {grade} Linked</span>
                 )}
@@ -317,9 +317,9 @@ export default function DepthAnalysisModal({
                 cursor: 'pointer',
               }}
             >
-              <option value="en" style={{ background: '#081020', color: '#fff' }}>🇬🇧 English</option>
-              <option value="ta" style={{ background: '#081020', color: '#fff' }}>🇮🇳 தமிழ் (Tamil)</option>
-              <option value="hi" style={{ background: '#081020', color: '#fff' }}>🇮🇳 हिंदी (Hindi)</option>
+              <option value="en" style={{ background: '#081020', color: '#fff' }}>English</option>
+              <option value="ta" style={{ background: '#081020', color: '#fff' }}>தமிழ் (Tamil)</option>
+              <option value="hi" style={{ background: '#081020', color: '#fff' }}>हिंदी (Hindi)</option>
             </select>
 
             <button
@@ -571,7 +571,7 @@ export default function DepthAnalysisModal({
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.25rem' }}>
-                  <span style={{ fontSize: '1rem' }}>🛰️</span>
+                  <span style={{ fontSize: '1rem' }}>️</span>
                   <strong style={{ color: '#00f5a0' }}>Active Satellite Telemetry Linked:</strong>
                 </div>
                 <div>
@@ -689,7 +689,7 @@ export default function DepthAnalysisModal({
                     }}
                   >
                     <Volume2 size={16} />
-                    <span>{isSpeaking ? '⏹️ Stop Voice' : '🎙️ Listen to Diagnosis'}</span>
+                    <span>{isSpeaking ? '️ Stop Voice' : '️ Listen to Diagnosis'}</span>
                   </button>
                 )}
               </div>
@@ -704,7 +704,7 @@ export default function DepthAnalysisModal({
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.65rem' }}>
-                  <span style={{ fontSize: '1.2rem' }}>🌐</span>
+                  <span style={{ fontSize: '1.2rem' }}></span>
                   <strong style={{ fontSize: '1.05rem', color: '#00d9f5' }}>
                     Macro-to-Micro Spatial Correlation
                   </strong>
@@ -729,7 +729,7 @@ export default function DepthAnalysisModal({
                       color: '#94a3b8',
                     }}
                   >
-                    📊 <strong>NDVI Impact:</strong> {depthResult.macro_micro_correlation.ndvi_impact}
+                     <strong>NDVI Impact:</strong> {depthResult.macro_micro_correlation.ndvi_impact}
                   </div>
                 )}
               </div>
@@ -746,7 +746,7 @@ export default function DepthAnalysisModal({
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
-                    <span style={{ fontSize: '1.2rem' }}>🧪</span>
+                    <span style={{ fontSize: '1.2rem' }}></span>
                     <strong style={{ fontSize: '1rem', color: '#34d399' }}>
                       Targeted Field Prescription
                     </strong>
@@ -770,14 +770,14 @@ export default function DepthAnalysisModal({
                     <div>
                       <span style={{ color: '#64748b', fontSize: '0.76rem', fontWeight: '800', textTransform: 'uppercase' }}>Application Target:</span>
                       <div style={{ color: '#fbbf24', fontWeight: '700' }}>
-                        🎯 {depthResult.targeted_prescription?.application_area}
+                         {depthResult.targeted_prescription?.application_area}
                       </div>
                     </div>
 
                     <div>
                       <span style={{ color: '#64748b', fontSize: '0.76rem', fontWeight: '800', textTransform: 'uppercase' }}>Organic Alternative:</span>
                       <div style={{ color: '#a7f3d0' }}>
-                        🌱 {depthResult.targeted_prescription?.organic_alternative}
+                         {depthResult.targeted_prescription?.organic_alternative}
                       </div>
                     </div>
 
@@ -785,7 +785,7 @@ export default function DepthAnalysisModal({
                       <div>
                         <span style={{ color: '#64748b', fontSize: '0.76rem', fontWeight: '800', textTransform: 'uppercase' }}>Nutrient Boost:</span>
                         <div style={{ color: '#cbd5e1' }}>
-                          ⚡ {depthResult.targeted_prescription.soil_nutrient_boost}
+                           {depthResult.targeted_prescription.soil_nutrient_boost}
                         </div>
                       </div>
                     )}

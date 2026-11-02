@@ -20,7 +20,7 @@ const SAMPLE_PRESETS = [
   {
     id: 'paddy_blast',
     crop: 'Paddy / Rice',
-    title: '🌾 Rice Blast (Paddy)',
+    title: ' Rice Blast (Paddy)',
     subtitle: 'Spindle lesions with grey centers',
     svg: `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
       <defs>
@@ -45,7 +45,7 @@ const SAMPLE_PRESETS = [
   {
     id: 'sugarcane_spot',
     crop: 'Sugarcane',
-    title: '🎋 Brown Spot (Sugarcane)',
+    title: ' Brown Spot (Sugarcane)',
     subtitle: 'Reddish-brown oval lesions',
     svg: `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
       <defs>
@@ -70,7 +70,7 @@ const SAMPLE_PRESETS = [
   {
     id: 'cotton_blight',
     crop: 'Cotton',
-    title: '🌿 Bacterial Blight (Cotton)',
+    title: ' Bacterial Blight (Cotton)',
     subtitle: 'Angular water-soaked spots',
     svg: `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
       <defs>
@@ -177,12 +177,12 @@ export default function DualLensStepper({
     setError(null);
     setIsAnalyzing(true);
 
-    setAnalysisStep('🔬 Scanning leaf lesions with Gemini Multimodal Vision AI...');
+    setAnalysisStep(' Scanning leaf lesions with Multimodal Vision AI...');
     const t1 = setTimeout(() => {
-      setAnalysisStep('🛰️ Correlating leaf pathology with Sentinel-2 problem sub-zone...');
+      setAnalysisStep('️ Correlating leaf pathology with satellite problem sub-zone...');
     }, 1400);
     const t2 = setTimeout(() => {
-      setAnalysisStep('🧪 Formulating precision variable-rate prescription & spread risk...');
+      setAnalysisStep(' Formulating targeted prescription and spread risk...');
     }, 2800);
 
     try {
@@ -254,7 +254,7 @@ export default function DualLensStepper({
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-              <span style={{ fontSize: '1.25rem' }}>🎯</span>
+              <span style={{ fontSize: '1.25rem' }}></span>
               <h2 style={{ fontSize: '1.15rem', fontWeight: '900', color: '#ffffff', margin: 0 }}>
                 Two-Stage Dual-Lens Crop Health Intelligence
               </h2>
@@ -276,7 +276,7 @@ export default function DualLensStepper({
                 border: isFused ? '1px solid #00f5a0' : '1px solid #3b82f6',
               }}
             >
-              {isFused ? '✓ Stage 1 & 2 Complete (Dual-Lens Fused)' : 'Stage 1 Complete ➔ Stage 2 Pending'}
+              {isFused ? ' Stage 1 & 2 Complete' : 'Stage 1 Complete - Stage 2 Pending'}
             </span>
           </div>
         </div>
@@ -319,7 +319,7 @@ export default function DualLensStepper({
                 flexShrink: 0,
               }}
             >
-              ✓
+              
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -363,7 +363,7 @@ export default function DualLensStepper({
                 flexShrink: 0,
               }}
             >
-              {isFused ? '✓' : '2'}
+              {isFused ? '' : '2'}
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -402,7 +402,7 @@ export default function DualLensStepper({
           <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.2rem' }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                <span style={{ fontSize: '1.5rem' }}>🔬</span>
+                <span style={{ fontSize: '1.5rem' }}></span>
                 <h3 style={{ fontSize: '1.25rem', fontWeight: '900', color: '#fef08a', margin: 0 }}>
                   Step 2: Ground-Truth Leaf Verification
                 </h3>
@@ -439,7 +439,7 @@ export default function DualLensStepper({
           {/* Quick 1-Click Sample Leaf Presets */}
           <div style={{ marginBottom: '1.25rem' }}>
             <span style={{ fontSize: '0.78rem', color: '#94a3b8', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.04em', display: 'block', marginBottom: '0.5rem' }}>
-              ⚡ Instant Test Presets (Click to Test Without Leaf Photo):
+               Sample Test Presets (Click to Test Without Leaf Photo):
             </span>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', gap: '0.65rem' }}>
               {SAMPLE_PRESETS.map((p) => (
@@ -471,7 +471,7 @@ export default function DualLensStepper({
                     <div style={{ fontSize: '0.85rem', fontWeight: '800', color: '#ffffff' }}>{p.title}</div>
                     <div style={{ fontSize: '0.72rem', color: '#94a3b8' }}>{p.subtitle}</div>
                   </div>
-                  <span style={{ fontSize: '0.75rem', color: '#00f5a0', fontWeight: '800' }}>Try ➔</span>
+                  <span style={{ fontSize: '0.75rem', color: '#00f5a0', fontWeight: '800' }}>Try </span>
                 </button>
               ))}
             </div>
@@ -527,7 +527,7 @@ export default function DualLensStepper({
                       className="btn-secondary"
                       style={{ padding: '0.4rem 0.85rem', fontSize: '0.78rem' }}
                     >
-                      ✕ Remove Photo
+                       Remove Photo
                     </button>
                     <button
                       onClick={(e) => {
@@ -537,14 +537,14 @@ export default function DualLensStepper({
                       className="btn-secondary"
                       style={{ padding: '0.4rem 0.85rem', fontSize: '0.78rem' }}
                     >
-                      📁 Change Photo
+                       Change Photo
                     </button>
                   </div>
                 </div>
               </div>
             ) : (
               <div style={{ textAlign: 'center', padding: '1rem' }}>
-                <div style={{ fontSize: '2.4rem', marginBottom: '0.5rem' }}>📸</div>
+                <div style={{ fontSize: '2.4rem', marginBottom: '0.5rem' }}></div>
                 <div style={{ fontSize: '0.95rem', fontWeight: '800', color: '#ffffff' }}>
                   Drag & Drop a leaf photo here, or browse files
                 </div>
@@ -657,14 +657,14 @@ export default function DualLensStepper({
                 }}
               >
                 <Zap size={18} />
-                <span>FUSE MACRO + MICRO & GENERATE MASTER REPORT</span>
+                <span>GENERATE COMBINED HEALTH REPORT</span>
               </button>
             )}
           </div>
         </div>
       )}
 
-      {/* ── STAGE 3: THE COMBINED MACRO + MICRO MASTER REPORT ── */}
+      {/* ── STAGE 3: Combined Field & Leaf Health Report ── */}
       {isFused && (
         <div
           style={{
@@ -680,7 +680,7 @@ export default function DualLensStepper({
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', paddingBottom: '1.2rem', marginBottom: '1.4rem' }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-                <span style={{ fontSize: '1.6rem' }}>🌟</span>
+                <span style={{ fontSize: '1.6rem' }}></span>
                 <div>
                   <h3 style={{ fontSize: '1.35rem', fontWeight: '900', color: '#00f5a0', margin: 0 }}>
                     Combined Macro + Micro Master Crop Health Report
@@ -710,7 +710,7 @@ export default function DualLensStepper({
                   boxShadow: '0 4px 18px rgba(0, 245, 160, 0.45)',
                 }}
               >
-                <span>🎙️</span>
+                <span>️</span>
                 <span>Ask Voice Agronomist</span>
               </button>
 
@@ -744,7 +744,7 @@ export default function DualLensStepper({
                 style={{ padding: '0.65rem 0.95rem', fontSize: '0.82rem' }}
                 title="Re-verify with another leaf photograph"
               >
-                🔄 Test Another Leaf
+                 Test Another Leaf
               </button>
             </div>
           </div>
@@ -769,7 +769,7 @@ export default function DualLensStepper({
             >
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.8rem' }}>
                 <span style={{ fontSize: '0.78rem', fontWeight: '900', color: '#00f5a0', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                  🛰️ Macro Lens: Orbit Canopy Health
+                  ️ Satellite Field Scan: Canopy Health
                 </span>
                 <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>
                   {analysisData.observation_details?.spacecraft || 'Sentinel-2'}
@@ -791,7 +791,7 @@ export default function DualLensStepper({
               </div>
 
               <div style={{ fontSize: '0.82rem', color: '#cbd5e1', lineHeight: '1.45', background: 'rgba(255, 255, 255, 0.03)', padding: '0.65rem 0.85rem', borderRadius: '8px' }}>
-                📍 <strong>Spatial Anomaly:</strong> {analysisData.problem_zones?.zone_description || 'Stressed canopy detected in field perimeter.'}
+                 <strong>Spatial Anomaly:</strong> {analysisData.problem_zones?.zone_description || 'Stressed canopy detected in field perimeter.'}
               </div>
             </div>
 
@@ -806,7 +806,7 @@ export default function DualLensStepper({
             >
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.8rem' }}>
                 <span style={{ fontSize: '0.78rem', fontWeight: '900', color: '#00d9f5', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                  🔬 Micro Lens: Cellular Leaf Pathology
+                   Leaf Disease Diagnosis: Pathology
                 </span>
                 <span
                   style={{
@@ -884,7 +884,7 @@ export default function DualLensStepper({
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
-              <span style={{ fontSize: '1.2rem' }}>🔗</span>
+              <span style={{ fontSize: '1.2rem' }}></span>
               <h4 style={{ fontSize: '0.98rem', fontWeight: '900', color: '#60a5fa', margin: 0 }}>
                 Causal Correlation: How Leaf Pathology Explains the Satellite Spectral Drop
               </h4>
@@ -916,7 +916,7 @@ export default function DualLensStepper({
             >
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.8rem' }}>
                 <span style={{ fontSize: '0.82rem', fontWeight: '900', color: '#00f5a0', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                  🧪 Variable-Rate Targeted Prescription
+                   Targeted Treatment Plan
                 </span>
                 <span
                   style={{
@@ -944,7 +944,7 @@ export default function DualLensStepper({
                 </div>
 
                 <div style={{ background: 'rgba(2, 6, 23, 0.6)', padding: '0.65rem 0.85rem', borderRadius: '10px' }}>
-                  <div style={{ fontSize: '0.72rem', color: '#94a3b8' }}>🎯 Application Target Zone</div>
+                  <div style={{ fontSize: '0.72rem', color: '#94a3b8' }}> Application Target Zone</div>
                   <div style={{ fontSize: '0.85rem', color: '#ffffff', fontWeight: '700' }}>
                     {depthResult.targeted_prescription?.application_area || `Spray ${probAcres.toFixed(2)} acre problem zone + 5m buffer`}
                   </div>
@@ -952,7 +952,7 @@ export default function DualLensStepper({
 
                 {depthResult.targeted_prescription?.organic_alternative && (
                   <div>
-                    <div style={{ fontSize: '0.72rem', color: '#94a3b8', textTransform: 'uppercase' }}>🌿 Organic / Biological Alternative</div>
+                    <div style={{ fontSize: '0.72rem', color: '#94a3b8', textTransform: 'uppercase' }}> Organic / Biological Alternative</div>
                     <div style={{ fontSize: '0.85rem', color: '#86efac' }}>
                       {depthResult.targeted_prescription.organic_alternative}
                     </div>
@@ -972,7 +972,7 @@ export default function DualLensStepper({
             >
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.8rem' }}>
                 <span style={{ fontSize: '0.82rem', fontWeight: '900', color: '#fbbf24', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                  ⚠️ 5-Day Disease Spread Risk
+                  ️ 5-Day Disease Spread Risk
                 </span>
                 <span
                   style={{
@@ -995,15 +995,15 @@ export default function DualLensStepper({
               <div style={{ background: 'rgba(2, 6, 23, 0.6)', padding: '0.75rem 0.9rem', borderRadius: '10px' }}>
                 <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginBottom: '0.3rem' }}>Local Micro-Climate Catalysts:</div>
                 <div style={{ display: 'flex', gap: '1rem', fontSize: '0.85rem', color: '#ffffff' }}>
-                  <span>💧 Humidity: <strong>{weather.humidity_pct || 72}%</strong></span>
-                  <span>🌡️ Temp: <strong>{weather.temperature_c || 29}°C</strong></span>
-                  <span>🌧️ 7D Rain: <strong>{weather.rain_7day_sum_mm || 0}mm</strong></span>
+                  <span> Humidity: <strong>{weather.humidity_pct || 72}%</strong></span>
+                  <span>️ Temp: <strong>{weather.temperature_c || 29}°C</strong></span>
+                  <span>️ 7D Rain: <strong>{weather.rain_7day_sum_mm || 0}mm</strong></span>
                 </div>
               </div>
 
               {depthResult.spread_risk_forecast?.potential_yield_loss_pct && (
                 <div style={{ marginTop: '0.8rem', fontSize: '0.78rem', color: '#f87171' }}>
-                  🚨 Potential Yield Risk if Unchecked: <strong>~{depthResult.spread_risk_forecast.potential_yield_loss_pct}%</strong>
+                   Potential Yield Risk if Unchecked: <strong>~{depthResult.spread_risk_forecast.potential_yield_loss_pct}%</strong>
                 </div>
               )}
             </div>

@@ -102,12 +102,12 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, initialTab =
           }}
           title="Close"
         >
-          ✕
+          X
         </button>
 
         {/* Brand Header */}
         <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
-          <div style={{ fontSize: '2.5rem', marginBottom: '0.25rem' }}>👨‍🌾</div>
+          <div style={{ fontSize: "1.8rem", fontWeight: "900", color: "#10b981", marginBottom: "0.25rem" }}>FARMER</div>
           <h2 style={{ color: '#ffffff', fontSize: '1.35rem', fontWeight: '800' }}>
             Farmer Portal
           </h2>
@@ -175,7 +175,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, initialTab =
               marginBottom: '1rem',
             }}
           >
-            ⚠️ {error}
+            {error}
           </div>
         )}
 
@@ -238,7 +238,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, initialTab =
               background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
             }}
           >
-            {loading ? 'Authenticating...' : tab === 'login' ? '🌾 Log In to My Farms' : '✅ Create Farmer Profile'}
+            {loading ? 'Authenticating...' : tab === 'login' ? 'Log In to My Farms' : 'Create Farmer Profile'}
           </button>
         </form>
 
@@ -257,7 +257,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, initialTab =
                 cursor: 'pointer',
               }}
             >
-              ⚡ Quick Fill Demo: demo_farmer
+              Quick Fill Demo: demo_farmer
             </button>
           </div>
         )}

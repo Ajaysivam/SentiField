@@ -11,22 +11,12 @@ import DepthAnalysisModal from './DepthAnalysisModal';
  *  - Lists all saved farm plots with quick-select
  *  - Loads cached satellite analysis from the DB (no re-analysis needed on login)
  *  - Shows persistent Priority Timeline with server-synced step completion
- *  - "Run Deep Analysis" button to re-fetch fresh satellite data
+ *  - "Run Field Analysis" button to re-fetch fresh satellite data
  *  - "Change Location" flow – redraw or search new boundary, then save to same farm
  *  - Health grade, NDVI, weather, trend, problem zones at a glance
  */
 
-const CROP_ICONS = {
-  'Paddy / Rice': '🌾',
-  'Cotton': '🌱',
-  'Sugarcane': '🎋',
-  'Maize / Corn': '🌽',
-  'Wheat': '🌾',
-  'Vegetables / Tomato': '🍅',
-  'Coconut': '🥥',
-  'Banana': '🍌',
-  'General Crop': '🌿',
-};
+const CROP_ICONS = {};
 
 function HealthGradeBadge({ grade }) {
   const colors = {
@@ -302,7 +292,7 @@ export default function FarmerDashboard({
         position: 'sticky', top: 0, zIndex: 100,
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <span style={{ fontSize: '1.5rem' }}>🌱</span>
+          <span style={{ fontSize: '1.5rem' }}></span>
           <div>
             <div style={{ fontSize: '1.1rem', fontWeight: '900', color: '#00f5a0', letterSpacing: '-0.02em' }}>
               SENTIFIELD AI
@@ -342,7 +332,7 @@ export default function FarmerDashboard({
             }}
             title="Ask AI Voice Agronomist (Mic & Chat)"
           >
-            🎙️ Voice Agronomist
+            ️ Voice Agronomist
           </button>
 
           {onViewMap && (
@@ -357,7 +347,7 @@ export default function FarmerDashboard({
               }}
               title="Open Interactive Satellite Map"
             >
-              🗺️ Map View
+              ️ Map View
             </button>
           )}
 
@@ -370,7 +360,7 @@ export default function FarmerDashboard({
               display: 'flex', alignItems: 'center', gap: '0.35rem',
             }}
           >
-            ✏️ Draw New Farm
+            ️ Draw New Farm
           </button>
 
           <button
@@ -417,7 +407,7 @@ export default function FarmerDashboard({
           >
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                <span style={{ fontSize: '1.2rem' }}>🌐</span>
+                <span style={{ fontSize: '1.2rem' }}></span>
                 <strong style={{ fontSize: '0.95rem', color: viewMode === 'combined' ? '#00f5a0' : '#ffffff' }}>
                   All Farms Combined
                 </strong>
@@ -451,7 +441,7 @@ export default function FarmerDashboard({
 
           {!farmsLoading && savedFarms?.length === 0 && (
             <div style={{ color: '#475569', fontSize: '0.85rem', textAlign: 'center', padding: '1rem 0' }}>
-              <div style={{ fontSize: '1.5rem', marginBottom: '0.4rem' }}>🌾</div>
+              <div style={{ fontSize: '1.5rem', marginBottom: '0.4rem' }}></div>
               No farms saved yet.<br />
               <button
                 onClick={onAddNewFarm}
@@ -478,7 +468,7 @@ export default function FarmerDashboard({
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.2rem' }}>
-                    <span style={{ fontSize: '1rem' }}>{CROP_ICONS[farm.crop_type] || '🌿'}</span>
+                    <span style={{ fontSize: '1rem' }}>{CROP_ICONS[farm.crop_type] || ''}</span>
                     <strong style={{ fontSize: '0.9rem', color: isActive ? '#00f5a0' : '#ffffff', lineHeight: 1.2 }}>
                       {farm.farm_name}
                     </strong>
@@ -487,7 +477,7 @@ export default function FarmerDashboard({
                     {farm.crop_type} · {farm.area_acres?.toFixed(2)} ac
                   </div>
                   <div style={{ fontSize: '0.72rem', color: '#475569', marginTop: '0.15rem' }}>
-                    📍 {farm.center_lat?.toFixed(4)}°, {farm.center_lon?.toFixed(4)}°
+                     {farm.center_lat?.toFixed(4)}°, {farm.center_lon?.toFixed(4)}°
                   </div>
                   {isActive && (
                     <div style={{ marginTop: '0.5rem', display: 'flex', gap: '0.4rem' }}>
@@ -499,7 +489,7 @@ export default function FarmerDashboard({
                           fontSize: '0.72rem', fontWeight: '700', cursor: 'pointer',
                         }}
                       >
-                        📍 Change Location
+                         Change Location
                       </button>
                     </div>
                   )}
@@ -542,7 +532,7 @@ export default function FarmerDashboard({
                   fontSize: '1.6rem', flexShrink: 0,
                   boxShadow: portfolioData?.critical_count > 0 ? '0 0 20px rgba(239,68,68,0.5)' : '0 0 20px rgba(16,185,129,0.5)'
                 }}>
-                  {portfolioData?.critical_count > 0 ? '🚨' : '✨'}
+                  {portfolioData?.critical_count > 0 ? '' : ''}
                 </div>
                 <div style={{ flex: '1 1 320px' }}>
                   <div style={{
@@ -592,7 +582,7 @@ export default function FarmerDashboard({
                       boxShadow: '0 0 15px rgba(0, 245, 160, 0.25)',
                     }}
                   >
-                    🎙️ Ask AI Agronomist
+                    ️ Ask AI Agronomist
                   </button>
 
                   <button
@@ -614,7 +604,7 @@ export default function FarmerDashboard({
                     }}
                     title="Upload leaf photo for Macro-to-Micro Depth Analysis"
                   >
-                    🔬 Leaf Depth Analysis
+                     Leaf Disease Diagnosis
                   </button>
 
                   {portfolioData?.highest_priority_farm && (
@@ -663,10 +653,10 @@ export default function FarmerDashboard({
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.1rem' }}>
                   <div>
                     <div style={{ fontSize: '0.72rem', color: '#64748b', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                      OPERATIONS MASTER WORKLIST
+                      PRIORITY WORKLIST
                     </div>
                     <h3 style={{ fontSize: '1.25rem', fontWeight: '900', color: '#ffffff', margin: '0.2rem 0 0 0' }}>
-                      📋 Cross-Farm Priority Action Roadmap (One-By-One)
+                       Farm Priority Tasks
                     </h3>
                     <p style={{ fontSize: '0.82rem', color: '#94a3b8', margin: '0.2rem 0 0 0' }}>
                       All farm operations ranked by urgency score. Execute sequentially starting with #1 to prevent crop losses.
@@ -773,7 +763,7 @@ export default function FarmerDashboard({
                               fontSize: '0.76rem',
                               fontWeight: '800'
                             }}>
-                              {CROP_ICONS[item.crop_type] || '🌾'} {item.farm_name}
+                              {CROP_ICONS[item.crop_type] || ''} {item.farm_name}
                             </span>
 
                             <span style={{
@@ -789,7 +779,7 @@ export default function FarmerDashboard({
                             </span>
 
                             {item.is_completed && (
-                              <span style={{ color: '#10b981', fontSize: '0.75rem', fontWeight: '700' }}>✓ Completed</span>
+                              <span style={{ color: '#10b981', fontSize: '0.75rem', fontWeight: '700' }}> Completed</span>
                             )}
                           </div>
 
@@ -803,7 +793,7 @@ export default function FarmerDashboard({
                           </div>
 
                           <div style={{ fontSize: '0.82rem', color: '#94a3b8', marginTop: '0.25rem', fontStyle: 'italic' }}>
-                            💡 <strong>Reason:</strong> {item.reason}
+                             <strong>Reason:</strong> {item.reason}
                           </div>
                         </div>
 
@@ -842,10 +832,10 @@ export default function FarmerDashboard({
               }}>
                 <div style={{ marginBottom: '1.1rem' }}>
                   <div style={{ fontSize: '0.72rem', color: '#64748b', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                    FIELD-BY-FIELD PORTFOLIO MATRIX
+                    FARM PORTFOLIO OVERVIEW
                   </div>
                   <h3 style={{ fontSize: '1.25rem', fontWeight: '900', color: '#ffffff', margin: '0.2rem 0 0 0' }}>
-                    🗺️ Separate Farm Health & Urgency Comparison
+                    ️ Farm Health Comparison
                   </h3>
                   <p style={{ fontSize: '0.82rem', color: '#94a3b8', margin: '0.2rem 0 0 0' }}>
                     Satellite vegetation vigor, problem area coverage, and live weather stress for each plot.
@@ -876,11 +866,11 @@ export default function FarmerDashboard({
                           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
                             <div>
                               <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                                <span style={{ fontSize: '1.2rem' }}>{CROP_ICONS[farm.crop_type] || '🌿'}</span>
+                                <span style={{ fontSize: '1.2rem' }}>{CROP_ICONS[farm.crop_type] || ''}</span>
                                 <strong style={{ fontSize: '1.05rem', color: '#ffffff' }}>{farm.farm_name}</strong>
                               </div>
                               <div style={{ fontSize: '0.76rem', color: '#64748b', marginTop: '0.15rem' }}>
-                                {farm.crop_type} • {farm.area_acres?.toFixed(2)} acres • 📍 {farm.center_lat?.toFixed(3)}°, {farm.center_lon?.toFixed(3)}°
+                                {farm.crop_type} • {farm.area_acres?.toFixed(2)} acres •  {farm.center_lat?.toFixed(3)}°, {farm.center_lon?.toFixed(3)}°
                               </div>
                             </div>
 
@@ -947,7 +937,7 @@ export default function FarmerDashboard({
                               cursor: 'pointer'
                             }}
                           >
-                            🔍 Deep Dive Farm
+                             Inspect Farm
                           </button>
                           <button
                             onClick={() => {
@@ -966,7 +956,7 @@ export default function FarmerDashboard({
                             }}
                             title="View on interactive GIS map"
                           >
-                            🗺️ Map
+                            ️ Map
                           </button>
                         </div>
                       </div>
@@ -985,7 +975,7 @@ export default function FarmerDashboard({
               background: 'rgba(8,16,32,0.7)', border: '1px dashed rgba(255,255,255,0.12)',
               borderRadius: '16px', padding: '3rem', textAlign: 'center',
             }}>
-              <div style={{ fontSize: '3rem', marginBottom: '0.75rem' }}>🛰️</div>
+              <div style={{ fontSize: '3rem', marginBottom: '0.75rem' }}>️</div>
               <h2 style={{ color: '#ffffff', fontSize: '1.4rem', fontWeight: '800' }}>Select or Add a Farm Plot</h2>
               <p style={{ color: '#64748b', marginTop: '0.4rem' }}>
                 Choose a farm from the sidebar or return to the combined operations center.
@@ -996,14 +986,14 @@ export default function FarmerDashboard({
                   borderRadius: '10px', padding: '0.75rem 1.4rem',
                   color: '#00f5a0', fontSize: '0.95rem', fontWeight: '700', cursor: 'pointer',
                 }}>
-                  🌐 All Farms Combined
+                   All Farms Combined
                 </button>
                 <button onClick={onAddNewFarm} style={{
                   background: 'linear-gradient(135deg,#059669,#10b981)',
                   border: 'none', borderRadius: '10px', padding: '0.75rem 1.5rem',
                   color: '#fff', fontSize: '0.95rem', fontWeight: '700', cursor: 'pointer',
                 }}>
-                  ✏️ Draw My Farm Boundary
+                  ️ Draw Farm Boundary
                 </button>
               </div>
             </div>
@@ -1059,16 +1049,16 @@ export default function FarmerDashboard({
                       Active Farm
                     </div>
                     <h2 style={{ fontSize: '1.55rem', fontWeight: '900', color: '#ffffff', margin: '0.1rem 0', lineHeight: 1.2 }}>
-                      {CROP_ICONS[activeFarm.crop_type] || '🌿'} {activeFarm.farm_name}
+                      {CROP_ICONS[activeFarm.crop_type] || ''} {activeFarm.farm_name}
                     </h2>
                     <div style={{ fontSize: '0.82rem', color: '#64748b', display: 'flex', gap: '1rem', flexWrap: 'wrap', marginTop: '0.2rem' }}>
-                      <span>🌾 {activeFarm.crop_type}</span>
-                      <span>📐 {activeFarm.area_acres?.toFixed(2)} acres</span>
-                      <span>📍 {activeFarm.center_lat?.toFixed(4)}°N, {activeFarm.center_lon?.toFixed(4)}°E</span>
+                      <span> {activeFarm.crop_type}</span>
+                      <span> {activeFarm.area_acres?.toFixed(2)} acres</span>
+                      <span> {activeFarm.center_lat?.toFixed(4)}°N, {activeFarm.center_lon?.toFixed(4)}°E</span>
                     </div>
                     {analyzedAt && (
                       <div style={{ fontSize: '0.75rem', color: '#475569', marginTop: '0.3rem' }}>
-                        📡 Last Analysis: {fmtDate(analyzedAt)}
+                         Last Analysis: {fmtDate(analyzedAt)}
                         {savingSteps && <span style={{ marginLeft: '0.5rem', color: '#64748b' }}>• Saving progress…</span>}
                       </div>
                     )}
@@ -1088,7 +1078,7 @@ export default function FarmerDashboard({
                       transition: 'all 0.2s ease',
                     }}
                   >
-                    {analysisLoading ? '⏳ Analysing Satellite Data…' : '🛰️ Run Deep Analysis'}
+                    {analysisLoading ? ' Analysing Satellite Data…' : '️ Run Field Analysis'}
                   </button>
 
                   <button
@@ -1110,7 +1100,7 @@ export default function FarmerDashboard({
                     }}
                     title="Upload leaf photo for Macro-to-Micro Depth Analysis"
                   >
-                    🔬 Leaf Depth Analysis
+                     Leaf Disease Diagnosis
                   </button>
 
                   {cachedAnalysis?.pdf_download_url && (
@@ -1124,7 +1114,7 @@ export default function FarmerDashboard({
                         textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.35rem',
                       }}
                     >
-                      📥 PDF Report
+                       Download Field Report
                     </a>
                   )}
 
@@ -1139,7 +1129,7 @@ export default function FarmerDashboard({
                       }}
                       title="Inspect multispectral satellite tiles on full map"
                     >
-                      🗺️ Map View
+                      ️ Map View
                     </button>
                   )}
 
@@ -1151,7 +1141,7 @@ export default function FarmerDashboard({
                       color: '#60a5fa', fontSize: '0.85rem', fontWeight: '700', cursor: 'pointer',
                     }}
                   >
-                    📍 Change Location
+                     Change Location
                   </button>
                 </div>
               </div>
@@ -1163,16 +1153,16 @@ export default function FarmerDashboard({
                   borderRadius: '10px', padding: '0.9rem 1.1rem', marginBottom: '1rem',
                   color: '#fca5a5', fontSize: '0.9rem',
                 }}>
-                  ❌ <strong>Analysis Error:</strong> {analysisError}
+                   <strong>Analysis Error:</strong> {analysisError}
                 </div>
               )}
 
               {/* ── TABS ── */}
               <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.25rem', flexWrap: 'wrap' }}>
                 {[
-                  { key: 'overview', label: '📊 Overview', show: true },
-                  { key: 'timeline', label: '🗓️ Priority Timeline', show: !!cachedAnalysis?.gemini_recommendations?.action_plan },
-                  { key: 'details', label: '🔬 Deep Details', show: !!cachedAnalysis },
+                  { key: 'overview', label: 'Overview', show: true },
+                  { key: 'timeline', label: 'Priority Tasks', show: !!cachedAnalysis?.gemini_recommendations?.action_plan },
+                  { key: 'details', label: 'Detailed Metrics', show: !!cachedAnalysis },
                 ].filter(t => t.show).map(tab => (
                   <button
                     key={tab.key}
@@ -1197,7 +1187,7 @@ export default function FarmerDashboard({
                   background: 'rgba(8,16,32,0.7)', border: '1px dashed rgba(255,255,255,0.1)',
                   borderRadius: '14px', padding: '2.5rem', textAlign: 'center',
                 }}>
-                  <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>🛰️</div>
+                  <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>️</div>
                   <h3 style={{ color: '#ffffff', fontSize: '1.15rem', fontWeight: '800' }}>No Satellite Analysis Yet</h3>
                   <p style={{ color: '#64748b', fontSize: '0.9rem', margin: '0.4rem 0 1.25rem 0' }}>
                     Run a deep analysis to get AI crop health diagnostics, weather correlation, and your priority action timeline.
@@ -1208,7 +1198,7 @@ export default function FarmerDashboard({
                     color: '#fff', fontSize: '1rem', fontWeight: '800', cursor: 'pointer',
                     boxShadow: '0 4px 20px rgba(124,58,237,0.4)',
                   }}>
-                    🛰️ Run First Satellite Analysis
+                    ️ Run Field Analysis
                   </button>
                 </div>
               )}
@@ -1257,9 +1247,9 @@ export default function FarmerDashboard({
                         <div style={{ width: `${damage.damaged_red?.percentage || 0}%`, background: 'linear-gradient(90deg,#dc2626,#ef4444)' }} title="Stressed" />
                       </div>
                       <div style={{ display: 'flex', gap: '1.25rem', flexWrap: 'wrap', fontSize: '0.82rem' }}>
-                        <span style={{ color: '#34d399' }}>🟢 {damage.healthy_green?.percentage}% Healthy</span>
-                        <span style={{ color: '#fbbf24' }}>🟡 {damage.moderate_yellow?.percentage}% Moderate</span>
-                        <span style={{ color: '#f87171' }}>🔴 {damage.damaged_red?.percentage}% Stressed</span>
+                        <span style={{ color: '#34d399' }}> {damage.healthy_green?.percentage}% Healthy</span>
+                        <span style={{ color: '#fbbf24' }}> {damage.moderate_yellow?.percentage}% Moderate</span>
+                        <span style={{ color: '#f87171' }}> {damage.damaged_red?.percentage}% Stressed</span>
                       </div>
                     </div>
                   )}
@@ -1268,7 +1258,7 @@ export default function FarmerDashboard({
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem' }}>
                     {problemZones && (
                       <div style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.3)', borderRadius: '12px', padding: '1rem 1.1rem' }}>
-                        <div style={{ fontSize: '0.75rem', color: '#f87171', fontWeight: '800', textTransform: 'uppercase', marginBottom: '0.5rem' }}>🗺️ Problem Zones</div>
+                        <div style={{ fontSize: '0.75rem', color: '#f87171', fontWeight: '800', textTransform: 'uppercase', marginBottom: '0.5rem' }}>️ Problem Zones</div>
                         <div style={{ fontSize: '1.5rem', fontWeight: '900', color: '#ffffff' }}>{problemZones.problem_area_percentage}%</div>
                         <div style={{ fontSize: '0.82rem', color: '#fca5a5', marginTop: '0.2rem' }}>{problemZones.problem_area_acres} acres affected</div>
                         <p style={{ fontSize: '0.8rem', color: '#94a3b8', marginTop: '0.5rem', margin: 0 }}>{problemZones.zone_description}</p>
@@ -1276,7 +1266,7 @@ export default function FarmerDashboard({
                     )}
                     {weather?.risks && (
                       <div style={{ background: 'rgba(56,189,248,0.08)', border: '1px solid rgba(56,189,248,0.25)', borderRadius: '12px', padding: '1rem 1.1rem' }}>
-                        <div style={{ fontSize: '0.75rem', color: '#38bdf8', fontWeight: '800', textTransform: 'uppercase', marginBottom: '0.5rem' }}>🌧️ Weather Risks</div>
+                        <div style={{ fontSize: '0.75rem', color: '#38bdf8', fontWeight: '800', textTransform: 'uppercase', marginBottom: '0.5rem' }}>️ Weather Risks</div>
                         <div style={{ fontSize: '0.88rem', color: '#e2e8f0', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
                           <span>Fungal Blight: <strong style={{ color: weather.risks.fungal_blight_risk === 'HIGH' ? '#f87171' : '#34d399' }}>{weather.risks.fungal_blight_risk}</strong></span>
                           <span>Drought Stress: <strong style={{ color: weather.risks.drought_stress_risk === 'HIGH' ? '#f87171' : '#34d399' }}>{weather.risks.drought_stress_risk}</strong></span>
@@ -1302,7 +1292,7 @@ export default function FarmerDashboard({
                           width: '46px', height: '46px', borderRadius: '50%',
                           background: '#dc2626', display: 'flex', alignItems: 'center', justifyContent: 'center',
                           fontSize: '1.2rem', flexShrink: 0, boxShadow: '0 0 16px rgba(239,68,68,0.4)',
-                        }}>🚨</div>
+                        }}></div>
                         <div style={{ flex: 1 }}>
                           <div style={{ fontSize: '0.72rem', color: '#f87171', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                             ▶ DO THIS NEXT — Immediate Priority
@@ -1343,7 +1333,7 @@ export default function FarmerDashboard({
                   {recs?.categories && (
                     <>
                       <div style={{ fontSize: '0.78rem', color: '#64748b', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                        🔬 AI Agronomic Category Breakdown
+                         Agronomic Assessment Breakdown
                       </div>
                       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))', gap: '1rem' }}>
                         {recs.categories.map((cat, idx) => {
@@ -1389,11 +1379,11 @@ export default function FarmerDashboard({
                       display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem',
                     }}>
                       <div>
-                        <div style={{ fontSize: '0.75rem', color: '#fbbf24', fontWeight: '800', textTransform: 'uppercase', marginBottom: '0.35rem' }}>⚠️ Risk If No Action</div>
+                        <div style={{ fontSize: '0.75rem', color: '#fbbf24', fontWeight: '800', textTransform: 'uppercase', marginBottom: '0.35rem' }}>️ Risk If No Action</div>
                         <p style={{ fontSize: '0.88rem', color: '#fde68a', margin: 0 }}>{recs.yield_impact.risk_if_no_action}</p>
                       </div>
                       <div>
-                        <div style={{ fontSize: '0.75rem', color: '#34d399', fontWeight: '800', textTransform: 'uppercase', marginBottom: '0.35rem' }}>💡 Recovery Potential</div>
+                        <div style={{ fontSize: '0.75rem', color: '#34d399', fontWeight: '800', textTransform: 'uppercase', marginBottom: '0.35rem' }}> Recovery Potential</div>
                         <p style={{ fontSize: '0.88rem', color: '#bbf7d0', margin: 0 }}>
                           {recs.yield_impact.potential_gain_with_action}
                           {recs.yield_impact.estimated_recovery_days && ` (~${recs.yield_impact.estimated_recovery_days} days)`}
@@ -1405,7 +1395,7 @@ export default function FarmerDashboard({
                   {/* 30-day comparison */}
                   {cachedAnalysis.historical_comparison && (
                     <div style={{ background: 'rgba(8,16,32,0.85)', border: '1px solid rgba(59,130,246,0.25)', borderRadius: '12px', padding: '1.1rem 1.25rem' }}>
-                      <div style={{ fontSize: '0.75rem', color: '#60a5fa', fontWeight: '800', textTransform: 'uppercase', marginBottom: '0.75rem' }}>📅 30-Day Growth Comparison</div>
+                      <div style={{ fontSize: '0.75rem', color: '#60a5fa', fontWeight: '800', textTransform: 'uppercase', marginBottom: '0.75rem' }}> 30-Day Growth Trend</div>
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.75rem', fontSize: '0.88rem' }}>
                         <div>
                           <div style={{ color: '#64748b', fontSize: '0.72rem' }}>Historical NDVI</div>
@@ -1464,7 +1454,7 @@ export default function FarmerDashboard({
         }}
         title="Open Conversational Voice & Chat Agronomist"
       >
-        <span style={{ fontSize: '1.25rem' }}>🎙️</span>
+        <span style={{ fontSize: '1.25rem' }}>️</span>
         <span>Ask AI Agronomist</span>
       </button>
 

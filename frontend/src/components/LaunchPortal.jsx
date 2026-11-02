@@ -18,7 +18,7 @@ export default function LaunchPortal({
         <div className="launch-hero">
           <div className="launch-badge">
             <span className="launch-badge-dot"></span>
-            <span>NEXT-GEN SATELLITE AGRO-INTELLIGENCE</span>
+            <span>SATELLITE CROP INTELLIGENCE</span>
           </div>
 
           <h1 className="launch-title">
@@ -39,30 +39,30 @@ export default function LaunchPortal({
           {/* CARD 1: FARMER PORTAL */}
           <div className="launch-card farmer-gateway-card">
             <div className="launch-card-header">
-              <div className="gateway-icon farmer-icon">👨‍🌾</div>
+              <div className="gateway-icon farmer-icon" style={{ fontSize: "1.4rem", fontWeight: "900" }}>FARM</div>
               <span className="gateway-badge farmer-badge">REGISTERED PROFILES</span>
             </div>
 
-            <h3 className="gateway-title">Farmer Command Portal</h3>
+            <h3 className="gateway-title">Farmer Portal</h3>
             <p className="gateway-desc">
               Designed for farm owners and agricultural managers. Store multiple farm boundaries permanently, track 30-day vegetation trajectories, and access personalized 14-day recovery recommendations.
             </p>
 
             <ul className="gateway-features">
               <li>
-                <span className="feature-check">✓</span>
+                <span className="feature-check">•</span>
                 <span><strong>Multi-Farm Storage:</strong> Draw once, save forever in SQLite</span>
               </li>
               <li>
-                <span className="feature-check">✓</span>
+                <span className="feature-check">•</span>
                 <span><strong>30-Day Pass History:</strong> Deduplicated 5-day revisit timeline</span>
               </li>
               <li>
-                <span className="feature-check">✓</span>
+                <span className="feature-check">•</span>
                 <span><strong>Neural Agronomic Engine:</strong> Custom NPK & irrigation advisory</span>
               </li>
               <li>
-                <span className="feature-check">✓</span>
+                <span className="feature-check">•</span>
                 <span><strong>1-Click Diagnostics:</strong> Re-analyze any plot instantly</span>
               </li>
             </ul>
@@ -72,14 +72,14 @@ export default function LaunchPortal({
                 onClick={onOpenFarmerLogin}
                 className="btn-launch-primary"
               >
-                <span>🔑 Farmer Sign In</span>
+                <span>Farmer Sign In</span>
               </button>
 
               <button
                 onClick={onOpenFarmerRegister}
                 className="btn-launch-secondary"
               >
-                <span>📝 Register New Farm</span>
+                <span>Register New Farm</span>
               </button>
             </div>
 
@@ -89,7 +89,7 @@ export default function LaunchPortal({
                 onClick={onQuickDemo}
                 className="btn-demo-quick"
               >
-                ⚡ Launch as Demo Farmer
+                Launch Demo Farmer
               </button>
             </div>
           </div>
@@ -97,30 +97,30 @@ export default function LaunchPortal({
           {/* CARD 2: GUEST AGRONOMIST SANDBOX */}
           <div className="launch-card guest-gateway-card">
             <div className="launch-card-header">
-              <div className="gateway-icon guest-icon">🌍</div>
+              <div className="gateway-icon guest-icon" style={{ fontSize: "1.4rem", fontWeight: "900" }}>MAP</div>
               <span className="gateway-badge guest-badge">INSTANT ACCESS</span>
             </div>
 
-            <h3 className="gateway-title">Guest Agronomist Sandbox</h3>
+            <h3 className="gateway-title">Guest Mode</h3>
             <p className="gateway-desc">
               Direct access for agricultural researchers, students, and evaluators. Immediately inspect any farmland coordinate worldwide with real-time satellite imagery—no sign-up required.
             </p>
 
             <ul className="gateway-features">
               <li>
-                <span className="feature-check">✓</span>
+                <span className="feature-check">•</span>
                 <span><strong>Zero Registration:</strong> Jump straight into satellite analysis</span>
               </li>
               <li>
-                <span className="feature-check">✓</span>
+                <span className="feature-check">•</span>
                 <span><strong>Interactive Boundary Drawing:</strong> Trace any farm polygon</span>
               </li>
               <li>
-                <span className="feature-check">✓</span>
+                <span className="feature-check">•</span>
                 <span><strong>Canopy Stress Heatmap:</strong> Calibrated vegetative health breakdown</span>
               </li>
               <li>
-                <span className="feature-check">✓</span>
+                <span className="feature-check">•</span>
                 <span><strong>Official PDF Export:</strong> Download comprehensive farm audit report</span>
               </li>
             </ul>
@@ -130,12 +130,12 @@ export default function LaunchPortal({
                 onClick={onSelectGuest}
                 className="btn-launch-guest"
               >
-                <span>🚀 Enter as Guest Agronomist →</span>
+                <span>Enter Guest Mode →</span>
               </button>
             </div>
 
             <div className="guest-note-box">
-              <span>💡 You can switch to a registered Farmer account anytime from the dashboard.</span>
+              <span>You can switch to a registered Farmer account anytime from the dashboard.</span>
             </div>
           </div>
         </div>

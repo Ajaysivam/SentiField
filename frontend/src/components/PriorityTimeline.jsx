@@ -7,16 +7,16 @@ import React, { useState, useEffect } from 'react';
  * that a farmer can work through one-by-one, ticking off each step as they go.
  *
  * Phases:
- *  🔴 IMMEDIATE  — next 24–48 hours   (critical priority, pulsing red ring)
- *  🟡 SHORT TERM — days 3–7           (medium priority, amber)
- *  🟢 ROUTINE    — days 8–14          (maintenance, green)
+ *  IMMEDIATE  — next 24–48 hours   (critical priority, pulsing red ring)
+ *  SHORT TERM — days 3–7           (medium priority, amber)
+ *  ROUTINE    — days 8–14          (maintenance, green)
  */
 
 const PHASE_CONFIG = [
   {
     key: 'immediate_24_48h',
     label: 'IMMEDIATE PRIORITY',
-    sublabel: '⚡ Next 24 – 48 Hours',
+    sublabel: 'Next 24 – 48 Hours',
     badge: 'CRITICAL',
     color: '#ef4444',
     glow: 'rgba(239,68,68,0.35)',
@@ -24,13 +24,13 @@ const PHASE_CONFIG = [
     border: 'rgba(239,68,68,0.45)',
     textColor: '#fca5a5',
     numberBg: '#dc2626',
-    icon: '🚨',
+    icon: '',
     pulseRing: true,
   },
   {
     key: 'short_term_3_7d',
     label: 'SHORT-TERM ACTIONS',
-    sublabel: '🌱 Days 3 – 7',
+    sublabel: 'Days 3 – 7',
     badge: 'PLANNED',
     color: '#f59e0b',
     glow: 'rgba(245,158,11,0.3)',
@@ -38,13 +38,13 @@ const PHASE_CONFIG = [
     border: 'rgba(245,158,11,0.4)',
     textColor: '#fde68a',
     numberBg: '#d97706',
-    icon: '📋',
+    icon: '',
     pulseRing: false,
   },
   {
     key: 'maintenance_8_14d',
     label: 'ROUTINE MAINTENANCE',
-    sublabel: '🌾 Days 8 – 14',
+    sublabel: 'Days 8 – 14',
     badge: 'ROUTINE',
     color: '#10b981',
     glow: 'rgba(16,185,129,0.3)',
@@ -52,7 +52,7 @@ const PHASE_CONFIG = [
     border: 'rgba(16,185,129,0.4)',
     textColor: '#6ee7b7',
     numberBg: '#059669',
-    icon: '✅',
+    icon: '',
     pulseRing: false,
   },
 ];
@@ -111,7 +111,7 @@ export default function PriorityTimeline({ actionPlan }) {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-            <span style={{ fontSize: '1.75rem' }}>🗓️</span>
+            
             <h3 style={{ fontSize: '1.3rem', color: '#ffffff', fontWeight: '900', margin: 0, letterSpacing: '-0.02em' }}>
               Farm Development Priority Timeline
             </h3>
@@ -238,7 +238,7 @@ export default function PriorityTimeline({ actionPlan }) {
                     userSelect: 'none',
                   }}
                 >
-                  {isDone ? '✓' : step.stepNumber}
+                  {isDone ? 'Done' : step.stepNumber}
                 </div>
               </div>
 
@@ -271,7 +271,7 @@ export default function PriorityTimeline({ actionPlan }) {
                       textTransform: 'uppercase',
                       letterSpacing: '0.06em',
                     }}>
-                      {ph.icon} {ph.label}
+                      {ph.label}
                     </span>
                     <span style={{
                       fontSize: '0.65rem',
@@ -282,7 +282,7 @@ export default function PriorityTimeline({ actionPlan }) {
                       color: isDone ? '#10b981' : ph.color,
                       border: `1px solid ${isDone ? 'rgba(16,185,129,0.4)' : ph.border}`,
                     }}>
-                      {isDone ? 'DONE ✓' : isNext ? '▶ DO THIS NEXT' : ph.badge}
+                      {isDone ? 'DONE' : isNext ? 'DO THIS NEXT' : ph.badge}
                     </span>
                   </div>
                   <span style={{ fontSize: '0.72rem', color: '#475569' }}>{ph.sublabel}</span>
@@ -331,7 +331,7 @@ export default function PriorityTimeline({ actionPlan }) {
                       boxShadow: `0 2px 10px ${ph.glow}`,
                     }}
                   >
-                    ✅ Mark as Completed
+                    Mark as Completed
                   </button>
                 )}
 
@@ -370,7 +370,7 @@ export default function PriorityTimeline({ actionPlan }) {
           textAlign: 'center',
           boxShadow: '0 0 30px rgba(16,185,129,0.2)',
         }}>
-          <div style={{ fontSize: '2.5rem', marginBottom: '0.3rem' }}>🎉</div>
+          <div style={{ fontSize: '1.5rem', fontWeight: '900', color: '#10b981', marginBottom: '0.3rem' }}>COMPLETE</div>
           <strong style={{ fontSize: '1.2rem', color: '#34d399', display: 'block' }}>
             All Farm Development Steps Completed!
           </strong>
@@ -396,7 +396,7 @@ export default function PriorityTimeline({ actionPlan }) {
             display: 'block',
           }}
         >
-          🔄 Reset All Progress
+          Reset All Progress
         </button>
       )}
     </div>

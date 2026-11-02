@@ -31,7 +31,7 @@ def generate_pdf_report(analysis_data, output_path):
     story = []
 
     # Title Banner
-    story.append(Paragraph("🌱 AI PRECISION AGRICULTURE & CROP HEALTH EXECUTIVE REPORT", title_style))
+    story.append(Paragraph(" AI PRECISION AGRICULTURE & CROP HEALTH EXECUTIVE REPORT", title_style))
     story.append(Paragraph("Sentinel-2 Satellite Analysis, Field Zoning, Ag-Weather Correlation & 14-Day AI Trend Forecast", subtitle_style))
     story.append(HRFlowable(width="100%", thickness=2, color=colors.HexColor('#10b981'), spaceAfter=10))
 
@@ -45,7 +45,7 @@ def generate_pdf_report(analysis_data, output_path):
         [Paragraph("<b>Farm Session ID:</b>", body_style), Paragraph(session_id, body_style)],
         [Paragraph("<b>Report Timestamp:</b>", body_style), Paragraph(datetime.datetime.now().strftime("%Y-%m-%d %H:%M UTC"), body_style)],
         [Paragraph("<b>Satellite Observation Pass:</b>", body_style), Paragraph(f"{acq_date} ({spacecraft})", body_style)],
-        [Paragraph("<b>Land Type Verification:</b>", body_style), Paragraph(f"<b>{'✅ Active Farmland Verified' if land_safety.get('is_farmland') else '⚠️ Non-Agricultural Structure (House/Rooftop)'}</b>", body_style)],
+        [Paragraph("<b>Land Type Verification:</b>", body_style), Paragraph(f"<b>{' Active Farmland Verified' if land_safety.get('is_farmland') else '️ Non-Agricultural Structure (House/Rooftop)'}</b>", body_style)],
     ]
     t_summary = Table(summary_data, colWidths=[170, 360])
     t_summary.setStyle(TableStyle([
@@ -60,7 +60,7 @@ def generate_pdf_report(analysis_data, output_path):
     # Feature 3: Weather + Crop Health Correlation
     weather = analysis_data.get("weather_correlation", {})
     if weather and weather.get("status") in ["success", "fallback"]:
-        story.append(Paragraph("🌧️ Live Ag-Weather & Micro-Climate Risk Correlation", section_heading))
+        story.append(Paragraph("️ Live Ag-Weather & Micro-Climate Risk Correlation", section_heading))
         w_risks = weather.get("risks", {})
         w_table_data = [
             [Paragraph(f"<b>Current Temp:</b> {weather.get('temperature_c')}°C", body_style), Paragraph(f"<b>Humidity:</b> {weather.get('humidity_pct')}%", body_style)],
@@ -80,7 +80,7 @@ def generate_pdf_report(analysis_data, output_path):
     # Feature 1: Historical 30-Day Growth Comparison
     hist = analysis_data.get("historical_comparison", {})
     if hist:
-        story.append(Paragraph("📅 30-Day Historical Crop Health Comparison", section_heading))
+        story.append(Paragraph(" 30-Day Historical Crop Health Comparison", section_heading))
         h_table_data = [
             [Paragraph(f"<b>Historical Pass Date:</b> {hist.get('historical_date')}", body_style), Paragraph(f"<b>Historical NDVI:</b> {hist.get('historical_mean_ndvi')}", body_style)],
             [Paragraph(f"<b>Current Pass Date:</b> {acq_date}", body_style), Paragraph(f"<b>Current NDVI:</b> {hist.get('current_mean_ndvi')}", body_style)],
@@ -99,7 +99,7 @@ def generate_pdf_report(analysis_data, output_path):
     # Feature 2: Spatial Field Zoning & Problem Sub-Zones
     prob = analysis_data.get("problem_zones", {})
     if prob:
-        story.append(Paragraph("🗺️ Field Zoning & Problem Area Sub-Zones", section_heading))
+        story.append(Paragraph("️ Field Zoning & Problem Area Sub-Zones", section_heading))
         p_desc = prob.get("zone_description", "Field growth is uniform across all sub-zones.")
         story.append(Paragraph(f"<b>• Affected Sub-Zone Area:</b> {prob.get('problem_area_acres', 0.0)} acres ({prob.get('problem_area_percentage', 0.0)}% of farm)", body_style))
         story.append(Paragraph(f"<b>• Spatial Analysis Summary:</b> {p_desc}", ParagraphStyle('PDesc', parent=body_style, leftIndent=10)))
@@ -108,14 +108,14 @@ def generate_pdf_report(analysis_data, output_path):
     # Feature 4: 14-Day Machine Learning Trend Prediction
     trend = analysis_data.get("trend_prediction", {})
     if trend:
-        story.append(Paragraph("🔮 14-Day AI Crop Health Trend Forecast", section_heading))
+        story.append(Paragraph(" 14-Day AI Crop Health Trend Forecast", section_heading))
         story.append(Paragraph(f"<b>• Forecast Trajectory:</b> <b>{trend.get('trend_status')}</b> (Confidence: {trend.get('prediction_confidence')}%)", body_style))
         story.append(Paragraph(f"<b>• Projected Future NDVI:</b> {trend.get('predicted_future_ndvi')} (Current: {trend.get('current_ndvi')})", body_style))
         story.append(Paragraph(f"<b>• AI Model Forecast:</b> {trend.get('summary')}", ParagraphStyle('TDesc', parent=body_style, leftIndent=10)))
         story.append(Spacer(1, 10))
 
     # Crop Damage & Health Breakdown
-    story.append(Paragraph("🔴/🟢 Crop Damage & Health Visual Breakdown", section_heading))
+    story.append(Paragraph("/ Crop Damage & Health Visual Breakdown", section_heading))
     damage_data = analysis_data.get("crop_damage_health", {})
     cd_table = [["Crop Health Sector (Color Shade)", "Farm Coverage (%)"]]
 
@@ -141,7 +141,7 @@ def generate_pdf_report(analysis_data, output_path):
     # Gemini AI Agronomic Recommendations & Action Plan
     gem_recs = analysis_data.get("gemini_recommendations", {})
     if gem_recs:
-        story.append(Paragraph("✨ Gemini AI-Powered Agronomic Recommendations", section_heading))
+        story.append(Paragraph(" Gemini AI-Powered Agronomic Recommendations", section_heading))
         
         exec_sum = gem_recs.get("executive_summary", "")
         if exec_sum:
@@ -178,7 +178,7 @@ def generate_pdf_report(analysis_data, output_path):
         for cat in cats:
             if not isinstance(cat, dict):
                 continue
-            c_icon = cat.get("icon", "💡")
+            c_icon = cat.get("icon", "")
             c_title = cat.get("title", "")
             c_status = cat.get("status", "OPTIMAL")
             c_summary = cat.get("summary", "")
@@ -194,7 +194,7 @@ def generate_pdf_report(analysis_data, output_path):
         # Action Plan Timeline
         action_plan = gem_recs.get("action_plan", {})
         if isinstance(action_plan, dict):
-            story.append(Paragraph("📅 Priority Action Timeline for Farmer", ParagraphStyle('APTitle', parent=section_heading, fontSize=11)))
+            story.append(Paragraph(" Priority Action Timeline for Farmer", ParagraphStyle('APTitle', parent=section_heading, fontSize=11)))
             plan_data = [["Timeframe", "Priority Action Step", "Rationale"]]
             
             for item in action_plan.get("immediate_24_48h", []):
@@ -224,7 +224,7 @@ def generate_pdf_report(analysis_data, output_path):
     depth_data = analysis_data.get("depth_analysis") or analysis_data.get("depth_result")
     if depth_data and isinstance(depth_data, dict):
         story.append(HRFlowable(width="100%", thickness=1.5, color=colors.HexColor('#00f5a0'), spaceBefore=8, spaceAfter=8))
-        story.append(Paragraph("🔬 Dual-Lens Ground-Truth Leaf Pathology Verification (Gemini Vision AI)", section_heading))
+        story.append(Paragraph(" Dual-Lens Ground-Truth Leaf Pathology Verification (Gemini Vision AI)", section_heading))
         
         leaf_p = depth_data.get("leaf_pathology", {})
         presc = depth_data.get("targeted_prescription", {})

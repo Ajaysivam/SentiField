@@ -18,7 +18,7 @@ export default function Header({
   return (
     <header className="header">
       <div className="brand" onClick={onOpenPortal} title="Return to SENTIFIELD AI Launchpad">
-        <div className="brand-icon">🌱</div>
+        <div className="brand-icon">S</div>
         <div className="brand-title">
           <h1>SENTIFIELD AI</h1>
           <p>Autonomous Multispectral Crop Intelligence</p>
@@ -44,7 +44,7 @@ export default function Header({
           }}
           title="Click to change portal access role"
         >
-          <span>{user ? '👨‍🌾 Farmer Access' : '🌍 Guest Agronomist'}</span>
+          <span>{user ? 'Farmer Access' : 'Guest Mode'}</span>
           <span style={{ fontSize: '0.7rem', color: '#94a3b8' }}>⇄ Switch</span>
         </div>
 
@@ -76,7 +76,7 @@ export default function Header({
           }}
           title="Open live SQLite database table viewer in browser"
         >
-          <span>🗄️ Database</span>
+          <span>Database</span>
         </a>
 
         {/* AI Voice Agronomist Button (Available for Authenticated Farmers) */}
@@ -100,8 +100,7 @@ export default function Header({
             }}
             title="Ask AI Voice Agronomist (English, Tamil, Hindi)"
           >
-            <span>🎙️</span>
-            <span>Voice Agronomist</span>
+            <span>Ask AI Agronomist</span>
           </button>
         )}
 
@@ -125,7 +124,7 @@ export default function Header({
                   cursor: 'pointer'
                 }}
               >
-                <span>{farmerView === 'map' ? '📊 Dashboard' : '🗺️ Map View'}</span>
+                <span>{farmerView === 'map' ? 'Dashboard' : 'Map View'}</span>
               </button>
             )}
 
@@ -146,7 +145,7 @@ export default function Header({
                 boxShadow: showFarmsList ? '0 0 16px rgba(0, 245, 160, 0.4)' : 'none',
               }}
             >
-              <span>🌾 Saved Plots</span>
+              <span>Saved Plots</span>
               <span
                 style={{
                   background: showFarmsList ? '#030712' : '#00f5a0',
@@ -220,8 +219,7 @@ export default function Header({
                 gap: '0.45rem',
               }}
             >
-              <span>👤</span>
-              <span>Farmer Login / Register</span>
+              <span>Farmer Login</span>
             </button>
           </div>
         )}

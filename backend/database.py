@@ -125,9 +125,9 @@ def init_db():
                     "field_health_status": "HEALTHY", "model_used": "Gemini 2.5 Agro-Diagnostic Pro",
                     "executive_summary": {"overall_health_grade": "A", "headline": "Canopy vigor is excellent across 82.5% of parcel.", "farmer_friendly_message": "Crop tillering is developing strongly with balanced evapotranspiration. Address localized north-east perimeter."},
                     "categories": [
-                        {"title": "Irrigation & Water Management", "status": "OPTIMAL", "icon": "💧", "summary": "7-day rainfall and soil moisture are balanced.", "specific_actions": ["Maintain 3-5 cm standing water during active vegetative growth phase.", "Ensure drainage channels along north-east bunds remain clear."]},
-                        {"title": "Nutrient & Fertilizer Application", "status": "ATTENTION", "icon": "🧪", "summary": "Slight chlorophyll variance in north-east sector.", "specific_actions": ["Top-dress with Urea @ 25 kg/acre combined with Zinc Sulphate.", "Target application specifically to lower-vigor quadrant."]},
-                        {"title": "Pest & Pathogen Surveillance", "status": "OPTIMAL", "icon": "🛡️", "summary": "Low humidity risk for fungal blast or sheath blight.", "specific_actions": ["Conduct routine scout checks at dawn for stem borer egg masses."]}
+                        {"title": "Irrigation & Water Management", "status": "OPTIMAL", "icon": "", "summary": "7-day rainfall and soil moisture are balanced.", "specific_actions": ["Maintain 3-5 cm standing water during active vegetative growth phase.", "Ensure drainage channels along north-east bunds remain clear."]},
+                        {"title": "Nutrient & Fertilizer Application", "status": "ATTENTION", "icon": "", "summary": "Slight chlorophyll variance in north-east sector.", "specific_actions": ["Top-dress with Urea @ 25 kg/acre combined with Zinc Sulphate.", "Target application specifically to lower-vigor quadrant."]},
+                        {"title": "Pest & Pathogen Surveillance", "status": "OPTIMAL", "icon": "️", "summary": "Low humidity risk for fungal blast or sheath blight.", "specific_actions": ["Conduct routine scout checks at dawn for stem borer egg masses."]}
                     ],
                     "action_plan": {
                         "immediate_24_48h": [{"action": "Top-dress 25 kg/acre Urea in north-east zone", "reason": "Boost leaf nitrogen and chlorophyll density in flagged sub-zone"}],
@@ -186,13 +186,13 @@ def init_db():
                     "field_health_status": "CRITICAL_ATTENTION", "model_used": "Gemini 2.5 Agro-Diagnostic Pro",
                     "executive_summary": {"overall_health_grade": "C", "headline": "CRITICAL: 28.5% of sugarcane parcel in severe moisture deficit.", "farmer_friendly_message": "Immediate irrigation needed within 24 hours. The south-western 1.74 acres is rapidly losing biomass under high 35.8mm evaporative demand."},
                     "categories": [
-                        {"title": "Irrigation & Water Management", "status": "CRITICAL", "icon": "💧", "summary": "Extreme water loss and soil drying.", "specific_actions": ["Run emergency furrow irrigation for 4 hours immediately.", "Clear intake channels to south-west sector."]},
-                        {"title": "Nutrient & Fertilizer Application", "status": "ATTENTION", "icon": "🧪", "summary": "Potassium deficiency compounding drought stress.", "specific_actions": ["Apply foliar 1% Potassium Nitrate (KNO3) spray at sunset.", "Halt dry basal urea until soil is re-wetted."]},
-                        {"title": "Pest & Pathogen Surveillance", "status": "ATTENTION", "icon": "🛡️", "summary": "Secondary red rot risk in stressed stalks.", "specific_actions": ["Scout nodal cane joints for red vascular discoloration."]}
+                        {"title": "Irrigation & Water Management", "status": "CRITICAL", "icon": "", "summary": "Extreme water loss and soil drying.", "specific_actions": ["Run emergency furrow irrigation for 4 hours immediately.", "Clear intake channels to south-west sector."]},
+                        {"title": "Nutrient & Fertilizer Application", "status": "ATTENTION", "icon": "", "summary": "Potassium deficiency compounding drought stress.", "specific_actions": ["Apply foliar 1% Potassium Nitrate (KNO3) spray at sunset.", "Halt dry basal urea until soil is re-wetted."]},
+                        {"title": "Pest & Pathogen Surveillance", "status": "ATTENTION", "icon": "️", "summary": "Secondary red rot risk in stressed stalks.", "specific_actions": ["Scout nodal cane joints for red vascular discoloration."]}
                     ],
                     "action_plan": {
                         "immediate_24_48h": [
-                            {"action": "🚨 Run emergency furrow irrigation for 4 hours on SW quadrant", "reason": "Stop irreversible cane moisture wilt (35.8mm ET0 water deficit)"},
+                            {"action": " Run emergency furrow irrigation for 4 hours on SW quadrant", "reason": "Stop irreversible cane moisture wilt (35.8mm ET0 water deficit)"},
                             {"action": "Spray foliar Potassium Nitrate (1%) at sunset", "reason": "Regulate stomata and reduce leaf scorch transpiration loss"}
                         ],
                         "short_term_3_7d": [{"action": "Apply trash mulching between cane rows", "reason": "Conserve soil moisture and cut evaporation by 40%"}],
@@ -250,9 +250,9 @@ def init_db():
                     "field_health_status": "HEALTHY", "model_used": "Gemini 2.5 Agro-Diagnostic Pro",
                     "executive_summary": {"overall_health_grade": "B+", "headline": "Cotton square formation progressing smoothly with robust vegetative vigor.", "farmer_friendly_message": "Healthy stand with 89.2% prime canopy. Focus on prophylactic pest monitoring and maintaining clean borders."},
                     "categories": [
-                        {"title": "Irrigation & Water Management", "status": "OPTIMAL", "icon": "💧", "summary": "Moisture levels favorable for boll setting.", "specific_actions": ["Continue light alternate-furrow irrigation cycle."]},
-                        {"title": "Nutrient & Fertilizer Application", "status": "OPTIMAL", "icon": "🧪", "summary": "Balanced nitrogen-potash ratio.", "specific_actions": ["Prepare Boron (0.1%) foliar booster for peak flowering in 10 days."]},
-                        {"title": "Pest & Pathogen Surveillance", "status": "OPTIMAL", "icon": "🛡️", "summary": "No active bollworm outbreak detected.", "specific_actions": ["Install 5 delta pheromone traps per acre.", "Conduct weekly morning scout checks."]}
+                        {"title": "Irrigation & Water Management", "status": "OPTIMAL", "icon": "", "summary": "Moisture levels favorable for boll setting.", "specific_actions": ["Continue light alternate-furrow irrigation cycle."]},
+                        {"title": "Nutrient & Fertilizer Application", "status": "OPTIMAL", "icon": "", "summary": "Balanced nitrogen-potash ratio.", "specific_actions": ["Prepare Boron (0.1%) foliar booster for peak flowering in 10 days."]},
+                        {"title": "Pest & Pathogen Surveillance", "status": "OPTIMAL", "icon": "️", "summary": "No active bollworm outbreak detected.", "specific_actions": ["Install 5 delta pheromone traps per acre.", "Conduct weekly morning scout checks."]}
                     ],
                     "action_plan": {
                         "immediate_24_48h": [{"action": "Install 5 delta pheromone traps across parcel borders", "reason": "Early warning surveillance for pink bollworm moths"}],

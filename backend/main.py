@@ -469,11 +469,11 @@ def get_farmer_portfolio_summary(current_user: Dict[str, Any] = Depends(get_curr
     # Formulate overall top suggestion
     highest_farm = farms_summary[0] if farms_summary else None
     if highest_farm and highest_farm.get("urgency_level") == "CRITICAL":
-        top_suggestion = f"🚨 URGENT: Focus immediate operations on '{highest_farm['farm_name']}' ({highest_farm['crop_type']}). It has {highest_farm.get('problem_area_pct', 0)}% stressed canopy and high water deficit. Action: {highest_farm.get('top_priority_step')}"
+        top_suggestion = f"URGENT: Focus immediate operations on '{highest_farm['farm_name']}' ({highest_farm['crop_type']}). It has {highest_farm.get('problem_area_pct', 0)}% stressed canopy and high water deficit. Action: {highest_farm.get('top_priority_step')}"
     elif highest_farm and highest_farm.get("urgency_level") == "ATTENTION":
-        top_suggestion = f"⚠️ Primary focus for today: Address '{highest_farm['farm_name']}' ({highest_farm['crop_type']}). Recommended step: {highest_farm.get('top_priority_step')}"
+        top_suggestion = f"Primary focus for today: Address '{highest_farm['farm_name']}' ({highest_farm['crop_type']}). Recommended step: {highest_farm.get('top_priority_step')}"
     else:
-        top_suggestion = f"✅ All monitored farm parcels are in healthy vigor. Follow routine irrigation scheduling and scout border rows."
+        top_suggestion = f"All monitored farm parcels are in healthy vigor. Follow routine irrigation scheduling and scout border rows."
 
     return {
         "status": "ok",
@@ -572,7 +572,7 @@ def view_database_dashboard():
         users_rows += f"""
         <tr>
             <td style="font-weight: 700; color: #00f5a0;">#{u['id']}</td>
-            <td style="font-weight: 600; color: #ffffff;">👤 {u['username']}</td>
+            <td style="font-weight: 600; color: #ffffff;"> {u['username']}</td>
             <td style="color: #94a3b8;">{u['phone_number'] or '—'}</td>
             <td style="color: #cbd5e1; font-size: 0.82rem;">{u['created_at'][:19].replace('T', ' ')}</td>
         </tr>
@@ -584,7 +584,7 @@ def view_database_dashboard():
         <tr>
             <td style="font-weight: 700; color: #00d9f5;">#{f['id']}</td>
             <td><span style="background: rgba(0, 245, 160, 0.12); color: #00f5a0; padding: 2px 8px; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">{f['username'] or f['user_id']}</span></td>
-            <td style="font-weight: 700; color: #ffffff;">🌾 {f['farm_name']}</td>
+            <td style="font-weight: 700; color: #ffffff;"> {f['farm_name']}</td>
             <td><span style="background: rgba(255, 183, 3, 0.15); color: #ffb703; padding: 2px 8px; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">{f['crop_type']}</span></td>
             <td style="font-weight: 700; color: #00f5a0;">{f['area_acres']:.2f} ac</td>
             <td style="color: #94a3b8; font-size: 0.82rem;">{f['center_lat']:.4f}, {f['center_lon']:.4f}</td>
@@ -723,12 +723,12 @@ def view_database_dashboard():
         <div class="container">
             <div class="header">
                 <div class="title-wrap">
-                    <h1>🗄️ SENTIFIELD AI Database Explorer</h1>
+                    <h1>️ SENTIFIELD AI Database Explorer</h1>
                     <p>Live SQLite Inspection: <span class="file-path-chip">{DB_PATH}</span></p>
                 </div>
                 <div style="display: flex; gap: 0.75rem; align-items: center;">
-                    <a href="/db" class="btn-action" style="background: rgba(255, 255, 255, 0.1); color: #fff;">🔄 Refresh</a>
-                    <a href="http://localhost:5173/" class="btn-action">🚀 Open App Dashboard</a>
+                    <a href="/db" class="btn-action" style="background: rgba(255, 255, 255, 0.1); color: #fff;"> Refresh</a>
+                    <a href="http://localhost:5173/" class="btn-action"> Open App Dashboard</a>
                 </div>
             </div>
 
@@ -751,7 +751,7 @@ def view_database_dashboard():
             <div class="table-card">
                 <div class="table-header">
                     <div class="table-title">
-                        <span>👨‍🌾 Table: `users`</span>
+                        <span>‍ Table: `users`</span>
                         <span class="badge-count">{len(users)} Records</span>
                     </div>
                 </div>
@@ -776,7 +776,7 @@ def view_database_dashboard():
             <div class="table-card">
                 <div class="table-header">
                     <div class="table-title">
-                        <span>🌾 Table: `farms`</span>
+                        <span> Table: `farms`</span>
                         <span class="badge-count" style="background: rgba(0, 245, 160, 0.15); color: #00f5a0;">{len(farms)} Saved Plots</span>
                     </div>
                 </div>

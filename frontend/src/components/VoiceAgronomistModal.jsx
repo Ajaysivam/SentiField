@@ -21,71 +21,71 @@ import {
 
 const QUICK_PROMPTS_PORTFOLIO = {
   en: [
-    { label: '💧 Which farm needs water today?', text: 'Which farm needs water today and how much should I irrigate?' },
-    { label: '🚨 What is my #1 priority?', text: 'What is my top priority today across all my farms?' },
-    { label: '🧪 Recommend fertilizer dosage', text: 'What fertilizer or nutrient spray should I apply to my crops?' },
-    { label: '🌾 Overall crop health summary', text: 'Give me a complete summary of my crop health grades and satellite vigor.' },
+    { label: ' Which farm needs water today?', text: 'Which farm needs water today and how much should I irrigate?' },
+    { label: ' What is my #1 priority?', text: 'What is my top priority today across all my farms?' },
+    { label: ' Recommend fertilizer dosage', text: 'What fertilizer or nutrient spray should I apply to my crops?' },
+    { label: ' Overall crop health summary', text: 'Give me a complete summary of my crop health grades and satellite vigor.' },
   ],
   ta: [
-    { label: '💧 எந்த பண்ணைக்கு தண்ணீர் தேவை?', text: 'எந்த பண்ணைக்கு இன்று தண்ணீர் பாய்ச்ச வேண்டும்?' },
-    { label: '🚨 முதல் முன்னுரிமை என்ன?', text: 'என் பண்ணைகளில் இன்று செய்ய வேண்டிய முதல் வேலை என்ன?' },
-    { label: '🧪 உர ஆலோசனை வேண்டும்', text: 'பயிர்களுக்கு என்ன உரம் மற்றும் நுண்ணூட்டம் கொடுக்க வேண்டும்?' },
-    { label: '🌾 பயிர் நிலைமை எப்படி உள்ளது?', text: 'என் பயிர்களின் தற்போதைய ஆரோக்கிய நிலை பற்றி சொல்லுங்கள்.' },
+    { label: ' எந்த பண்ணைக்கு தண்ணீர் தேவை?', text: 'எந்த பண்ணைக்கு இன்று தண்ணீர் பாய்ச்ச வேண்டும்?' },
+    { label: ' முதல் முன்னுரிமை என்ன?', text: 'என் பண்ணைகளில் இன்று செய்ய வேண்டிய முதல் வேலை என்ன?' },
+    { label: ' உர ஆலோசனை வேண்டும்', text: 'பயிர்களுக்கு என்ன உரம் மற்றும் நுண்ணூட்டம் கொடுக்க வேண்டும்?' },
+    { label: ' பயிர் நிலைமை எப்படி உள்ளது?', text: 'என் பயிர்களின் தற்போதைய ஆரோக்கிய நிலை பற்றி சொல்லுங்கள்.' },
   ],
   hi: [
-    { label: '💧 किस खेत को पानी चाहिए?', text: 'आज किस खेत को सिंचाई की सबसे ज्यादा जरूरत है?' },
-    { label: '🚨 आज की पहली प्राथमिकता क्या है?', text: 'मेरे सभी खेतों में आज की सबसे पहली प्राथमिकता क्या है?' },
-    { label: '🧪 खाद और उर्वरक की सलाह', text: 'फसलों के लिए किस खाद और पोषण की सिफारिश करते हैं?' },
-    { label: '🌾 फसलों की सेहत का हाल', text: 'मेरी फसलों की संपूर्ण सेहत और ग्रेड के बारे में बताएं।' },
+    { label: ' किस खेत को पानी चाहिए?', text: 'आज किस खेत को सिंचाई की सबसे ज्यादा जरूरत है?' },
+    { label: ' आज की पहली प्राथमिकता क्या है?', text: 'मेरे सभी खेतों में आज की सबसे पहली प्राथमिकता क्या है?' },
+    { label: ' खाद और उर्वरक की सलाह', text: 'फसलों के लिए किस खाद और पोषण की सिफारिश करते हैं?' },
+    { label: ' फसलों की सेहत का हाल', text: 'मेरी फसलों की संपूर्ण सेहत और ग्रेड के बारे में बताएं।' },
   ],
 };
 
 const QUICK_PROMPTS_SINGLE = {
   en: [
-    { label: '💧 How much water does this plot need?', text: 'How much water does this analyzed plot need today?' },
-    { label: '🚨 What is the #1 priority here?', text: 'What is the top priority action for this analyzed field?' },
-    { label: '🧪 What fertilizer should I apply?', text: 'What fertilizer or nutrient spray should I apply to this crop?' },
-    { label: '🗺️ How do I fix the problem zone?', text: 'How do I treat the stressed problem zone highlighted in the satellite scan?' },
+    { label: ' How much water does this plot need?', text: 'How much water does this analyzed plot need today?' },
+    { label: ' What is the #1 priority here?', text: 'What is the top priority action for this analyzed field?' },
+    { label: ' What fertilizer should I apply?', text: 'What fertilizer or nutrient spray should I apply to this crop?' },
+    { label: '️ How do I fix the problem zone?', text: 'How do I treat the stressed problem zone highlighted in the satellite scan?' },
   ],
   ta: [
-    { label: '💧 எவ்வளவு தண்ணீர் தேவை?', text: 'இந்த நிலத்திற்கு எவ்வளவு தண்ணீர் பாய்ச்ச வேண்டும்?' },
-    { label: '🚨 முதல் முன்னுரிமை என்ன?', text: 'இந்த பயிரில் உடனடியாக செய்ய வேண்டிய முதல் வேலை என்ன?' },
-    { label: '🧪 என்ன உரம் கொடுக்க வேண்டும்?', text: 'இந்த பயிரின் வளர்ச்சிக்கு என்ன உரம் மற்றும் நுண்ணூட்டம் தெளிக்க வேண்டும்?' },
-    { label: '🗺️ பிரச்சனை பகுதியை எப்படி சரிசெய்வது?', text: 'செயற்கைக்கோளில் காட்டப்படும் பிரச்சனை பகுதியை எவ்வாறு சரி செய்வது?' },
+    { label: ' எவ்வளவு தண்ணீர் தேவை?', text: 'இந்த நிலத்திற்கு எவ்வளவு தண்ணீர் பாய்ச்ச வேண்டும்?' },
+    { label: ' முதல் முன்னுரிமை என்ன?', text: 'இந்த பயிரில் உடனடியாக செய்ய வேண்டிய முதல் வேலை என்ன?' },
+    { label: ' என்ன உரம் கொடுக்க வேண்டும்?', text: 'இந்த பயிரின் வளர்ச்சிக்கு என்ன உரம் மற்றும் நுண்ணூட்டம் தெளிக்க வேண்டும்?' },
+    { label: '️ பிரச்சனை பகுதியை எப்படி சரிசெய்வது?', text: 'செயற்கைக்கோளில் காட்டப்படும் பிரச்சனை பகுதியை எவ்வாறு சரி செய்வது?' },
   ],
   hi: [
-    { label: '💧 कितने पानी की आवश्यकता है?', text: 'इस विश्लेषित खेत को आज कितने पानी की आवश्यकता है?' },
-    { label: '🚨 पहली प्राथमिकता क्या है?', text: 'इस फसल के लिए आज की सबसे पहली प्राथमिकता क्या है?' },
-    { label: '🧪 कौन सा उर्वरक डालें?', text: 'इस फसल के लिए किस खाद और पोषण का छिड़काव करना चाहिए?' },
-    { label: '🗺️ तनावग्रस्त क्षेत्र का उपचार?', text: 'उपग्रह में दिखाए गए तनावग्रस्त क्षेत्र को कैसे ठीक करें?' },
+    { label: ' कितने पानी की आवश्यकता है?', text: 'इस विश्लेषित खेत को आज कितने पानी की आवश्यकता है?' },
+    { label: ' पहली प्राथमिकता क्या है?', text: 'इस फसल के लिए आज की सबसे पहली प्राथमिकता क्या है?' },
+    { label: ' कौन सा उर्वरक डालें?', text: 'इस फसल के लिए किस खाद और पोषण का छिड़काव करना चाहिए?' },
+    { label: '️ तनावग्रस्त क्षेत्र का उपचार?', text: 'उपग्रह में दिखाए गए तनावग्रस्त क्षेत्र को कैसे ठीक करें?' },
   ],
 };
 
 const QUICK_PROMPTS_DUAL_LENS = {
   en: [
-    { label: '🧪 What chemical & dosage to spray?', text: 'What chemical and dosage should I spray on the problem zone?' },
-    { label: '🎯 How to target problem zone?', text: 'Where exactly should I spray and how much cost will I save?' },
-    { label: '🌿 Organic bio-treatment alternative?', text: 'What organic or biological spray can I use instead of chemical fungicide?' },
-    { label: '⚠️ 5-day disease spread risk?', text: 'How fast will this disease spread in 5 days under current weather?' },
+    { label: ' What chemical & dosage to spray?', text: 'What chemical and dosage should I spray on the problem zone?' },
+    { label: ' How to target problem zone?', text: 'Where exactly should I spray and how much cost will I save?' },
+    { label: ' Organic bio-treatment alternative?', text: 'What organic or biological spray can I use instead of chemical fungicide?' },
+    { label: '️ 5-day disease spread risk?', text: 'How fast will this disease spread in 5 days under current weather?' },
   ],
   ta: [
-    { label: '🧪 என்ன மருந்து மற்றும் அளவு?', text: 'பிரச்சனை பகுதியில் என்ன மருந்து மற்றும் எந்த அளவில் தெளிக்க வேண்டும்?' },
-    { label: '🎯 பிரச்சனை பகுதியை எங்கு தெளிப்பது?', text: 'பிரச்சனை பகுதியை மட்டும் தெளிப்பதால் எவ்வளவு மருந்து செலவு மிச்சமாகும்?' },
-    { label: '🌿 இயற்கை மருந்து ஆலோசனை?', text: 'ரசாயன மருந்துக்கு பதிலாக என்ன இயற்கை உயிரியல் மருந்து பயன்படுத்தலாம்?' },
-    { label: '⚠️ நோய் பரவும் வேகம் என்ன?', text: 'தற்போதைய காலநிலையில் அடுத்த 5 நாட்களில் இந்த நோய் எவ்வாறு பரவும்?' },
+    { label: ' என்ன மருந்து மற்றும் அளவு?', text: 'பிரச்சனை பகுதியில் என்ன மருந்து மற்றும் எந்த அளவில் தெளிக்க வேண்டும்?' },
+    { label: ' பிரச்சனை பகுதியை எங்கு தெளிப்பது?', text: 'பிரச்சனை பகுதியை மட்டும் தெளிப்பதால் எவ்வளவு மருந்து செலவு மிச்சமாகும்?' },
+    { label: ' இயற்கை மருந்து ஆலோசனை?', text: 'ரசாயன மருந்துக்கு பதிலாக என்ன இயற்கை உயிரியல் மருந்து பயன்படுத்தலாம்?' },
+    { label: '️ நோய் பரவும் வேகம் என்ன?', text: 'தற்போதைய காலநிலையில் அடுத்த 5 நாட்களில் இந்த நோய் எவ்வாறு பரவும்?' },
   ],
   hi: [
-    { label: '🧪 कौन सी दवा और खुराक डालें?', text: 'तनावग्रस्त क्षेत्र में कौन सी दवा और कितनी खुराक का छिड़काव करें?' },
-    { label: '🎯 लक्षित क्षेत्र पर छिड़काव?', text: 'केवल समस्याग्रस्त क्षेत्र पर छिड़काव करने से कितनी बचत होगी?' },
-    { label: '🌿 जैविक उपचार का विकल्प?', text: 'रासायनिक दवा के स्थान पर कौन सा जैविक फफूंदनाशी इस्तेमाल करें?' },
-    { label: '⚠️ 5 दिनों में रोग फैलाव का जोखिम?', text: 'वर्तमान मौसम में अगले 5 दिनों में यह रोग कितनी तेजी से फैल सकता है?' },
+    { label: ' कौन सी दवा और खुराक डालें?', text: 'तनावग्रस्त क्षेत्र में कौन सी दवा और कितनी खुराक का छिड़काव करें?' },
+    { label: ' लक्षित क्षेत्र पर छिड़काव?', text: 'केवल समस्याग्रस्त क्षेत्र पर छिड़काव करने से कितनी बचत होगी?' },
+    { label: ' जैविक उपचार का विकल्प?', text: 'रासायनिक दवा के स्थान पर कौन सा जैविक फफूंदनाशी इस्तेमाल करें?' },
+    { label: '️ 5 दिनों में रोग फैलाव का जोखिम?', text: 'वर्तमान मौसम में अगले 5 दिनों में यह रोग कितनी तेजी से फैल सकता है?' },
   ],
 };
 
 const LANG_CONFIG = {
-  en: { label: 'English (IN)', speechCode: 'en-IN', flag: '🇬🇧' },
-  ta: { label: 'தமிழ் (Tamil)', speechCode: 'ta-IN', flag: '🇮🇳' },
-  hi: { label: 'हिंदी (Hindi)', speechCode: 'hi-IN', flag: '🇮🇳' },
+  en: { label: 'English (IN)', speechCode: 'en-IN', flag: '' },
+  ta: { label: 'தமிழ் (Tamil)', speechCode: 'ta-IN', flag: '' },
+  hi: { label: 'हिंदी (Hindi)', speechCode: 'hi-IN', flag: '' },
 };
 
 export default function VoiceAgronomistModal({
@@ -147,7 +147,7 @@ export default function VoiceAgronomistModal({
     if (isCombined) {
       const critCount = activeContext?.portfolioSummary?.critical_count || 1;
       const totalFarms = activeContext?.portfolioSummary?.total_farms || 3;
-      greetingText = `👋 **Namaste! I am Sentifield Kisan Mitra, your AI Voice Agronomist.**\n\nI have evaluated your **${totalFarms} farm parcels**. You have **${critCount} critical parcel** needing urgent water management today. Tap any prompt below or click the microphone to speak!`;
+      greetingText = ` **Namaste! I am Sentifield Kisan Mitra, your AI Voice Agronomist.**\n\nI have evaluated your **${totalFarms} farm parcels**. You have **${critCount} critical parcel** needing urgent water management today. Tap any prompt below or click the microphone to speak!`;
       greetingSpoken = `Namaste! I am your AI Voice Agronomist. I have reviewed your ${totalFarms} farms. One farm requires urgent water management today. How can I assist you?`;
     } else {
       const farmName = activeContext?.activeFarm?.farm_name || 'Marked Field';
@@ -162,19 +162,19 @@ export default function VoiceAgronomistModal({
         const treat = dRes?.targeted_prescription?.primary_treatment || 'Targeted Prescription';
         const dose = dRes?.targeted_prescription?.dosage || '';
         const probAcres = activeContext?.analysisData?.problem_zones?.problem_area_acres || 0.4;
-        greetingText = `👋 **Namaste! I have evaluated the Combined Dual-Lens Diagnostic for ${farmName} (${crop}).**\n\n🛰️ **Satellite Macro**: Health Grade **${grade}** (NDVI: **${ndviVal}**), with **${probAcres.toFixed(2)} acre** red problem zone.\n🔬 **Ground Micro**: Confirmed **${disease}** [${cat}].\n🧪 **Zoned Prescription**: Spray **${treat}** (${dose}) targeted strictly to the problem zone.\n\nAsk me anything by voice or chat!`;
+        greetingText = ` **Namaste! I have evaluated the Combined Dual-Lens Diagnostic for ${farmName} (${crop}).**\n\n️ **Satellite Macro**: Health Grade **${grade}** (NDVI: **${ndviVal}**), with **${probAcres.toFixed(2)} acre** red problem zone.\n **Ground Micro**: Confirmed **${disease}** [${cat}].\n **Zoned Prescription**: Spray **${treat}** (${dose}) targeted strictly to the problem zone.\n\nAsk me anything by voice or chat!`;
         greetingSpoken = `Namaste! I have combined your satellite scan and leaf photo for ${farmName}. The leaf vision identified ${disease}. I have formulated a targeted prescription for your ${probAcres.toFixed(1)} acre problem zone. How can I assist you?`;
       } else if (hasAnalysis) {
         const grade = activeContext?.analysisData?.gemini_recommendations?.executive_summary?.overall_health_grade || 'B';
         const ndvi = activeContext?.analysisData?.historical_comparison?.current_mean_ndvi || activeContext?.analysisData?.statistics?.ndvi?.mean || 0.45;
         const ndviVal = typeof ndvi === 'number' ? ndvi.toFixed(2) : ndvi;
-        greetingText = `👋 **Namaste! I am your AI Agronomist for this ${acres > 0 ? acres.toFixed(2) + ' acre ' : ''}field (${farmName}).**\n\nLatest Sentinel-2 multispectral scan indicates Health Grade **${grade}** (NDVI: **${ndviVal}**). Ask me anything about irrigation needs, nitrogen/urea fertilizer, or problem sub-zones!`;
+        greetingText = ` **Namaste! I am your AI Agronomist for this ${acres > 0 ? acres.toFixed(2) + ' acre ' : ''}field (${farmName}).**\n\nLatest Sentinel-2 multispectral scan indicates Health Grade **${grade}** (NDVI: **${ndviVal}**). Ask me anything about irrigation needs, nitrogen/urea fertilizer, or problem sub-zones!`;
         greetingSpoken = `Namaste! I have analyzed this ${acres > 0 ? acres.toFixed(1) + ' acre ' : ''}field at ${farmName}. The crop health is at Grade ${grade}. What would you like to know about this crop?`;
       } else if (acres > 0) {
-        greetingText = `👋 **Namaste! I am your AI Voice Agronomist.**\n\nI see you have marked a **${acres.toFixed(2)} acre** field at **${farmName}**. You can ask me questions about this field, soil management, or crop recommendations. For live Sentinel-2 indices, click **"ANALYZE CROP HEALTH & SENTINEL MAP"**!`;
+        greetingText = ` **Namaste! I am your AI Voice Agronomist.**\n\nI see you have marked a **${acres.toFixed(2)} acre** field at **${farmName}**. You can ask me questions about this field, soil management, or crop recommendations. For live Sentinel-2 indices, click **"ANALYZE CROP HEALTH & SENTINEL MAP"**!`;
         greetingSpoken = `Namaste! I see your marked field of ${acres.toFixed(1)} acres at ${farmName}. Ask me anything about this field, and run the satellite analysis for live health indices!`;
       } else {
-        greetingText = `👋 **Namaste! I am Sentifield Kisan Mitra, your AI Voice Agronomist.**\n\nDraw a farm boundary on the map or click one of the Farming Hub shortcuts (Namakkal, Thanjavur, Coimbatore), then ask me any questions about crop health, irrigation, or weather risks by voice or chat.`;
+        greetingText = ` **Namaste! I am Sentifield Kisan Mitra, your AI Voice Agronomist.**\n\nDraw a farm boundary on the map or click one of the Farming Hub shortcuts (Namakkal, Thanjavur, Coimbatore), then ask me any questions about crop health, irrigation, or weather risks by voice or chat.`;
         greetingSpoken = `Namaste! I am your AI Voice Agronomist. Mark your farm field on the map to get started.`;
       }
     }
@@ -455,7 +455,7 @@ export default function VoiceAgronomistModal({
         {
           id: `ai-err-${Date.now()}`,
           sender: 'ai',
-          displayText: `⚠️ **Connection Notice:** Unable to reach satellite intelligence server. Showing local telemetry guidance.\n\n💧 **East Sugarcane Block** is your top priority today due to 38% moisture deficit.`,
+          displayText: `️ **Connection Notice:** Unable to reach satellite intelligence server. Showing local telemetry guidance.\n\n **East Sugarcane Block** is your top priority today due to 38% moisture deficit.`,
           spokenText: 'East Sugarcane Block is your top priority today. Please initiate irrigation immediately.',
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         },
@@ -532,7 +532,7 @@ export default function VoiceAgronomistModal({
                 boxShadow: '0 0 16px rgba(0, 245, 160, 0.4)',
               }}
             >
-              🎙️
+              ️
             </div>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -557,9 +557,9 @@ export default function VoiceAgronomistModal({
               </div>
               <div style={{ fontSize: '0.75rem', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.1rem' }}>
                 {isCombined ? (
-                  <span>🌐 <strong>Portfolio Mode:</strong> All 3 Plots Grounded</span>
+                  <span><strong>Portfolio Mode:</strong> All 3 Plots Grounded</span>
                 ) : (
-                  <span>🌱 <strong>Single Plot Mode:</strong> {activeFarmName}</span>
+                  <span><strong>Single Plot Mode:</strong> {activeFarmName}</span>
                 )}
               </div>
             </div>
@@ -591,9 +591,9 @@ export default function VoiceAgronomistModal({
                   cursor: 'pointer',
                 }}
               >
-                <option value="en" style={{ background: '#081020', color: '#fff' }}>🇬🇧 English</option>
-                <option value="ta" style={{ background: '#081020', color: '#fff' }}>🇮🇳 தமிழ் (Tamil)</option>
-                <option value="hi" style={{ background: '#081020', color: '#fff' }}>🇮🇳 हिंदी (Hindi)</option>
+                <option value="en" style={{ background: '#081020', color: '#fff' }}>English</option>
+                <option value="ta" style={{ background: '#081020', color: '#fff' }}>தமிழ் (Tamil)</option>
+                <option value="hi" style={{ background: '#081020', color: '#fff' }}>हिंदी (Hindi)</option>
               </select>
             </div>
 
@@ -675,7 +675,7 @@ export default function VoiceAgronomistModal({
                     gap: '0.35rem',
                   }}
                 >
-                  {isUser ? '👨‍🌾 You (Farmer)' : '🤖 Sentifield Agronomist'} • {msg.timestamp}
+                  {isUser ? 'You (Farmer)' : 'Sentifield Agronomist'} • {msg.timestamp}
                 </div>
 
                 <div
@@ -724,7 +724,7 @@ export default function VoiceAgronomistModal({
                             borderRadius: '6px',
                           }}
                         >
-                          📊 {met}
+                          {met}
                         </span>
                       ))}
                     </div>
@@ -799,7 +799,7 @@ export default function VoiceAgronomistModal({
                           textAlign: 'left',
                         }}
                       >
-                        👉 {f}
+                        {f}
                       </button>
                     ))}
                   </div>
@@ -881,7 +881,7 @@ export default function VoiceAgronomistModal({
                     cursor: 'pointer',
                   }}
                 >
-                  ⏹️ Stop & Show Text
+                  Stop Speech
                 </button>
               </div>
 

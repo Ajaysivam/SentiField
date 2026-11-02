@@ -29,14 +29,14 @@ def generate_gemini_recommendations(analysis_data: Dict[str, Any]) -> Dict[str, 
             "model_used": "Neural Agronomic Diagnostic System v3.5",
             "is_ai_generated": False,
             "executive_summary": {
-                "headline": "⚠️ Building / Non-Agricultural Structure Detected",
+                "headline": "️ Building / Non-Agricultural Structure Detected",
                 "overall_health_grade": "N/A",
                 "farmer_friendly_message": "The selected boundary covers a building rooftop, concrete surface, or non-farmland structure. Satellite crop health diagnostics and fertilizer/irrigation recommendations cannot be applied to non-agricultural structures. Please select an active farming area or use one of the farming hub shortcuts (e.g. Namakkal, Thanjavur, Coimbatore) to analyze real crops."
             },
             "categories": [
                 {
                     "id": "site_selection",
-                    "icon": "📍",
+                    "icon": "",
                     "title": "Field Location & Boundary Guidance",
                     "status": "CRITICAL",
                     "summary": "Selected polygon has high built-up / non-vegetative index (NDBI > 0.05).",
@@ -48,7 +48,7 @@ def generate_gemini_recommendations(analysis_data: Dict[str, Any]) -> Dict[str, 
                 },
                 {
                     "id": "soil_restoration",
-                    "icon": "🌱",
+                    "icon": "",
                     "title": "Soil & Land Potential Evaluation",
                     "status": "ATTENTION",
                     "summary": "If this is fallow or degraded soil, restorative planting is required.",
@@ -246,7 +246,7 @@ Return strictly a valid JSON object matching the exact format below (no markdown
   "categories": [
     {{
       "id": "irrigation",
-      "icon": "💧",
+      "icon": "",
       "title": "Irrigation & Water Management Strategy",
       "status": "CRITICAL",
       "summary": "Summary of moisture status",
@@ -258,7 +258,7 @@ Return strictly a valid JSON object matching the exact format below (no markdown
     }},
     {{
       "id": "fertilizer",
-      "icon": "🧪",
+      "icon": "",
       "title": "Nutrient & Fertilizer Management Plan",
       "status": "CRITICAL",
       "summary": "Summary of nitrogen/chlorophyll status",
@@ -270,7 +270,7 @@ Return strictly a valid JSON object matching the exact format below (no markdown
     }},
     {{
       "id": "pest_disease",
-      "icon": "🛡️",
+      "icon": "️",
       "title": "Pest & Disease Prevention Alert",
       "status": "ATTENTION",
       "summary": "Summary of fungal or pest risk",
@@ -282,7 +282,7 @@ Return strictly a valid JSON object matching the exact format below (no markdown
     }},
     {{
       "id": "canopy_yield",
-      "icon": "🌾",
+      "icon": "",
       "title": "Crop Canopy & Yield Optimization",
       "status": "OPTIMAL",
       "summary": "Summary of canopy growth trajectory",
@@ -385,13 +385,13 @@ def _build_rule_based_fallback(
     
     # Summary Headline
     if red_pct > 30.0:
-        headline = "⚠️ Severe Crop Stress Detected — Immediate Intervention Required"
+        headline = "️ Severe Crop Stress Detected — Immediate Intervention Required"
         msg = f"Your farm has {red_pct:.1f}% of crop area suffering high stress. Priority focus is needed on irrigation and foliar nutrient recovery."
     elif red_pct > 15.0 or yellow_pct > 35.0:
-        headline = "⚡ Moderate Growth Variation — Targeted Field Management Advised"
+        headline = " Moderate Growth Variation — Targeted Field Management Advised"
         msg = f"Your crops show moderate growth with {yellow_pct:.1f}% in yellow status and {prob_acres:.2f} acres showing stress symptoms."
     else:
-        headline = "🌱 Excellent Crop Vigor — Maintain Current Care Regime"
+        headline = " Excellent Crop Vigor — Maintain Current Care Regime"
         msg = f"Your farm is performing strongly with {green_pct:.1f}% healthy green canopy density and a high overall health score of {health_score:.1f}/100."
 
     # Irrigation Category
@@ -484,7 +484,7 @@ def _build_rule_based_fallback(
         "categories": [
             {
                 "id": "irrigation",
-                "icon": "💧",
+                "icon": "",
                 "title": "Irrigation & Water Management Strategy",
                 "status": irrig_status,
                 "summary": irrig_summary,
@@ -493,7 +493,7 @@ def _build_rule_based_fallback(
             },
             {
                 "id": "fertilizer",
-                "icon": "🧪",
+                "icon": "",
                 "title": "Nutrient & Fertilizer Management Plan",
                 "status": fert_status,
                 "summary": fert_summary,
@@ -502,7 +502,7 @@ def _build_rule_based_fallback(
             },
             {
                 "id": "pest_disease",
-                "icon": "🛡️",
+                "icon": "️",
                 "title": "Pest & Disease Prevention Alert",
                 "status": pest_status,
                 "summary": pest_summary,
@@ -511,7 +511,7 @@ def _build_rule_based_fallback(
             },
             {
                 "id": "canopy_yield",
-                "icon": "🌾",
+                "icon": "",
                 "title": "Crop Canopy & Yield Optimization",
                 "status": canopy_status,
                 "summary": canopy_summary,
@@ -541,21 +541,21 @@ def _build_no_analysis_guardrail_reply(language: str = "en") -> Dict[str, Any]:
     if language == "ta":
         spoken = "வரைபடத்தில் உங்கள் பண்ணை எல்லையைக் குறித்து செயற்கைக்கோள் பகுப்பாய்வை இயக்கவும். அப்போதுதான் உங்கள் பயிரைப் பற்றிய துல்லியமான நேரடி ஆலோசனையை வழங்க முடியும்."
         display = (
-            "⚠️ **பண்ணை பகுப்பாய்வு கிடைக்கவில்லை**\n\n"
+            "️ **பண்ணை பகுப்பாய்வு கிடைக்கவில்லை**\n\n"
             "தயவுசெய்து வரைபடத்தில் உங்கள் பண்ணை எல்லையைக் குறித்து **'ANALYZE CROP HEALTH & SENTINEL MAP'** என்பதை அழுத்தவும்.\n\n"
             "பகுப்பாய்வு முடிந்ததும், சென்டினல்-2 செயற்கைக்கோள் தரவுகளின் அடிப்படையில் உங்கள் வயலுக்கான நேரடி ஆலோசனை வழங்கப்படும்."
         )
     elif language == "hi":
         spoken = "कृपया मानचित्र पर अपने खेत की सीमा बनाएं और पहले उपग्रह विश्लेषण चलाएं। इसके बाद ही आपकी फसल का सटीक मार्गदर्शन उपलब्ध होगा।"
         display = (
-            "⚠️ **कोई खेत विश्लेषण नहीं मिला**\n\n"
+            "️ **कोई खेत विश्लेषण नहीं मिला**\n\n"
             "कृपया इंटरेक्टिव मानचित्र पर अपने खेत की सीमा बनाएं और **'ANALYZE CROP HEALTH & SENTINEL MAP'** पर क्लिक करें।\n\n"
             "विश्लेषण पूरा होने के बाद, आपकी फसल के आंकड़ों के आधार पर सटीक जानकारी दी जाएगी।"
         )
     else:
         spoken = "Please outline your farm boundary on the map and run the satellite analysis first. Once analyzed, I will answer your questions based on your live crop data."
         display = (
-            "⚠️ **No Plot Analysis Available**\n\n"
+            "️ **No Plot Analysis Available**\n\n"
             "Please draw your farm field boundary on the interactive map and click **'ANALYZE CROP HEALTH & SENTINEL MAP'**.\n\n"
             "Once the Sentinel-2 scan completes, the AI Voice Agronomist will provide precise guidance based on your field's live NDVI vigor, moisture, and problem zones."
         )
@@ -714,7 +714,7 @@ MANDATORY RULES:
    - Numbers must sound natural when spoken aloud (e.g., write "one point two acres", "thirty eight percent", "Grade C").
    - Give a direct, confident answer grounded strictly in the real farm data above.
 2. "display_text": This will be shown in the chat window transcript after the voice completes.
-   - Format with clean markdown, line breaks, bold key numbers, and helpful emojis (💧, 🌾, ⚠️, 🧪, 🛡️).
+   - Format with clean markdown, line breaks, and bold key numbers without emojis.
    - Easy to scan on mobile or computer.
 3. "suggested_follow_ups": Provide exactly 2 or 3 short, relevant follow-up questions the farmer can tap or ask next.
 4. "key_metrics": 1 to 3 short highlights (e.g., ["Field: {farm_name}", "NDVI: {ndvi:.2f}"] or ["East Sugarcane: 38% Stressed"]).
@@ -846,7 +846,7 @@ def _build_rule_based_voice_reply(
                 f"Please start deep irrigation of forty-five thousand litres per acre before sunset."
             )
             display = (
-                f"💧 **Top Irrigation Priority: {farm_name}**\n\n"
+                f" **Top Irrigation Priority: {farm_name}**\n\n"
                 f"• **Crop**: {crop} ({crit_farm.get('area_acres', 2.5)} acres)\n"
                 f"• **Water Stress**: **{prob_pct:.1f}%** problem zone under severe moisture deficit.\n"
                 f"• **Action Required**: Schedule immediate deep irrigation of **45,000 L/acre**.\n"
@@ -866,7 +866,7 @@ def _build_rule_based_voice_reply(
                 f"We recommend applying approximately {total_litres:,} litres of water during late afternoon to restore root zone moisture."
             )
             display = (
-                f"💧 **Field Irrigation Advisory: {single_name}**\n\n"
+                f" **Field Irrigation Advisory: {single_name}**\n\n"
                 f"• **Crop**: {single_crop} ({single_acres:.2f} acres)\n"
                 f"• **Moisture Deficit Zone**: **{single_prob_pct:.1f}%** ({single_prob_acres:.2f} acres) under water stress.\n"
                 f"• **Recommended Volume**: Approximately **{total_litres:,} Litres** ({litres_per_acre:,} L/acre).\n"
@@ -889,10 +889,10 @@ def _build_rule_based_voice_reply(
                 f"Do not apply fertilizer while the soil is dry."
             )
             display = (
-                f"🧪 **Nutrient Advisory: {farm_name}**\n\n"
+                f" **Nutrient Advisory: {farm_name}**\n\n"
                 f"• **Diagnostic**: Low NDRE chlorophyll signature indicates active leaf chlorosis.\n"
                 f"• **Plan**: Apply **45 kg/acre Urea** split into two doses, combined with **5 kg/acre Zinc Sulphate**.\n"
-                f"• ⚠️ **Crucial**: Hydrate soil first before applying nitrogen to prevent fertilizer root scorch."
+                f"• ️ **Crucial**: Hydrate soil first before applying nitrogen to prevent fertilizer root scorch."
             )
             metrics = ["NDRE: 0.21 (Chlorophyll Low)", "Recommended: 45 kg Urea/ac"]
             follow_ups = [
@@ -907,7 +907,7 @@ def _build_rule_based_voice_reply(
                 f"We suggest a foliar spray of one percent urea and micronutrient zinc in the early morning to boost leaf chlorophyll."
             )
             display = (
-                f"🧪 **Nutrient & Fertilizer Advisory: {single_name}**\n\n"
+                f" **Nutrient & Fertilizer Advisory: {single_name}**\n\n"
                 f"• **Crop**: {single_crop} ({single_acres:.2f} acres)\n"
                 f"• **Vigor Index**: Health Grade **{single_grade}** (NDVI: **{single_ndvi:.2f}**).\n"
                 f"• **Recommendation**: 1% foliar spray of Urea + Zinc/Micronutrient blend (approx. **{urea_kg} kg Urea** total).\n"
@@ -933,7 +933,7 @@ def _build_rule_based_voice_reply(
                 spoken += f"Next in order is {top2.get('farm_name')} for {top2.get('action')}."
             
             display = (
-                f"🚨 **Sequential Priority Roadmap**\n\n"
+                f" **Sequential Priority Roadmap**\n\n"
                 f"1. **#1 {top1.get('farm_name')}** [{top1.get('urgency_level')}]\n"
                 f"   • **Action**: {top1.get('action')}\n"
                 f"   • **Reason**: {top1.get('reason')}\n\n"
@@ -956,7 +956,7 @@ def _build_rule_based_voice_reply(
                 f"highlighted in the satellite map and ensure soil moisture levels are maintained."
             )
             display = (
-                f"🚨 **Top Field Priority: {single_name}**\n\n"
+                f" **Top Field Priority: {single_name}**\n\n"
                 f"• **Primary Step**: Inspect the **{single_prob_acres:.2f} acre ({single_prob_pct:.1f}%)** problem zone.\n"
                 f"• **Inspection Checklist**: Verify irrigation distribution and scout for weed or pest patches.\n"
                 f"• **Action**: Apply corrective watering or foliar micronutrients to stressed sub-sectors."
@@ -978,7 +978,7 @@ def _build_rule_based_voice_reply(
             f"We advise inspecting the lower canopy and applying a preventative bio-fungicide like Trichoderma before the weekend."
         )
         display = (
-            f"🛡️ **Pest & Fungal Disease Prevention Alert: {single_name}**\n\n"
+            f"️ **Pest & Fungal Disease Prevention Alert: {single_name}**\n\n"
             f"• **Ag-Weather Conditions**: **{hum:.0f}%** Humidity, **{temp:.1f}°C** Temperature.\n"
             f"• **Vulnerability**: High humidity creates favorable conditions for fungal blight or sheath rot.\n"
             f"• **Action**: Inspect lower canopy for leaf spots.\n"
@@ -1001,11 +1001,11 @@ def _build_rule_based_voice_reply(
                 f"Salem Cotton is in good condition and only needs routine scouting."
             )
             display = (
-                f"🌾 **Portfolio Health Overview**\n\n"
+                f" **Portfolio Health Overview**\n\n"
                 f"• **Grade A (Optimal)**: Namakkal Paddy Block (NDVI 0.74, vibrant canopy)\n"
                 f"• **Grade C (Critical)**: East Sugarcane Block (38% stressed, requires water today)\n"
                 f"• **Grade B+ (Good)**: Salem Cotton Field (NDVI 0.58, steady growth)\n\n"
-                f"👉 **Next Step**: Start with East Sugarcane Block irrigation."
+                f" **Next Step**: Start with East Sugarcane Block irrigation."
             )
             metrics = ["Total Farms: 3", "1 Critical Farm", "1 Optimal Farm"]
             follow_ups = [
@@ -1020,7 +1020,7 @@ def _build_rule_based_voice_reply(
                 f"Focus on uniform watering and your crop will recover within seven days."
             )
             display = (
-                f"🌾 **Field Diagnostic Summary for {single_name}**\n\n"
+                f" **Field Diagnostic Summary for {single_name}**\n\n"
                 f"• **Field**: {single_name} ({single_crop}, {single_acres:.2f} acres)\n"
                 f"• **Health Grade**: **{single_grade}**\n"
                 f"• **Satellite NDVI**: **{single_ndvi:.2f}**\n"
