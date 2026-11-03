@@ -1,10 +1,13 @@
 # SentiField: AI-Powered Precision Agriculture & Crop Health Intelligence
 
-**SentiField** is an end-to-end autonomous precision agriculture platform combining real-time Sentinel-2 satellite Earth Observation imagery, localized soil/weather indices, Gemini Multimodal Vision AI for leaf pathology, interactive Web Speech Voice-to-Voice Agronomist, and a priority-ranked farmer multi-farm action dashboard.
+> **StartupFair Hackathon: Final Year Mini Project (IT / AIDS Dept) — Ajay Sivam (Participant 57)**  
+> **Repository:** [sona-final-year-mini-it-aids-d-ajaysivam-551](https://github.com/StartupFair/sona-final-year-mini-it-aids-d-ajaysivam-551)
+
+**SentiField** is an end-to-end autonomous precision agriculture platform combining real-time Sentinel-2 satellite Earth Observation imagery, localized soil/weather indices, Multimodal Vision AI for leaf pathology, interactive Web Speech Voice-to-Voice Agronomist, and a priority-ranked farmer multi-farm action dashboard.
 
 ---
 
-## 🌟 Key Features
+## Key Features
 
 1. **Satellite Earth Observation (Google Earth Engine & Sentinel-2)**:
    - Automated polygon clipping to farmer-defined field boundaries.
@@ -14,7 +17,7 @@
 
 2. **Unified Macro + Micro "Depth Analysis"**:
    - Integrates macro-level Sentinel-2 satellite indices (macro canopy health) with micro-level high-resolution leaf camera images.
-   - Multimodal Gemini Vision AI pinpoints exact leaf disease pathologies, infection stages, pathogen categories, and generates customized dual-layer treatment plans.
+   - Multimodal Vision AI pinpoints exact leaf disease pathologies, infection stages, pathogen categories, and generates customized dual-layer treatment plans.
 
 3. **Multilingual Voice-to-Voice AI Agronomist**:
    - Conversational AI agronomist accessible on both the Farmer Dashboard and Interactive Guest Map mode.
@@ -31,12 +34,12 @@
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```text
 SentiField/
 ├── frontend/           # React 18 + Vite UI (Leaflet GIS, Lucide icons, Web Speech STT/TTS, Tailwind)
-├── backend/            # FastAPI Python server (GEE, Sentinel-2 pipeline, Gemini AI, ReportLab)
+├── backend/            # FastAPI Python server (GEE, Sentinel-2 pipeline, AI engine, ReportLab)
 ├── data/               # Spatial datasets & local cache
 ├── farm_boundary/      # Exported GeoJSON field boundaries
 ├── models/             # Machine Learning models (Random Forest crop classification)
@@ -48,7 +51,7 @@ SentiField/
 
 ---
 
-## 🚀 Quickstart Guide
+## Quickstart Guide
 
 ### 1. Prerequisites
 - **Python**: 3.10+
@@ -113,7 +116,7 @@ Frontend will be available at: `http://localhost:5173`.
 
 ---
 
-## 🧪 API Verification & Health Check
+## API Verification & Health Check
 
 ```bash
 curl http://localhost:8000/api/health
@@ -132,5 +135,5 @@ Expected response:
 
 ---
 
-## 📄 License
+## License
 This project is licensed under the MIT License.
