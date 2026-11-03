@@ -717,7 +717,7 @@ MANDATORY RULES:
    - Format with clean markdown, line breaks, and bold key numbers without emojis.
    - Easy to scan on mobile or computer.
 3. "suggested_follow_ups": Provide exactly 2 or 3 short, relevant follow-up questions the farmer can tap or ask next.
-4. "key_metrics": 1 to 3 short highlights (e.g., ["Field: {farm_name}", "NDVI: {ndvi:.2f}"] or ["East Sugarcane: 38% Stressed"]).
+4. "key_metrics": 1 to 3 short highlights (e.g., ["Field: Namakkal Paddy", "NDVI: 0.74"] or ["East Sugarcane: 38% Stressed"]).
 
 Return ONLY a raw valid JSON object (no markdown code fence, no ```json):
 {{
