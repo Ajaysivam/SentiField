@@ -295,7 +295,7 @@ export default function Map({
                 onClick={handleUndoPoint}
                 disabled={points.length === 0}
               >
-                ↩️ Undo Point
+                Undo Point
               </button>
 
               <button

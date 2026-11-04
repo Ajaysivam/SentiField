@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-export default function AuthModal({ isOpen, onClose, onAuthSuccess, initialTab = 'login' }) {
+export default function AuthModal({ isOpen, onClose, onAuthSuccess, initialTab = 'login', theme = 'dark' }) {
+  const isLight = theme === 'light';
   const [tab, setTab] = useState(initialTab); // 'login' or 'register'
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -80,9 +81,11 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, initialTab =
         style={{
           maxWidth: '440px',
           width: '100%',
-          background: '#0f172a',
-          borderColor: '#10b981',
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 25px rgba(16, 185, 129, 0.2)',
+          background: isLight ? '#ffffff' : '#0f172a',
+          borderColor: isLight ? '#059669' : '#10b981',
+          boxShadow: isLight
+            ? '0 20px 40px -10px rgba(0, 0, 0, 0.15)'
+            : '0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 25px rgba(16, 185, 129, 0.2)',
           padding: '2rem',
           position: 'relative',
         }}
@@ -107,11 +110,11 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, initialTab =
 
         {/* Brand Header */}
         <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
-          <div style={{ fontSize: "1.8rem", fontWeight: "900", color: "#10b981", marginBottom: "0.25rem" }}>FARMER</div>
-          <h2 style={{ color: '#ffffff', fontSize: '1.35rem', fontWeight: '800' }}>
+          <div style={{ fontSize: "1.8rem", fontWeight: "900", color: isLight ? "#059669" : "#10b981", marginBottom: "0.25rem" }}>FARMER</div>
+          <h2 style={{ color: isLight ? '#0f172a' : '#ffffff', fontSize: '1.35rem', fontWeight: '800' }}>
             Farmer Portal
           </h2>
-          <p style={{ color: '#94a3b8', fontSize: '0.85rem', marginTop: '0.25rem' }}>
+          <p style={{ color: isLight ? '#475569' : '#94a3b8', fontSize: '0.85rem', marginTop: '0.25rem' }}>
             Save multiple farm plots & run autonomous crop health diagnostics with 1-click.
           </p>
         </div>
@@ -120,7 +123,8 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, initialTab =
         <div
           style={{
             display: 'flex',
-            background: 'rgba(30, 41, 59, 0.8)',
+            background: isLight ? '#f1f5f9' : 'rgba(30, 41, 59, 0.8)',
+            border: isLight ? '1px solid #cbd5e1' : 'none',
             borderRadius: '8px',
             padding: '0.25rem',
             marginBottom: '1.5rem',
@@ -137,8 +141,9 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, initialTab =
               cursor: 'pointer',
               fontWeight: '700',
               fontSize: '0.9rem',
-              background: tab === 'login' ? '#10b981' : 'transparent',
-              color: tab === 'login' ? '#ffffff' : '#94a3b8',
+              background: tab === 'login' ? (isLight ? '#ffffff' : '#10b981') : 'transparent',
+              color: tab === 'login' ? (isLight ? '#059669' : '#ffffff') : (isLight ? '#64748b' : '#94a3b8'),
+              boxShadow: tab === 'login' && isLight ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
               transition: 'all 0.2s',
             }}
           >
@@ -155,8 +160,9 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, initialTab =
               cursor: 'pointer',
               fontWeight: '700',
               fontSize: '0.9rem',
-              background: tab === 'register' ? '#10b981' : 'transparent',
-              color: tab === 'register' ? '#ffffff' : '#94a3b8',
+              background: tab === 'register' ? (isLight ? '#ffffff' : '#10b981') : 'transparent',
+              color: tab === 'register' ? (isLight ? '#059669' : '#ffffff') : (isLight ? '#64748b' : '#94a3b8'),
+              boxShadow: tab === 'register' && isLight ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
               transition: 'all 0.2s',
             }}
           >

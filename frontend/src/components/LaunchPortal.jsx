@@ -4,14 +4,49 @@ export default function LaunchPortal({
   onSelectGuest,
   onOpenFarmerLogin,
   onOpenFarmerRegister,
-  onQuickDemo
+  onQuickDemo,
+  theme = 'dark',
+  onToggleTheme,
 }) {
+  const isLight = theme === 'light';
+
   return (
     <div className="launch-portal-wrapper">
-      {/* Ambient Aurora Glow Orbs */}
-      <div className="aurora-glow-orb orb-1"></div>
-      <div className="aurora-glow-orb orb-2"></div>
-      <div className="aurora-glow-orb orb-3"></div>
+      {/* Ambient Aurora Glow Orbs (Shown only in dark mode) */}
+      {!isLight && (
+        <>
+          <div className="aurora-glow-orb orb-1"></div>
+          <div className="aurora-glow-orb orb-2"></div>
+          <div className="aurora-glow-orb orb-3"></div>
+        </>
+      )}
+
+      {/* Floating Theme Toggle in Top-Right Corner */}
+      {onToggleTheme && (
+        <div style={{ position: 'absolute', top: '1.25rem', right: '1.5rem', zIndex: 100 }}>
+          <button
+            onClick={onToggleTheme}
+            style={{
+              background: isLight ? '#f1f5f9' : 'rgba(8, 16, 32, 0.85)',
+              border: isLight ? '1px solid #cbd5e1' : '1px solid rgba(255, 255, 255, 0.15)',
+              color: isLight ? '#0f172a' : '#f8fafc',
+              padding: '0.45rem 0.95rem',
+              borderRadius: '9999px',
+              fontSize: '0.82rem',
+              fontWeight: '700',
+              cursor: 'pointer',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.45rem',
+              boxShadow: isLight ? '0 2px 8px rgba(0,0,0,0.06)' : '0 2px 12px rgba(0,0,0,0.4)',
+              transition: 'all 0.2s ease',
+            }}
+            title={`Switch to ${isLight ? 'Dark' : 'Light'} Mode`}
+          >
+            <span>{isLight ? 'Dark Mode' : 'Light Mode'}</span>
+          </button>
+        </div>
+      )}
 
       <div className="launch-container">
         {/* HERO BRAND HEADER */}

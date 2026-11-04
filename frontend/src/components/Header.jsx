@@ -14,18 +14,22 @@ export default function Header({
   farmerView,
   onToggleFarmerView,
   onOpenVoiceAgent,
+  theme = 'dark',
+  onToggleTheme,
 }) {
+  const isLight = theme === 'light';
+
   return (
     <header className="header">
       <div className="brand" onClick={onOpenPortal} title="Return to SENTIFIELD AI Launchpad">
         <div className="brand-icon">S</div>
         <div className="brand-title">
-          <h1>SENTIFIELD AI</h1>
+          <h1 style={{ color: isLight ? '#0f172a' : '#ffffff' }}>SENTIFIELD AI</h1>
           <p>Autonomous Multispectral Crop Intelligence</p>
         </div>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
         {/* Mode Indicator Chip */}
         <div
           onClick={onOpenPortal}
@@ -38,20 +42,33 @@ export default function Header({
             borderRadius: '9999px',
             fontSize: '0.78rem',
             fontWeight: '800',
-            background: user ? 'rgba(0, 245, 160, 0.12)' : 'rgba(0, 217, 245, 0.12)',
-            border: user ? '1px solid rgba(0, 245, 160, 0.35)' : '1px solid rgba(0, 217, 245, 0.35)',
-            color: user ? '#00f5a0' : '#00d9f5',
+            background: user
+              ? isLight ? 'rgba(5, 150, 105, 0.12)' : 'rgba(0, 245, 160, 0.12)'
+              : isLight ? 'rgba(2, 132, 199, 0.12)' : 'rgba(0, 217, 245, 0.12)',
+            border: user
+              ? isLight ? '1px solid rgba(5, 150, 105, 0.35)' : '1px solid rgba(0, 245, 160, 0.35)'
+              : isLight ? '1px solid rgba(2, 132, 199, 0.35)' : '1px solid rgba(0, 217, 245, 0.35)',
+            color: user
+              ? isLight ? '#059669' : '#00f5a0'
+              : isLight ? '#0284c7' : '#00d9f5',
           }}
           title="Click to change portal access role"
         >
           <span>{user ? 'Farmer Access' : 'Guest Mode'}</span>
-          <span style={{ fontSize: '0.7rem', color: '#94a3b8' }}>⇄ Switch</span>
+          <span style={{ fontSize: '0.7rem', color: isLight ? '#64748b' : '#94a3b8' }}>Switch</span>
         </div>
 
         {/* Real-time System Telemetry */}
-        <div className="status-pill" title="Diagnostic Telemetry Status">
+        <div
+          className="status-pill"
+          style={{
+            background: isLight ? '#f8fafc' : 'rgba(8, 16, 32, 0.8)',
+            border: isLight ? '1px solid #e2e8f0' : '1px solid rgba(255, 255, 255, 0.1)',
+          }}
+          title="Diagnostic Telemetry Status"
+        >
           <span className={`status-dot ${loading ? 'offline' : status?.status === 'ok' ? 'online' : 'offline'}`}></span>
-          <span style={{ color: status?.status === 'ok' ? '#00f5a0' : '#ff3366' }}>
+          <span style={{ color: status?.status === 'ok' ? (isLight ? '#059669' : '#00f5a0') : '#dc2626' }}>
             {loading ? 'Connecting...' : status?.status === 'ok' ? 'Telemetry Live' : 'Offline'}
           </span>
         </div>
@@ -62,9 +79,9 @@ export default function Header({
           target="_blank"
           rel="noopener noreferrer"
           style={{
-            background: 'rgba(8, 16, 32, 0.85)',
-            border: '1px solid rgba(0, 245, 160, 0.3)',
-            color: '#00f5a0',
+            background: isLight ? '#f8fafc' : 'rgba(8, 16, 32, 0.85)',
+            border: isLight ? '1px solid rgba(5, 150, 105, 0.3)' : '1px solid rgba(0, 245, 160, 0.3)',
+            color: isLight ? '#059669' : '#00f5a0',
             padding: '0.35rem 0.75rem',
             borderRadius: '9999px',
             fontSize: '0.78rem',
@@ -79,14 +96,40 @@ export default function Header({
           <span>Database</span>
         </a>
 
+        {/* Theme Toggle Button */}
+        {onToggleTheme && (
+          <button
+            onClick={onToggleTheme}
+            style={{
+              background: isLight ? '#f1f5f9' : 'rgba(8, 16, 32, 0.85)',
+              border: isLight ? '1px solid #cbd5e1' : '1px solid rgba(255, 255, 255, 0.15)',
+              color: isLight ? '#0f172a' : '#f8fafc',
+              padding: '0.35rem 0.8rem',
+              borderRadius: '9999px',
+              fontSize: '0.78rem',
+              fontWeight: '700',
+              cursor: 'pointer',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              transition: 'all 0.2s ease',
+            }}
+            title={`Switch to ${isLight ? 'Dark' : 'Light'} Mode`}
+          >
+            <span>{isLight ? 'Dark Mode' : 'Light Mode'}</span>
+          </button>
+        )}
+
         {/* AI Voice Agronomist Button (Available for Authenticated Farmers) */}
         {user && onOpenVoiceAgent && (
           <button
             onClick={onOpenVoiceAgent}
             style={{
-              background: 'linear-gradient(135deg, rgba(0, 245, 160, 0.18) 0%, rgba(0, 217, 245, 0.18) 100%)',
-              border: '1.5px solid #00f5a0',
-              color: '#00f5a0',
+              background: isLight
+                ? 'rgba(5, 150, 105, 0.1)'
+                : 'linear-gradient(135deg, rgba(0, 245, 160, 0.18) 0%, rgba(0, 217, 245, 0.18) 100%)',
+              border: isLight ? '1.5px solid #059669' : '1.5px solid #00f5a0',
+              color: isLight ? '#059669' : '#00f5a0',
               padding: '0.35rem 0.85rem',
               borderRadius: '9999px',
               fontSize: '0.78rem',
@@ -95,7 +138,7 @@ export default function Header({
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.35rem',
-              boxShadow: '0 0 12px rgba(0, 245, 160, 0.25)',
+              boxShadow: isLight ? '0 1px 4px rgba(0, 0, 0, 0.05)' : '0 0 12px rgba(0, 245, 160, 0.25)',
               transition: 'all 0.2s ease',
             }}
             title="Ask AI Voice Agronomist (English, Tamil, Hindi)"
@@ -114,9 +157,9 @@ export default function Header({
                 style={{
                   padding: '0.45rem 0.9rem',
                   fontSize: '0.85rem',
-                  color: '#00f5a0',
-                  borderColor: 'rgba(0, 245, 160, 0.4)',
-                  background: 'rgba(0, 245, 160, 0.08)',
+                  color: isLight ? '#059669' : '#00f5a0',
+                  borderColor: isLight ? 'rgba(5, 150, 105, 0.4)' : 'rgba(0, 245, 160, 0.4)',
+                  background: isLight ? '#ffffff' : 'rgba(0, 245, 160, 0.08)',
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '0.4rem',
@@ -133,23 +176,25 @@ export default function Header({
               className="btn-primary"
               style={{
                 background: showFarmsList
-                  ? 'linear-gradient(135deg, #00f5a0 0%, #00d9f5 100%)'
-                  : 'rgba(8, 16, 32, 0.9)',
-                border: '1px solid rgba(0, 245, 160, 0.4)',
-                color: showFarmsList ? '#030712' : '#00f5a0',
+                  ? (isLight ? '#059669' : 'linear-gradient(135deg, #00f5a0 0%, #00d9f5 100%)')
+                  : (isLight ? '#ffffff' : 'rgba(8, 16, 32, 0.9)'),
+                border: isLight ? '1px solid #059669' : '1px solid rgba(0, 245, 160, 0.4)',
+                color: showFarmsList
+                  ? '#ffffff'
+                  : (isLight ? '#059669' : '#00f5a0'),
                 padding: '0.45rem 0.95rem',
                 fontSize: '0.85rem',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.5rem',
-                boxShadow: showFarmsList ? '0 0 16px rgba(0, 245, 160, 0.4)' : 'none',
+                boxShadow: showFarmsList ? (isLight ? '0 2px 8px rgba(5, 150, 105, 0.3)' : '0 0 16px rgba(0, 245, 160, 0.4)') : 'none',
               }}
             >
               <span>Saved Plots</span>
               <span
                 style={{
-                  background: showFarmsList ? '#030712' : '#00f5a0',
-                  color: showFarmsList ? '#00f5a0' : '#030712',
+                  background: showFarmsList ? '#ffffff' : (isLight ? '#059669' : '#00f5a0'),
+                  color: showFarmsList ? '#059669' : (isLight ? '#ffffff' : '#030712'),
                   fontWeight: '900',
                   borderRadius: '9999px',
                   padding: '0.1rem 0.45rem',
@@ -165,12 +210,12 @@ export default function Header({
                 display: 'flex',
                 alignItems: 'center',
                 gap: '0.5rem',
-                background: 'rgba(8, 16, 32, 0.85)',
+                background: isLight ? '#f8fafc' : 'rgba(8, 16, 32, 0.85)',
                 padding: '0.4rem 0.85rem',
                 borderRadius: '12px',
-                border: '1px solid rgba(255, 255, 255, 0.12)',
+                border: isLight ? '1px solid #e2e8f0' : '1px solid rgba(255, 255, 255, 0.12)',
                 fontSize: '0.86rem',
-                color: '#f8fafc',
+                color: isLight ? '#0f172a' : '#f8fafc',
               }}
             >
               <span
@@ -189,7 +234,7 @@ export default function Header({
               >
                 {user.username ? user.username.charAt(0).toUpperCase() : 'F'}
               </span>
-              <strong style={{ color: '#ffffff' }}>{user.full_name || user.username}</strong>
+              <strong style={{ color: isLight ? '#0f172a' : '#ffffff' }}>{user.full_name || user.username}</strong>
             </div>
 
             <button
@@ -198,8 +243,8 @@ export default function Header({
               style={{
                 padding: '0.45rem 0.8rem',
                 fontSize: '0.82rem',
-                color: '#ff3366',
-                borderColor: 'rgba(255, 51, 102, 0.3)',
+                color: '#dc2626',
+                borderColor: 'rgba(220, 38, 38, 0.3)',
               }}
               title="Log out of farmer account"
             >

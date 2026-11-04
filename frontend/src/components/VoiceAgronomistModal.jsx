@@ -21,71 +21,71 @@ import {
 
 const QUICK_PROMPTS_PORTFOLIO = {
   en: [
-    { label: ' Which farm needs water today?', text: 'Which farm needs water today and how much should I irrigate?' },
-    { label: ' What is my #1 priority?', text: 'What is my top priority today across all my farms?' },
-    { label: ' Recommend fertilizer dosage', text: 'What fertilizer or nutrient spray should I apply to my crops?' },
-    { label: ' Overall crop health summary', text: 'Give me a complete summary of my crop health grades and satellite vigor.' },
+    { label: 'Which farm needs water today?', text: 'Which farm needs water today and how much should I irrigate?' },
+    { label: 'What is my #1 priority?', text: 'What is my top priority today across all my farms?' },
+    { label: 'Recommend fertilizer dosage', text: 'What fertilizer or nutrient spray should I apply to my crops?' },
+    { label: 'Overall crop health summary', text: 'Give me a complete summary of my crop health grades and satellite vigor.' },
   ],
   ta: [
-    { label: ' எந்த பண்ணைக்கு தண்ணீர் தேவை?', text: 'எந்த பண்ணைக்கு இன்று தண்ணீர் பாய்ச்ச வேண்டும்?' },
-    { label: ' முதல் முன்னுரிமை என்ன?', text: 'என் பண்ணைகளில் இன்று செய்ய வேண்டிய முதல் வேலை என்ன?' },
-    { label: ' உர ஆலோசனை வேண்டும்', text: 'பயிர்களுக்கு என்ன உரம் மற்றும் நுண்ணூட்டம் கொடுக்க வேண்டும்?' },
-    { label: ' பயிர் நிலைமை எப்படி உள்ளது?', text: 'என் பயிர்களின் தற்போதைய ஆரோக்கிய நிலை பற்றி சொல்லுங்கள்.' },
+    { label: 'எந்த பண்ணைக்கு தண்ணீர் தேவை?', text: 'எந்த பண்ணைக்கு இன்று தண்ணீர் பாய்ச்ச வேண்டும்?' },
+    { label: 'முதல் முன்னுரிமை என்ன?', text: 'என் பண்ணைகளில் இன்று செய்ய வேண்டிய முதல் வேலை என்ன?' },
+    { label: 'உர ஆலோசனை வேண்டும்', text: 'பயிர்களுக்கு என்ன உரம் மற்றும் நுண்ணூட்டம் கொடுக்க வேண்டும்?' },
+    { label: 'பயிர் நிலைமை எப்படி உள்ளது?', text: 'என் பயிர்களின் தற்போதைய ஆரோக்கிய நிலை பற்றி சொல்லுங்கள்.' },
   ],
   hi: [
-    { label: ' किस खेत को पानी चाहिए?', text: 'आज किस खेत को सिंचाई की सबसे ज्यादा जरूरत है?' },
-    { label: ' आज की पहली प्राथमिकता क्या है?', text: 'मेरे सभी खेतों में आज की सबसे पहली प्राथमिकता क्या है?' },
-    { label: ' खाद और उर्वरक की सलाह', text: 'फसलों के लिए किस खाद और पोषण की सिफारिश करते हैं?' },
-    { label: ' फसलों की सेहत का हाल', text: 'मेरी फसलों की संपूर्ण सेहत और ग्रेड के बारे में बताएं।' },
+    { label: 'किस खेत को पानी चाहिए?', text: 'आज किस खेत को सिंचाई की सबसे ज्यादा जरूरत है?' },
+    { label: 'आज की पहली प्राथमिकता क्या है?', text: 'मेरे सभी खेतों में आज की सबसे पहली प्राथमिकता क्या है?' },
+    { label: 'खाद और उर्वरक की सलाह', text: 'फसलों के लिए किस खाद और पोषण की सिफारिश करते हैं?' },
+    { label: 'फसलों की सेहत का हाल', text: 'मेरी फसलों की संपूर्ण सेहत और ग्रेड के बारे में बताएं।' },
   ],
 };
 
 const QUICK_PROMPTS_SINGLE = {
   en: [
-    { label: ' How much water does this plot need?', text: 'How much water does this analyzed plot need today?' },
-    { label: ' What is the #1 priority here?', text: 'What is the top priority action for this analyzed field?' },
-    { label: ' What fertilizer should I apply?', text: 'What fertilizer or nutrient spray should I apply to this crop?' },
-    { label: '️ How do I fix the problem zone?', text: 'How do I treat the stressed problem zone highlighted in the satellite scan?' },
+    { label: 'How much water does this plot need?', text: 'How much water does this analyzed plot need today?' },
+    { label: 'What is the #1 priority here?', text: 'What is the top priority action for this analyzed field?' },
+    { label: 'What fertilizer should I apply?', text: 'What fertilizer or nutrient spray should I apply to this crop?' },
+    { label: 'How do I fix the problem zone?', text: 'How do I treat the stressed problem zone highlighted in the satellite scan?' },
   ],
   ta: [
-    { label: ' எவ்வளவு தண்ணீர் தேவை?', text: 'இந்த நிலத்திற்கு எவ்வளவு தண்ணீர் பாய்ச்ச வேண்டும்?' },
-    { label: ' முதல் முன்னுரிமை என்ன?', text: 'இந்த பயிரில் உடனடியாக செய்ய வேண்டிய முதல் வேலை என்ன?' },
-    { label: ' என்ன உரம் கொடுக்க வேண்டும்?', text: 'இந்த பயிரின் வளர்ச்சிக்கு என்ன உரம் மற்றும் நுண்ணூட்டம் தெளிக்க வேண்டும்?' },
-    { label: '️ பிரச்சனை பகுதியை எப்படி சரிசெய்வது?', text: 'செயற்கைக்கோளில் காட்டப்படும் பிரச்சனை பகுதியை எவ்வாறு சரி செய்வது?' },
+    { label: 'எவ்வளவு தண்ணீர் தேவை?', text: 'இந்த நிலத்திற்கு எவ்வளவு தண்ணீர் பாய்ச்ச வேண்டும்?' },
+    { label: 'முதல் முன்னுரிமை என்ன?', text: 'இந்த பயிரில் உடனடியாக செய்ய வேண்டிய முதல் வேலை என்ன?' },
+    { label: 'என்ன உரம் கொடுக்க வேண்டும்?', text: 'இந்த பயிரின் வளர்ச்சிக்கு என்ன உரம் மற்றும் நுண்ணூட்டம் தெளிக்க வேண்டும்?' },
+    { label: 'பிரச்சனை பகுதியை எப்படி சரிசெய்வது?', text: 'செயற்கைக்கோளில் காட்டப்படும் பிரச்சனை பகுதியை எவ்வாறு சரி செய்வது?' },
   ],
   hi: [
-    { label: ' कितने पानी की आवश्यकता है?', text: 'इस विश्लेषित खेत को आज कितने पानी की आवश्यकता है?' },
-    { label: ' पहली प्राथमिकता क्या है?', text: 'इस फसल के लिए आज की सबसे पहली प्राथमिकता क्या है?' },
-    { label: ' कौन सा उर्वरक डालें?', text: 'इस फसल के लिए किस खाद और पोषण का छिड़काव करना चाहिए?' },
-    { label: '️ तनावग्रस्त क्षेत्र का उपचार?', text: 'उपग्रह में दिखाए गए तनावग्रस्त क्षेत्र को कैसे ठीक करें?' },
+    { label: 'कितने पानी की आवश्यकता है?', text: 'इस विश्लेषित खेत को आज कितने पानी की आवश्यकता है?' },
+    { label: 'पहली प्राथमिकता क्या है?', text: 'इस फसल के लिए आज की सबसे पहली प्राथमिकता क्या है?' },
+    { label: 'कौन सा उर्वरक डालें?', text: 'इस फसल के लिए किस खाद और पोषण का छिड़काव करना चाहिए?' },
+    { label: 'तनावग्रस्त क्षेत्र का उपचार?', text: 'उपग्रह में दिखाए गए तनावग्रस्त क्षेत्र को कैसे ठीक करें?' },
   ],
 };
 
 const QUICK_PROMPTS_DUAL_LENS = {
   en: [
-    { label: ' What chemical & dosage to spray?', text: 'What chemical and dosage should I spray on the problem zone?' },
-    { label: ' How to target problem zone?', text: 'Where exactly should I spray and how much cost will I save?' },
-    { label: ' Organic bio-treatment alternative?', text: 'What organic or biological spray can I use instead of chemical fungicide?' },
-    { label: '️ 5-day disease spread risk?', text: 'How fast will this disease spread in 5 days under current weather?' },
+    { label: 'What chemical & dosage to spray?', text: 'What chemical and dosage should I spray on the problem zone?' },
+    { label: 'How to target problem zone?', text: 'Where exactly should I spray and how much cost will I save?' },
+    { label: 'Organic bio-treatment alternative?', text: 'What organic or biological spray can I use instead of chemical fungicide?' },
+    { label: '5-day disease spread risk?', text: 'How fast will this disease spread in 5 days under current weather?' },
   ],
   ta: [
-    { label: ' என்ன மருந்து மற்றும் அளவு?', text: 'பிரச்சனை பகுதியில் என்ன மருந்து மற்றும் எந்த அளவில் தெளிக்க வேண்டும்?' },
-    { label: ' பிரச்சனை பகுதியை எங்கு தெளிப்பது?', text: 'பிரச்சனை பகுதியை மட்டும் தெளிப்பதால் எவ்வளவு மருந்து செலவு மிச்சமாகும்?' },
-    { label: ' இயற்கை மருந்து ஆலோசனை?', text: 'ரசாயன மருந்துக்கு பதிலாக என்ன இயற்கை உயிரியல் மருந்து பயன்படுத்தலாம்?' },
-    { label: '️ நோய் பரவும் வேகம் என்ன?', text: 'தற்போதைய காலநிலையில் அடுத்த 5 நாட்களில் இந்த நோய் எவ்வாறு பரவும்?' },
+    { label: 'என்ன மருந்து மற்றும் அளவு?', text: 'பிரச்சனை பகுதியில் என்ன மருந்து மற்றும் எந்த அளவில் தெளிக்க வேண்டும்?' },
+    { label: 'பிரச்சனை பகுதியை எங்கு தெளிப்பது?', text: 'பிரச்சனை பகுதியை மட்டும் தெளிப்பதால் எவ்வளவு மருந்து செலவு மிச்சமாகும்?' },
+    { label: 'இயற்கை மருந்து ஆலோசனை?', text: 'ரசாயன மருந்துக்கு பதிலாக என்ன இயற்கை உயிரியல் மருந்து பயன்படுத்தலாம்?' },
+    { label: 'நோய் பரவும் வேகம் என்ன?', text: 'தற்போதைய காலநிலையில் அடுத்த 5 நாட்களில் இந்த நோய் எவ்வாறு பரவும்?' },
   ],
   hi: [
-    { label: ' कौन सी दवा और खुराक डालें?', text: 'तनावग्रस्त क्षेत्र में कौन सी दवा और कितनी खुराक का छिड़काव करें?' },
-    { label: ' लक्षित क्षेत्र पर छिड़काव?', text: 'केवल समस्याग्रस्त क्षेत्र पर छिड़काव करने से कितनी बचत होगी?' },
-    { label: ' जैविक उपचार का विकल्प?', text: 'रासायनिक दवा के स्थान पर कौन सा जैविक फफूंदनाशी इस्तेमाल करें?' },
-    { label: '️ 5 दिनों में रोग फैलाव का जोखिम?', text: 'वर्तमान मौसम में अगले 5 दिनों में यह रोग कितनी तेजी से फैल सकता है?' },
+    { label: 'कौन सी दवा और खुराक डालें?', text: 'तनावग्रस्त क्षेत्र में कौन सी दवा और कितनी खुराक का छिड़काव करें?' },
+    { label: 'लक्षित क्षेत्र पर छिड़काव?', text: 'केवल समस्याग्रस्त क्षेत्र पर छिड़काव करने से कितनी बचत होगी?' },
+    { label: 'जैविक उपचार का विकल्प?', text: 'रासायनिक दवा के स्थान पर कौन सा जैविक फफूंदनाशी इस्तेमाल करें?' },
+    { label: '5 दिनों में रोग फैलाव का जोखिम?', text: 'वर्तमान मौसम में अगले 5 दिनों में यह रोग कितनी तेजी से फैल सकता है?' },
   ],
 };
 
 const LANG_CONFIG = {
-  en: { label: 'English (IN)', speechCode: 'en-IN', flag: '' },
-  ta: { label: 'தமிழ் (Tamil)', speechCode: 'ta-IN', flag: '' },
-  hi: { label: 'हिंदी (Hindi)', speechCode: 'hi-IN', flag: '' },
+  en: { label: 'English (IN)', speechCode: 'en-IN' },
+  ta: { label: 'தமிழ் (Tamil)', speechCode: 'ta-IN' },
+  hi: { label: 'हिंदी (Hindi)', speechCode: 'hi-IN' },
 };
 
 export default function VoiceAgronomistModal({
@@ -93,6 +93,7 @@ export default function VoiceAgronomistModal({
   onClose,
   activeContext,
   token,
+  theme = 'dark',
 }) {
   const [selectedLang, setSelectedLang] = useState('en');
   const [voiceEnabled, setVoiceEnabled] = useState(true);
@@ -162,19 +163,19 @@ export default function VoiceAgronomistModal({
         const treat = dRes?.targeted_prescription?.primary_treatment || 'Targeted Prescription';
         const dose = dRes?.targeted_prescription?.dosage || '';
         const probAcres = activeContext?.analysisData?.problem_zones?.problem_area_acres || 0.4;
-        greetingText = ` **Namaste! I have evaluated the Combined Dual-Lens Diagnostic for ${farmName} (${crop}).**\n\n️ **Satellite Macro**: Health Grade **${grade}** (NDVI: **${ndviVal}**), with **${probAcres.toFixed(2)} acre** red problem zone.\n **Ground Micro**: Confirmed **${disease}** [${cat}].\n **Zoned Prescription**: Spray **${treat}** (${dose}) targeted strictly to the problem zone.\n\nAsk me anything by voice or chat!`;
+        greetingText = `**Namaste! I have evaluated the Combined Dual-Lens Diagnostic for ${farmName} (${crop}).**\n\n**Satellite Macro**: Health Grade **${grade}** (NDVI: **${ndviVal}**), with **${probAcres.toFixed(2)} acre** red problem zone.\n**Ground Micro**: Confirmed **${disease}** [${cat}].\n**Zoned Prescription**: Spray **${treat}** (${dose}) targeted strictly to the problem zone.\n\nAsk me anything by voice or chat!`;
         greetingSpoken = `Namaste! I have combined your satellite scan and leaf photo for ${farmName}. The leaf vision identified ${disease}. I have formulated a targeted prescription for your ${probAcres.toFixed(1)} acre problem zone. How can I assist you?`;
       } else if (hasAnalysis) {
         const grade = activeContext?.analysisData?.gemini_recommendations?.executive_summary?.overall_health_grade || 'B';
         const ndvi = activeContext?.analysisData?.historical_comparison?.current_mean_ndvi || activeContext?.analysisData?.statistics?.ndvi?.mean || 0.45;
         const ndviVal = typeof ndvi === 'number' ? ndvi.toFixed(2) : ndvi;
-        greetingText = ` **Namaste! I am your AI Agronomist for this ${acres > 0 ? acres.toFixed(2) + ' acre ' : ''}field (${farmName}).**\n\nLatest Sentinel-2 multispectral scan indicates Health Grade **${grade}** (NDVI: **${ndviVal}**). Ask me anything about irrigation needs, nitrogen/urea fertilizer, or problem sub-zones!`;
+        greetingText = `**Namaste! I am your AI Agronomist for this ${acres > 0 ? acres.toFixed(2) + ' acre ' : ''}field (${farmName}).**\n\nLatest Sentinel-2 multispectral scan indicates Health Grade **${grade}** (NDVI: **${ndviVal}**). Ask me anything about irrigation needs, nitrogen/urea fertilizer, or problem sub-zones!`;
         greetingSpoken = `Namaste! I have analyzed this ${acres > 0 ? acres.toFixed(1) + ' acre ' : ''}field at ${farmName}. The crop health is at Grade ${grade}. What would you like to know about this crop?`;
       } else if (acres > 0) {
-        greetingText = ` **Namaste! I am your AI Voice Agronomist.**\n\nI see you have marked a **${acres.toFixed(2)} acre** field at **${farmName}**. You can ask me questions about this field, soil management, or crop recommendations. For live Sentinel-2 indices, click **"ANALYZE CROP HEALTH & SENTINEL MAP"**!`;
+        greetingText = `**Namaste! I am your AI Voice Agronomist.**\n\nI see you have marked a **${acres.toFixed(2)} acre** field at **${farmName}**. You can ask me questions about this field, soil management, or crop recommendations. For live Sentinel-2 indices, click **"ANALYZE CROP HEALTH & SENTINEL MAP"**!`;
         greetingSpoken = `Namaste! I see your marked field of ${acres.toFixed(1)} acres at ${farmName}. Ask me anything about this field, and run the satellite analysis for live health indices!`;
       } else {
-        greetingText = ` **Namaste! I am Sentifield Kisan Mitra, your AI Voice Agronomist.**\n\nDraw a farm boundary on the map or click one of the Farming Hub shortcuts (Namakkal, Thanjavur, Coimbatore), then ask me any questions about crop health, irrigation, or weather risks by voice or chat.`;
+        greetingText = `**Namaste! I am Sentifield Kisan Mitra, your AI Voice Agronomist.**\n\nDraw a farm boundary on the map or click one of the Farming Hub shortcuts (Namakkal, Thanjavur, Coimbatore), then ask me any questions about crop health, irrigation, or weather risks by voice or chat.`;
         greetingSpoken = `Namaste! I am your AI Voice Agronomist. Mark your farm field on the map to get started.`;
       }
     }
@@ -455,7 +456,7 @@ export default function VoiceAgronomistModal({
         {
           id: `ai-err-${Date.now()}`,
           sender: 'ai',
-          displayText: `️ **Connection Notice:** Unable to reach satellite intelligence server. Showing local telemetry guidance.\n\n **East Sugarcane Block** is your top priority today due to 38% moisture deficit.`,
+          displayText: `**Connection Notice:** Unable to reach satellite intelligence server. Showing local telemetry guidance.\n\n**East Sugarcane Block** is your top priority today due to 38% moisture deficit.`,
           spokenText: 'East Sugarcane Block is your top priority today. Please initiate irrigation immediately.',
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         },
@@ -470,6 +471,7 @@ export default function VoiceAgronomistModal({
 
   if (!isOpen) return null;
 
+  const isLight = theme === 'light';
   const isCombined = activeContext?.contextMode === 'combined';
   const activeFarmName = activeContext?.activeFarm?.farm_name || 'My Farm Plot';
 
@@ -479,7 +481,7 @@ export default function VoiceAgronomistModal({
         position: 'fixed',
         inset: 0,
         zIndex: 9999,
-        background: 'rgba(2, 6, 23, 0.85)',
+        background: isLight ? 'rgba(15, 23, 42, 0.45)' : 'rgba(2, 6, 23, 0.85)',
         backdropFilter: 'blur(10px)',
         display: 'flex',
         alignItems: 'center',
@@ -496,10 +498,12 @@ export default function VoiceAgronomistModal({
           maxWidth: '760px',
           height: '88vh',
           maxHeight: '850px',
-          background: 'linear-gradient(165deg, rgba(8, 16, 32, 0.95) 0%, rgba(3, 7, 18, 0.98) 100%)',
-          border: '1.5px solid rgba(0, 245, 160, 0.35)',
+          background: isLight ? '#ffffff' : 'linear-gradient(165deg, rgba(8, 16, 32, 0.95) 0%, rgba(3, 7, 18, 0.98) 100%)',
+          border: isLight ? '1.5px solid #cbd5e1' : '1.5px solid rgba(0, 245, 160, 0.35)',
           borderRadius: '20px',
-          boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 40px rgba(0, 245, 160, 0.15)',
+          boxShadow: isLight
+            ? '0 25px 60px -15px rgba(0, 0, 0, 0.15)'
+            : '0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 40px rgba(0, 245, 160, 0.15)',
           display: 'flex',
           flexDirection: 'column',
           overflow: 'hidden',
@@ -510,8 +514,8 @@ export default function VoiceAgronomistModal({
         <div
           style={{
             padding: '1rem 1.25rem',
-            background: 'rgba(15, 23, 42, 0.7)',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+            background: isLight ? '#f8fafc' : 'rgba(15, 23, 42, 0.7)',
+            borderBottom: isLight ? '1px solid #e2e8f0' : '1px solid rgba(255, 255, 255, 0.08)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -524,26 +528,26 @@ export default function VoiceAgronomistModal({
                 width: '42px',
                 height: '42px',
                 borderRadius: '12px',
-                background: 'linear-gradient(135deg, #00f5a0 0%, #00d9f5 100%)',
+                background: isLight ? '#ecfdf5' : 'linear-gradient(135deg, #00f5a0 0%, #00d9f5 100%)',
+                border: isLight ? '1px solid #86efac' : 'none',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: '1.3rem',
-                boxShadow: '0 0 16px rgba(0, 245, 160, 0.4)',
+                boxShadow: isLight ? '0 2px 8px rgba(0,0,0,0.05)' : '0 0 16px rgba(0, 245, 160, 0.4)',
               }}
             >
-              ️
+              <Sparkles size={20} color={isLight ? '#047857' : '#030712'} />
             </div>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span style={{ fontSize: '1.1rem', fontWeight: '900', color: '#f8fafc', letterSpacing: '-0.01em' }}>
+                <span style={{ fontSize: '1.1rem', fontWeight: '900', color: isLight ? '#0f172a' : '#f8fafc', letterSpacing: '-0.01em' }}>
                   AI Voice Agronomist
                 </span>
                 <span
                   style={{
-                    background: 'rgba(0, 245, 160, 0.15)',
-                    border: '1px solid rgba(0, 245, 160, 0.35)',
-                    color: '#00f5a0',
+                    background: isLight ? '#ecfdf5' : 'rgba(0, 245, 160, 0.15)',
+                    border: isLight ? '1px solid #10b981' : '1px solid rgba(0, 245, 160, 0.35)',
+                    color: isLight ? '#047857' : '#00f5a0',
                     fontSize: '0.68rem',
                     fontWeight: '800',
                     padding: '0.15rem 0.5rem',
@@ -555,9 +559,9 @@ export default function VoiceAgronomistModal({
                   Kisan Mitra
                 </span>
               </div>
-              <div style={{ fontSize: '0.75rem', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.1rem' }}>
+              <div style={{ fontSize: '0.75rem', color: isLight ? '#475569' : '#94a3b8', display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.1rem' }}>
                 {isCombined ? (
-                  <span><strong>Portfolio Mode:</strong> All 3 Plots Grounded</span>
+                  <span><strong>Portfolio Mode:</strong> All Plots Grounded</span>
                 ) : (
                   <span><strong>Single Plot Mode:</strong> {activeFarmName}</span>
                 )}
@@ -571,29 +575,29 @@ export default function VoiceAgronomistModal({
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                background: 'rgba(2, 6, 23, 0.7)',
-                border: '1px solid rgba(255, 255, 255, 0.12)',
+                background: isLight ? '#ffffff' : 'rgba(2, 6, 23, 0.7)',
+                border: isLight ? '1px solid #cbd5e1' : '1px solid rgba(255, 255, 255, 0.12)',
                 borderRadius: '8px',
                 padding: '0.2rem 0.4rem',
               }}
             >
-              <Globe size={13} color="#94a3b8" style={{ marginRight: '4px' }} />
+              <Globe size={13} color={isLight ? '#475569' : '#94a3b8'} style={{ marginRight: '4px' }} />
               <select
                 value={selectedLang}
                 onChange={(e) => setSelectedLang(e.target.value)}
                 style={{
                   background: 'transparent',
                   border: 'none',
-                  color: '#00f5a0',
+                  color: isLight ? '#0f172a' : '#00f5a0',
                   fontSize: '0.78rem',
                   fontWeight: '700',
                   outline: 'none',
                   cursor: 'pointer',
                 }}
               >
-                <option value="en" style={{ background: '#081020', color: '#fff' }}>English</option>
-                <option value="ta" style={{ background: '#081020', color: '#fff' }}>தமிழ் (Tamil)</option>
-                <option value="hi" style={{ background: '#081020', color: '#fff' }}>हिंदी (Hindi)</option>
+                <option value="en" style={{ background: isLight ? '#ffffff' : '#081020', color: isLight ? '#0f172a' : '#fff' }}>English</option>
+                <option value="ta" style={{ background: isLight ? '#ffffff' : '#081020', color: isLight ? '#0f172a' : '#fff' }}>தமிழ் (Tamil)</option>
+                <option value="hi" style={{ background: isLight ? '#ffffff' : '#081020', color: isLight ? '#0f172a' : '#fff' }}>हिंदी (Hindi)</option>
               </select>
             </div>
 
@@ -605,9 +609,11 @@ export default function VoiceAgronomistModal({
               }}
               title={voiceEnabled ? 'Voice Output: Active (Click to Mute)' : 'Voice Output: Muted (Click to Unmute)'}
               style={{
-                background: voiceEnabled ? 'rgba(0, 245, 160, 0.15)' : 'rgba(239, 68, 68, 0.15)',
-                border: `1px solid ${voiceEnabled ? 'rgba(0, 245, 160, 0.4)' : 'rgba(239, 68, 68, 0.4)'}`,
-                color: voiceEnabled ? '#00f5a0' : '#ef4444',
+                background: voiceEnabled
+                  ? (isLight ? '#ecfdf5' : 'rgba(0, 245, 160, 0.15)')
+                  : (isLight ? '#fef2f2' : 'rgba(239, 68, 68, 0.15)'),
+                border: `1px solid ${voiceEnabled ? (isLight ? '#10b981' : 'rgba(0, 245, 160, 0.4)') : (isLight ? '#fca5a5' : 'rgba(239, 68, 68, 0.4)')}`,
+                color: voiceEnabled ? (isLight ? '#047857' : '#00f5a0') : '#ef4444',
                 borderRadius: '8px',
                 padding: '0.45rem',
                 cursor: 'pointer',
@@ -623,9 +629,9 @@ export default function VoiceAgronomistModal({
             <button
               onClick={onClose}
               style={{
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                color: '#94a3b8',
+                background: isLight ? '#f1f5f9' : 'rgba(255, 255, 255, 0.05)',
+                border: isLight ? '1px solid #cbd5e1' : '1px solid rgba(255, 255, 255, 0.1)',
+                color: isLight ? '#475569' : '#94a3b8',
                 borderRadius: '8px',
                 padding: '0.45rem',
                 cursor: 'pointer',
@@ -646,6 +652,7 @@ export default function VoiceAgronomistModal({
             flex: 1,
             overflowY: 'auto',
             padding: '1.25rem',
+            background: isLight ? '#ffffff' : 'transparent',
             display: 'flex',
             flexDirection: 'column',
             gap: '1rem',
@@ -667,7 +674,7 @@ export default function VoiceAgronomistModal({
                 <div
                   style={{
                     fontSize: '0.68rem',
-                    color: '#64748b',
+                    color: isLight ? '#64748b' : '#64748b',
                     marginBottom: '0.25rem',
                     fontWeight: '700',
                     display: 'flex',
@@ -681,19 +688,21 @@ export default function VoiceAgronomistModal({
                 <div
                   style={{
                     background: isUser
-                      ? 'linear-gradient(135deg, rgba(0, 245, 160, 0.18) 0%, rgba(0, 217, 245, 0.15) 100%)'
-                      : 'rgba(15, 23, 42, 0.85)',
+                      ? (isLight ? '#f0fdf4' : 'linear-gradient(135deg, rgba(0, 245, 160, 0.18) 0%, rgba(0, 217, 245, 0.15) 100%)')
+                      : (isLight ? '#f8fafc' : 'rgba(15, 23, 42, 0.85)'),
                     border: isUser
-                      ? '1px solid rgba(0, 245, 160, 0.4)'
-                      : '1px solid rgba(255, 255, 255, 0.1)',
+                      ? (isLight ? '1px solid #86efac' : '1px solid rgba(0, 245, 160, 0.4)')
+                      : (isLight ? '1px solid #e2e8f0' : '1px solid rgba(255, 255, 255, 0.1)'),
                     borderRadius: isUser ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
                     padding: '0.85rem 1.05rem',
-                    color: '#f8fafc',
+                    color: isUser
+                      ? (isLight ? '#064e3b' : '#f8fafc')
+                      : (isLight ? '#0f172a' : '#f8fafc'),
                     fontSize: '0.92rem',
                     lineHeight: '1.55',
-                    boxShadow: isUser
-                      ? '0 4px 20px rgba(0, 245, 160, 0.1)'
-                      : '0 4px 20px rgba(0, 0, 0, 0.4)',
+                    boxShadow: isLight
+                      ? '0 2px 8px rgba(0, 0, 0, 0.04)'
+                      : (isUser ? '0 4px 20px rgba(0, 245, 160, 0.1)' : '0 4px 20px rgba(0, 0, 0, 0.4)'),
                     whiteSpace: 'pre-wrap',
                   }}
                 >
@@ -708,16 +717,16 @@ export default function VoiceAgronomistModal({
                         gap: '0.4rem',
                         marginTop: '0.75rem',
                         paddingTop: '0.65rem',
-                        borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+                        borderTop: isLight ? '1px solid #e2e8f0' : '1px solid rgba(255, 255, 255, 0.08)',
                       }}
                     >
                       {msg.keyMetrics.map((met, i) => (
                         <span
                           key={i}
                           style={{
-                            background: 'rgba(0, 217, 245, 0.12)',
-                            border: '1px solid rgba(0, 217, 245, 0.3)',
-                            color: '#00d9f5',
+                            background: isLight ? '#f0fdf4' : 'rgba(0, 217, 245, 0.12)',
+                            border: isLight ? '1px solid #86efac' : '1px solid rgba(0, 217, 245, 0.3)',
+                            color: isLight ? '#047857' : '#00d9f5',
                             fontSize: '0.72rem',
                             fontWeight: '700',
                             padding: '0.15rem 0.5rem',
@@ -743,9 +752,9 @@ export default function VoiceAgronomistModal({
                       <button
                         onClick={() => replayMessage(msg.spokenText)}
                         style={{
-                          background: 'rgba(255, 255, 255, 0.05)',
-                          border: '1px solid rgba(255, 255, 255, 0.12)',
-                          color: '#94a3b8',
+                          background: isLight ? '#ffffff' : 'rgba(255, 255, 255, 0.05)',
+                          border: isLight ? '1px solid #cbd5e1' : '1px solid rgba(255, 255, 255, 0.12)',
+                          color: isLight ? '#475569' : '#94a3b8',
                           fontSize: '0.72rem',
                           fontWeight: '700',
                           padding: '0.25rem 0.6rem',
@@ -757,12 +766,12 @@ export default function VoiceAgronomistModal({
                           transition: 'all 0.2s',
                         }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.color = '#00f5a0';
-                          e.currentTarget.style.borderColor = '#00f5a0';
+                          e.currentTarget.style.color = isLight ? '#047857' : '#00f5a0';
+                          e.currentTarget.style.borderColor = isLight ? '#10b981' : '#00f5a0';
                         }}
                         onMouseLeave={(e) => {
-                          e.currentTarget.style.color = '#94a3b8';
-                          e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)';
+                          e.currentTarget.style.color = isLight ? '#475569' : '#94a3b8';
+                          e.currentTarget.style.borderColor = isLight ? '#cbd5e1' : 'rgba(255,255,255,0.12)';
                         }}
                       >
                         <Volume2 size={12} />
@@ -788,15 +797,16 @@ export default function VoiceAgronomistModal({
                         key={i}
                         onClick={() => handleFarmerQuestion(f)}
                         style={{
-                          background: 'rgba(0, 245, 160, 0.06)',
-                          border: '1px solid rgba(0, 245, 160, 0.25)',
-                          color: '#00f5a0',
+                          background: isLight ? '#ffffff' : 'rgba(0, 245, 160, 0.06)',
+                          border: isLight ? '1px solid #86efac' : '1px solid rgba(0, 245, 160, 0.25)',
+                          color: isLight ? '#047857' : '#00f5a0',
                           borderRadius: '8px',
                           padding: '0.3rem 0.65rem',
                           fontSize: '0.75rem',
                           fontWeight: '600',
                           cursor: 'pointer',
                           textAlign: 'left',
+                          boxShadow: isLight ? '0 1px 3px rgba(0,0,0,0.05)' : 'none',
                         }}
                       >
                         {f}
@@ -813,8 +823,8 @@ export default function VoiceAgronomistModal({
             <div
               style={{
                 alignSelf: 'flex-start',
-                background: 'rgba(15, 23, 42, 0.8)',
-                border: '1px solid rgba(0, 217, 245, 0.3)',
+                background: isLight ? '#f0fdf4' : 'rgba(15, 23, 42, 0.8)',
+                border: isLight ? '1px solid #86efac' : '1px solid rgba(0, 217, 245, 0.3)',
                 borderRadius: '16px 16px 16px 4px',
                 padding: '0.85rem 1.1rem',
                 display: 'flex',
@@ -826,28 +836,30 @@ export default function VoiceAgronomistModal({
                 style={{
                   width: '18px',
                   height: '18px',
-                  border: '2px solid rgba(0, 217, 245, 0.2)',
-                  borderTopColor: '#00d9f5',
+                  border: isLight ? '2px solid #86efac' : '2px solid rgba(0, 217, 245, 0.2)',
+                  borderTopColor: isLight ? '#047857' : '#00d9f5',
                   borderRadius: '50%',
                   animation: 'spin 0.8s linear infinite',
                 }}
               />
-              <span style={{ fontSize: '0.86rem', color: '#00d9f5', fontWeight: '700' }}>
+              <span style={{ fontSize: '0.86rem', color: isLight ? '#047857' : '#00d9f5', fontWeight: '700' }}>
                 Grounding answer with Sentinel-2 satellite telemetry & weather...
               </span>
             </div>
           )}
 
-          {/* Active Speaking Indicator (User requirement: output as voice first, then display as text) */}
+          {/* Active Speaking Indicator */}
           {isSpeaking && (
             <div
               style={{
                 alignSelf: 'flex-start',
-                background: 'linear-gradient(135deg, rgba(0, 245, 160, 0.12) 0%, rgba(0, 217, 245, 0.12) 100%)',
-                border: '1.5px solid #00f5a0',
+                background: isLight
+                  ? '#f0fdf4'
+                  : 'linear-gradient(135deg, rgba(0, 245, 160, 0.12) 0%, rgba(0, 217, 245, 0.12) 100%)',
+                border: isLight ? '1.5px solid #10b981' : '1.5px solid #00f5a0',
                 borderRadius: '16px',
                 padding: '0.9rem 1.15rem',
-                boxShadow: '0 0 25px rgba(0, 245, 160, 0.2)',
+                boxShadow: isLight ? '0 4px 20px rgba(16, 185, 129, 0.15)' : '0 0 25px rgba(0, 245, 160, 0.2)',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '0.65rem',
@@ -856,14 +868,13 @@ export default function VoiceAgronomistModal({
             >
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                  {/* Sound wave equalizer animation */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: '3px', height: '18px' }}>
-                    <span style={{ width: '3px', height: '14px', background: '#00f5a0', borderRadius: '2px', animation: 'pulseWave 0.7s infinite alternate' }} />
-                    <span style={{ width: '3px', height: '20px', background: '#00d9f5', borderRadius: '2px', animation: 'pulseWave 0.9s infinite alternate 0.2s' }} />
-                    <span style={{ width: '3px', height: '10px', background: '#00f5a0', borderRadius: '2px', animation: 'pulseWave 0.6s infinite alternate 0.4s' }} />
-                    <span style={{ width: '3px', height: '16px', background: '#00d9f5', borderRadius: '2px', animation: 'pulseWave 0.8s infinite alternate 0.1s' }} />
+                    <span style={{ width: '3px', height: '14px', background: isLight ? '#047857' : '#00f5a0', borderRadius: '2px', animation: 'pulseWave 0.7s infinite alternate' }} />
+                    <span style={{ width: '3px', height: '20px', background: isLight ? '#0284c7' : '#00d9f5', borderRadius: '2px', animation: 'pulseWave 0.9s infinite alternate 0.2s' }} />
+                    <span style={{ width: '3px', height: '10px', background: isLight ? '#047857' : '#00f5a0', borderRadius: '2px', animation: 'pulseWave 0.6s infinite alternate 0.4s' }} />
+                    <span style={{ width: '3px', height: '16px', background: isLight ? '#0284c7' : '#00d9f5', borderRadius: '2px', animation: 'pulseWave 0.8s infinite alternate 0.1s' }} />
                   </div>
-                  <strong style={{ fontSize: '0.86rem', color: '#00f5a0' }}>
+                  <strong style={{ fontSize: '0.86rem', color: isLight ? '#047857' : '#00f5a0' }}>
                     AI Agronomist is speaking aloud...
                   </strong>
                 </div>
@@ -871,9 +882,9 @@ export default function VoiceAgronomistModal({
                 <button
                   onClick={stopVoice}
                   style={{
-                    background: 'rgba(239, 68, 68, 0.2)',
-                    border: '1px solid rgba(239, 68, 68, 0.5)',
-                    color: '#f87171',
+                    background: isLight ? '#fee2e2' : 'rgba(239, 68, 68, 0.2)',
+                    border: isLight ? '1px solid #fca5a5' : '1px solid rgba(239, 68, 68, 0.5)',
+                    color: isLight ? '#b91c1c' : '#f87171',
                     fontSize: '0.72rem',
                     fontWeight: '800',
                     padding: '0.2rem 0.55rem',
@@ -885,7 +896,7 @@ export default function VoiceAgronomistModal({
                 </button>
               </div>
 
-              <div style={{ fontSize: '0.84rem', color: '#94a3b8', fontStyle: 'italic', lineHeight: '1.4' }}>
+              <div style={{ fontSize: '0.84rem', color: isLight ? '#475569' : '#94a3b8', fontStyle: 'italic', lineHeight: '1.4' }}>
                 "{activeSpeechText.length > 120 ? activeSpeechText.slice(0, 120) + '...' : activeSpeechText}"
               </div>
             </div>
@@ -896,11 +907,11 @@ export default function VoiceAgronomistModal({
             <div
               style={{
                 alignSelf: 'flex-end',
-                background: 'rgba(239, 68, 68, 0.15)',
-                border: '1px solid rgba(239, 68, 68, 0.4)',
+                background: isLight ? '#fef2f2' : 'rgba(239, 68, 68, 0.15)',
+                border: isLight ? '1px solid #fca5a5' : '1px solid rgba(239, 68, 68, 0.4)',
                 borderRadius: '16px 16px 4px 16px',
                 padding: '0.75rem 1rem',
-                color: '#f87171',
+                color: isLight ? '#b91c1c' : '#f87171',
                 fontSize: '0.86rem',
                 display: 'flex',
                 alignItems: 'center',
@@ -928,8 +939,8 @@ export default function VoiceAgronomistModal({
         <div
           style={{
             padding: '0.6rem 1.25rem',
-            background: 'rgba(15, 23, 42, 0.6)',
-            borderTop: '1px solid rgba(255, 255, 255, 0.05)',
+            background: isLight ? '#f8fafc' : 'rgba(15, 23, 42, 0.6)',
+            borderTop: isLight ? '1px solid #e2e8f0' : '1px solid rgba(255, 255, 255, 0.05)',
             display: 'flex',
             alignItems: 'center',
             gap: '0.5rem',
@@ -937,7 +948,7 @@ export default function VoiceAgronomistModal({
             whiteSpace: 'nowrap',
           }}
         >
-          <span style={{ fontSize: '0.72rem', color: '#64748b', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+          <span style={{ fontSize: '0.72rem', color: isLight ? '#475569' : '#64748b', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
             Quick Ask:
           </span>
           {quickPromptList.map((p, i) => (
@@ -945,10 +956,11 @@ export default function VoiceAgronomistModal({
               key={i}
               onClick={() => handleFarmerQuestion(p.text)}
               style={{
-                background: 'rgba(255, 255, 255, 0.04)',
-                border: '1px solid rgba(255, 255, 255, 0.09)',
-                color: '#cbd5e1',
+                background: isLight ? '#ffffff' : 'rgba(255, 255, 255, 0.04)',
+                border: isLight ? '1px solid #cbd5e1' : '1px solid rgba(255, 255, 255, 0.09)',
+                color: isLight ? '#334155' : '#cbd5e1',
                 fontSize: '0.75rem',
+                fontWeight: '600',
                 padding: '0.35rem 0.75rem',
                 borderRadius: '9999px',
                 cursor: 'pointer',
@@ -956,14 +968,14 @@ export default function VoiceAgronomistModal({
                 transition: 'all 0.15s ease',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(0, 245, 160, 0.12)';
-                e.currentTarget.style.borderColor = '#00f5a0';
-                e.currentTarget.style.color = '#00f5a0';
+                e.currentTarget.style.background = isLight ? '#f0fdf4' : 'rgba(0, 245, 160, 0.12)';
+                e.currentTarget.style.borderColor = isLight ? '#10b981' : '#00f5a0';
+                e.currentTarget.style.color = isLight ? '#047857' : '#00f5a0';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.09)';
-                e.currentTarget.style.color = '#cbd5e1';
+                e.currentTarget.style.background = isLight ? '#ffffff' : 'rgba(255, 255, 255, 0.04)';
+                e.currentTarget.style.borderColor = isLight ? '#cbd5e1' : 'rgba(255, 255, 255, 0.09)';
+                e.currentTarget.style.color = isLight ? '#334155' : '#cbd5e1';
               }}
             >
               {p.label}
@@ -975,8 +987,8 @@ export default function VoiceAgronomistModal({
         <div
           style={{
             padding: '1rem 1.25rem',
-            background: 'rgba(8, 16, 32, 0.95)',
-            borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+            background: isLight ? '#ffffff' : 'rgba(8, 16, 32, 0.95)',
+            borderTop: isLight ? '1px solid #e2e8f0' : '1px solid rgba(255, 255, 255, 0.1)',
             display: 'flex',
             alignItems: 'center',
             gap: '0.75rem',
@@ -1020,14 +1032,14 @@ export default function VoiceAgronomistModal({
               flex: 1,
               display: 'flex',
               alignItems: 'center',
-              background: 'rgba(2, 6, 23, 0.7)',
-              border: '1.5px solid rgba(255, 255, 255, 0.1)',
+              background: isLight ? '#f8fafc' : 'rgba(2, 6, 23, 0.7)',
+              border: isLight ? '1.5px solid #cbd5e1' : '1.5px solid rgba(255, 255, 255, 0.1)',
               borderRadius: '12px',
               padding: '0.2rem 0.5rem',
               transition: 'border-color 0.2s',
             }}
-            onFocus={(e) => (e.currentTarget.style.borderColor = '#00f5a0')}
-            onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)')}
+            onFocus={(e) => (e.currentTarget.style.borderColor = isLight ? '#10b981' : '#00f5a0')}
+            onBlur={(e) => (e.currentTarget.style.borderColor = isLight ? '#cbd5e1' : 'rgba(255, 255, 255, 0.1)')}
           >
             <input
               type="text"
@@ -1046,7 +1058,7 @@ export default function VoiceAgronomistModal({
                 flex: 1,
                 background: 'transparent',
                 border: 'none',
-                color: '#f8fafc',
+                color: isLight ? '#0f172a' : '#f8fafc',
                 fontSize: '0.92rem',
                 padding: '0.6rem 0.75rem',
                 outline: 'none',
@@ -1058,12 +1070,12 @@ export default function VoiceAgronomistModal({
               disabled={!inputValue.trim()}
               style={{
                 background: inputValue.trim()
-                  ? 'linear-gradient(135deg, #00f5a0, #00d9f5)'
-                  : 'rgba(255, 255, 255, 0.05)',
+                  ? (isLight ? '#059669' : 'linear-gradient(135deg, #00f5a0, #00d9f5)')
+                  : (isLight ? '#e2e8f0' : 'rgba(255, 255, 255, 0.05)'),
                 border: 'none',
                 borderRadius: '8px',
                 padding: '0.5rem 0.85rem',
-                color: inputValue.trim() ? '#030712' : '#475569',
+                color: inputValue.trim() ? '#ffffff' : (isLight ? '#94a3b8' : '#475569'),
                 cursor: inputValue.trim() ? 'pointer' : 'default',
                 display: 'flex',
                 alignItems: 'center',

@@ -24,7 +24,6 @@ const PHASE_CONFIG = [
     border: 'rgba(239,68,68,0.45)',
     textColor: '#fca5a5',
     numberBg: '#dc2626',
-    icon: '',
     pulseRing: true,
   },
   {
@@ -38,7 +37,6 @@ const PHASE_CONFIG = [
     border: 'rgba(245,158,11,0.4)',
     textColor: '#fde68a',
     numberBg: '#d97706',
-    icon: '',
     pulseRing: false,
   },
   {
@@ -52,7 +50,6 @@ const PHASE_CONFIG = [
     border: 'rgba(16,185,129,0.4)',
     textColor: '#6ee7b7',
     numberBg: '#059669',
-    icon: '',
     pulseRing: false,
   },
 ];
@@ -78,7 +75,8 @@ function buildSteps(actionPlan) {
   return steps;
 }
 
-export default function PriorityTimeline({ actionPlan }) {
+export default function PriorityTimeline({ actionPlan, theme = 'dark' }) {
+  const isLight = theme === 'light';
   const steps = buildSteps(actionPlan);
   const [completed, setCompleted] = useState({});
   const [pulse, setPulse] = useState(true);
@@ -100,23 +98,22 @@ export default function PriorityTimeline({ actionPlan }) {
   return (
     <div style={{
       marginTop: '2rem',
-      background: 'rgba(15,23,42,0.97)',
-      border: '1px solid rgba(99,102,241,0.35)',
+      background: isLight ? '#ffffff' : 'rgba(15,23,42,0.97)',
+      border: isLight ? '1.5px solid #cbd5e1' : '1px solid rgba(99,102,241,0.35)',
       borderRadius: '18px',
       padding: '1.75rem 1.5rem',
-      boxShadow: '0 0 40px rgba(99,102,241,0.08), 0 8px 32px rgba(0,0,0,0.4)',
+      boxShadow: isLight ? '0 4px 20px rgba(0, 0, 0, 0.05)' : '0 0 40px rgba(99,102,241,0.08), 0 8px 32px rgba(0,0,0,0.4)',
     }}>
 
       {/* ── Header ── */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-            
-            <h3 style={{ fontSize: '1.3rem', color: '#ffffff', fontWeight: '900', margin: 0, letterSpacing: '-0.02em' }}>
+            <h3 style={{ fontSize: '1.3rem', color: isLight ? '#0f172a' : '#ffffff', fontWeight: '900', margin: 0, letterSpacing: '-0.02em' }}>
               Farm Development Priority Timeline
             </h3>
           </div>
-          <p style={{ fontSize: '0.88rem', color: '#94a3b8', margin: '0.3rem 0 0 0', maxWidth: '520px' }}>
+          <p style={{ fontSize: '0.88rem', color: isLight ? '#475569' : '#94a3b8', margin: '0.3rem 0 0 0', maxWidth: '520px' }}>
             Complete each step in order — from most critical to routine. Tap a step when done to track your progress.
           </p>
         </div>
@@ -126,7 +123,7 @@ export default function PriorityTimeline({ actionPlan }) {
           <div style={{
             width: '72px', height: '72px',
             borderRadius: '50%',
-            background: `conic-gradient(#10b981 ${progress * 3.6}deg, rgba(255,255,255,0.07) 0deg)`,
+            background: `conic-gradient(#10b981 ${progress * 3.6}deg, ${isLight ? '#e2e8f0' : 'rgba(255,255,255,0.07)'} 0deg)`,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             boxShadow: `0 0 18px rgba(16,185,129,${progress > 0 ? 0.4 : 0.1})`,
             transition: 'all 0.6s ease',
@@ -135,14 +132,14 @@ export default function PriorityTimeline({ actionPlan }) {
             <div style={{
               width: '54px', height: '54px',
               borderRadius: '50%',
-              background: '#0f172a',
+              background: isLight ? '#ffffff' : '#0f172a',
               display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
             }}>
-              <span style={{ fontSize: '1.1rem', fontWeight: '900', color: '#ffffff', lineHeight: 1 }}>{progress}%</span>
-              <span style={{ fontSize: '0.58rem', color: '#64748b', lineHeight: 1, marginTop: '2px' }}>DONE</span>
+              <span style={{ fontSize: '1.1rem', fontWeight: '900', color: isLight ? '#0f172a' : '#ffffff', lineHeight: 1 }}>{progress}%</span>
+              <span style={{ fontSize: '0.58rem', color: isLight ? '#64748b' : '#64748b', lineHeight: 1, marginTop: '2px' }}>DONE</span>
             </div>
           </div>
-          <div style={{ fontSize: '0.75rem', color: '#64748b', marginTop: '0.35rem' }}>
+          <div style={{ fontSize: '0.75rem', color: isLight ? '#64748b' : '#64748b', marginTop: '0.35rem' }}>
             {totalDone} / {steps.length} steps
           </div>
         </div>
@@ -153,8 +150,8 @@ export default function PriorityTimeline({ actionPlan }) {
         {PHASE_CONFIG.map((ph) => (
           <div key={ph.key} style={{
             display: 'flex', alignItems: 'center', gap: '0.4rem',
-            background: ph.bg,
-            border: `1px solid ${ph.border}`,
+            background: isLight ? '#f8fafc' : ph.bg,
+            border: `1px solid ${isLight ? '#cbd5e1' : ph.border}`,
             borderRadius: '20px',
             padding: '0.25rem 0.75rem',
             fontSize: '0.78rem',
@@ -215,21 +212,21 @@ export default function PriorityTimeline({ actionPlan }) {
                     height: '54px',
                     borderRadius: '50%',
                     background: isDone
-                      ? 'rgba(16,185,129,0.2)'
+                      ? (isLight ? '#ecfdf5' : 'rgba(16,185,129,0.2)')
                       : isNext
                       ? ph.numberBg
-                      : 'rgba(30,41,59,0.9)',
+                      : (isLight ? '#f1f5f9' : 'rgba(30,41,59,0.9)'),
                     border: isDone
                       ? '2px solid #10b981'
                       : isNext
                       ? `2px solid ${ph.color}`
-                      : '2px solid rgba(255,255,255,0.1)',
+                      : (isLight ? '2px solid #cbd5e1' : '2px solid rgba(255,255,255,0.1)'),
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: isDone ? '1.35rem' : '1.05rem',
+                    fontSize: isDone ? '1rem' : '1.05rem',
                     fontWeight: '900',
-                    color: isDone ? '#10b981' : '#ffffff',
+                    color: isDone ? '#10b981' : (isNext ? '#ffffff' : (isLight ? '#0f172a' : '#ffffff')),
                     boxShadow: isNext && !isDone
                       ? `0 0 0 ${pulse ? '6px' : '3px'} ${ph.glow}, 0 4px 14px ${ph.glow}`
                       : 'none',
@@ -246,15 +243,15 @@ export default function PriorityTimeline({ actionPlan }) {
               <div style={{
                 flex: 1,
                 background: isDone
-                  ? 'rgba(16,185,129,0.05)'
+                  ? (isLight ? '#f0fdf4' : 'rgba(16,185,129,0.05)')
                   : isNext
-                  ? ph.bg
-                  : 'rgba(30,41,59,0.5)',
+                  ? (isLight ? '#fff7ed' : ph.bg)
+                  : (isLight ? '#f8fafc' : 'rgba(30,41,59,0.5)'),
                 border: isDone
-                  ? '1px solid rgba(16,185,129,0.25)'
+                  ? (isLight ? '1px solid #86efac' : '1px solid rgba(16,185,129,0.25)')
                   : isNext
                   ? `1.5px solid ${ph.color}`
-                  : '1px solid rgba(255,255,255,0.07)',
+                  : (isLight ? '1px solid #e2e8f0' : '1px solid rgba(255,255,255,0.07)'),
                 borderRadius: '12px',
                 padding: '0.9rem 1.1rem',
                 transition: 'all 0.3s ease',
@@ -278,21 +275,21 @@ export default function PriorityTimeline({ actionPlan }) {
                       fontWeight: '700',
                       padding: '0.1rem 0.45rem',
                       borderRadius: '10px',
-                      background: isDone ? 'rgba(16,185,129,0.2)' : ph.bg,
-                      color: isDone ? '#10b981' : ph.color,
-                      border: `1px solid ${isDone ? 'rgba(16,185,129,0.4)' : ph.border}`,
+                      background: isDone ? (isLight ? '#ecfdf5' : 'rgba(16,185,129,0.2)') : (isLight ? '#ffffff' : ph.bg),
+                      color: isDone ? '#047857' : ph.color,
+                      border: `1px solid ${isDone ? (isLight ? '#86efac' : 'rgba(16,185,129,0.4)') : (isLight ? '#cbd5e1' : ph.border)}`,
                     }}>
                       {isDone ? 'DONE' : isNext ? 'DO THIS NEXT' : ph.badge}
                     </span>
                   </div>
-                  <span style={{ fontSize: '0.72rem', color: '#475569' }}>{ph.sublabel}</span>
+                  <span style={{ fontSize: '0.72rem', color: isLight ? '#64748b' : '#475569' }}>{ph.sublabel}</span>
                 </div>
 
                 {/* Action title */}
                 <strong style={{
                   display: 'block',
                   fontSize: '1rem',
-                  color: isDone ? '#64748b' : '#ffffff',
+                  color: isDone ? '#94a3b8' : (isLight ? '#0f172a' : '#ffffff'),
                   fontWeight: '700',
                   lineHeight: '1.35',
                   textDecoration: isDone ? 'line-through' : 'none',
@@ -304,7 +301,7 @@ export default function PriorityTimeline({ actionPlan }) {
                 {/* Rationale */}
                 <p style={{
                   fontSize: '0.84rem',
-                  color: isDone ? '#475569' : ph.textColor,
+                  color: isDone ? '#94a3b8' : (isLight ? '#334155' : ph.textColor),
                   margin: 0,
                   lineHeight: '1.5',
                 }}>
@@ -341,16 +338,16 @@ export default function PriorityTimeline({ actionPlan }) {
                     onClick={() => toggleDone(step.id)}
                     style={{
                       marginTop: '0.5rem',
-                      background: 'transparent',
-                      border: '1px solid rgba(100,116,139,0.4)',
+                      background: isLight ? '#f1f5f9' : 'transparent',
+                      border: isLight ? '1px solid #cbd5e1' : '1px solid rgba(100,116,139,0.4)',
                       borderRadius: '6px',
                       padding: '0.3rem 0.7rem',
                       fontSize: '0.78rem',
-                      color: '#64748b',
+                      color: isLight ? '#475569' : '#64748b',
                       cursor: 'pointer',
                     }}
                   >
-                    ↩ Undo
+                    Undo
                   </button>
                 )}
               </div>
@@ -363,18 +360,18 @@ export default function PriorityTimeline({ actionPlan }) {
       {totalDone === steps.length && steps.length > 0 && (
         <div style={{
           marginTop: '1.5rem',
-          background: 'linear-gradient(135deg, rgba(16,185,129,0.2) 0%, rgba(5,150,105,0.15) 100%)',
+          background: isLight ? '#f0fdf4' : 'linear-gradient(135deg, rgba(16,185,129,0.2) 0%, rgba(5,150,105,0.15) 100%)',
           border: '1.5px solid #10b981',
           borderRadius: '14px',
           padding: '1.25rem',
           textAlign: 'center',
-          boxShadow: '0 0 30px rgba(16,185,129,0.2)',
+          boxShadow: isLight ? '0 4px 15px rgba(16,185,129,0.1)' : '0 0 30px rgba(16,185,129,0.2)',
         }}>
-          <div style={{ fontSize: '1.5rem', fontWeight: '900', color: '#10b981', marginBottom: '0.3rem' }}>COMPLETE</div>
-          <strong style={{ fontSize: '1.2rem', color: '#34d399', display: 'block' }}>
+          <div style={{ fontSize: '1.2rem', fontWeight: '900', color: isLight ? '#047857' : '#10b981', marginBottom: '0.3rem' }}>COMPLETE</div>
+          <strong style={{ fontSize: '1.2rem', color: isLight ? '#064e3b' : '#34d399', display: 'block' }}>
             All Farm Development Steps Completed!
           </strong>
-          <p style={{ fontSize: '0.9rem', color: '#6ee7b7', margin: '0.3rem 0 0 0' }}>
+          <p style={{ fontSize: '0.9rem', color: isLight ? '#047857' : '#6ee7b7', margin: '0.3rem 0 0 0' }}>
             Excellent work! Your farm is on track for maximum yield. Re-analyze with the next satellite pass in 5 days to confirm recovery.
           </p>
         </div>
@@ -386,12 +383,12 @@ export default function PriorityTimeline({ actionPlan }) {
           onClick={() => setCompleted({})}
           style={{
             marginTop: '1rem',
-            background: 'transparent',
-            border: '1px solid rgba(255,255,255,0.1)',
+            background: isLight ? '#f8fafc' : 'transparent',
+            border: isLight ? '1px solid #cbd5e1' : '1px solid rgba(255,255,255,0.1)',
             borderRadius: '8px',
             padding: '0.4rem 0.85rem',
             fontSize: '0.78rem',
-            color: '#64748b',
+            color: isLight ? '#475569' : '#64748b',
             cursor: 'pointer',
             display: 'block',
           }}

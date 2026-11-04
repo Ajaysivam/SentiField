@@ -30,7 +30,9 @@ export default function DepthAnalysisModal({
   activeContext,
   token,
   onDepthAnalysisComplete,
+  theme = 'dark',
 }) {
+  const isLight = theme === 'light';
   const [selectedCrop, setSelectedCrop] = useState(
     activeContext?.activeFarm?.crop_type || activeContext?.cropType || 'General Crop'
   );
@@ -114,7 +116,7 @@ export default function DepthAnalysisModal({
     // Visual step sequence
     setAnalysisStep(' Scanning leaf lesions with Multimodal Vision AI...');
     const stepTimer1 = setTimeout(() => {
-      setAnalysisStep('️ Correlating leaf pathology with satellite problem sub-zones...');
+      setAnalysisStep('Correlating leaf pathology with satellite problem sub-zones...');
     }, 1500);
     const stepTimer2 = setTimeout(() => {
       setAnalysisStep(' Formulating precision targeted prescription and spread forecast...');
@@ -232,10 +234,12 @@ export default function DepthAnalysisModal({
           maxWidth: '920px',
           height: '90vh',
           maxHeight: '920px',
-          background: 'linear-gradient(165deg, rgba(8, 16, 32, 0.98) 0%, rgba(3, 7, 18, 0.99) 100%)',
-          border: '1.5px solid rgba(0, 245, 160, 0.4)',
+          background: isLight ? '#ffffff' : 'linear-gradient(165deg, rgba(8, 16, 32, 0.98) 0%, rgba(3, 7, 18, 0.99) 100%)',
+          border: isLight ? '1.5px solid #cbd5e1' : '1.5px solid rgba(0, 245, 160, 0.4)',
           borderRadius: '24px',
-          boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.95), 0 0 50px rgba(0, 245, 160, 0.15)',
+          boxShadow: isLight
+            ? '0 25px 60px -15px rgba(0, 0, 0, 0.15)'
+            : '0 25px 60px -15px rgba(0, 0, 0, 0.95), 0 0 50px rgba(0, 245, 160, 0.15)',
           display: 'flex',
           flexDirection: 'column',
           overflow: 'hidden',
@@ -246,8 +250,8 @@ export default function DepthAnalysisModal({
         <div
           style={{
             padding: '1.1rem 1.4rem',
-            background: 'rgba(15, 23, 42, 0.75)',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+            background: isLight ? '#f8fafc' : 'rgba(15, 23, 42, 0.75)',
+            borderBottom: isLight ? '1px solid #e2e8f0' : '1px solid rgba(255, 255, 255, 0.08)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -261,26 +265,26 @@ export default function DepthAnalysisModal({
                 width: '46px',
                 height: '46px',
                 borderRadius: '14px',
-                background: 'linear-gradient(135deg, #00f5a0 0%, #00d9f5 100%)',
+                background: isLight ? '#ecfdf5' : 'linear-gradient(135deg, #00f5a0 0%, #00d9f5 100%)',
+                border: isLight ? '1px solid #86efac' : 'none',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: '1.4rem',
-                boxShadow: '0 0 20px rgba(0, 245, 160, 0.4)',
+                boxShadow: isLight ? '0 2px 8px rgba(0,0,0,0.05)' : '0 0 20px rgba(0, 245, 160, 0.4)',
               }}
             >
-              
+              <Layers size={22} color={isLight ? '#047857' : '#030712'} />
             </div>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                <span style={{ fontSize: '1.2rem', fontWeight: '900', color: '#f8fafc', letterSpacing: '-0.01em' }}>
+                <span style={{ fontSize: '1.2rem', fontWeight: '900', color: isLight ? '#0f172a' : '#f8fafc', letterSpacing: '-0.01em' }}>
                   Macro + Micro Depth Analysis
                 </span>
                 <span
                   style={{
-                    background: 'rgba(0, 217, 245, 0.15)',
-                    border: '1px solid rgba(0, 217, 245, 0.4)',
-                    color: '#00d9f5',
+                    background: isLight ? '#ecfdf5' : 'rgba(0, 217, 245, 0.15)',
+                    border: isLight ? '1px solid #86efac' : '1px solid rgba(0, 217, 245, 0.4)',
+                    color: isLight ? '#047857' : '#00d9f5',
                     fontSize: '0.68rem',
                     fontWeight: '800',
                     padding: '0.15rem 0.55rem',
@@ -291,10 +295,10 @@ export default function DepthAnalysisModal({
                   Leaf + Satellite Fusion
                 </span>
               </div>
-              <div style={{ fontSize: '0.78rem', color: '#94a3b8', marginTop: '0.15rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span> <strong>Target Field:</strong> {farmName} {acres > 0 ? `(${acres.toFixed(2)} ac)` : ''}</span>
+              <div style={{ fontSize: '0.78rem', color: isLight ? '#475569' : '#94a3b8', marginTop: '0.15rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span><strong>Target Field:</strong> {farmName} {acres > 0 ? `(${acres.toFixed(2)} ac)` : ''}</span>
                 {hasSatellite && (
-                  <span style={{ color: '#00f5a0' }}>• Sentinel-2 Grade {grade} Linked</span>
+                  <span style={{ color: isLight ? '#059669' : '#00f5a0' }}>• Sentinel-2 Grade {grade} Linked</span>
                 )}
               </div>
             </div>
@@ -306,20 +310,20 @@ export default function DepthAnalysisModal({
               value={selectedLang}
               onChange={(e) => setSelectedLang(e.target.value)}
               style={{
-                background: 'rgba(2, 6, 23, 0.8)',
-                border: '1px solid rgba(255, 255, 255, 0.12)',
+                background: isLight ? '#ffffff' : 'rgba(2, 6, 23, 0.8)',
+                border: isLight ? '1px solid #cbd5e1' : '1px solid rgba(255, 255, 255, 0.12)',
                 borderRadius: '8px',
                 padding: '0.35rem 0.6rem',
-                color: '#00f5a0',
+                color: isLight ? '#0f172a' : '#00f5a0',
                 fontSize: '0.78rem',
                 fontWeight: '700',
                 outline: 'none',
                 cursor: 'pointer',
               }}
             >
-              <option value="en" style={{ background: '#081020', color: '#fff' }}>English</option>
-              <option value="ta" style={{ background: '#081020', color: '#fff' }}>தமிழ் (Tamil)</option>
-              <option value="hi" style={{ background: '#081020', color: '#fff' }}>हिंदी (Hindi)</option>
+              <option value="en" style={{ background: isLight ? '#ffffff' : '#081020', color: isLight ? '#0f172a' : '#fff' }}>English</option>
+              <option value="ta" style={{ background: isLight ? '#ffffff' : '#081020', color: isLight ? '#0f172a' : '#fff' }}>தமிழ் (Tamil)</option>
+              <option value="hi" style={{ background: isLight ? '#ffffff' : '#081020', color: isLight ? '#0f172a' : '#fff' }}>हिंदी (Hindi)</option>
             </select>
 
             <button
@@ -328,9 +332,9 @@ export default function DepthAnalysisModal({
                 onClose();
               }}
               style={{
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                color: '#94a3b8',
+                background: isLight ? '#f1f5f9' : 'rgba(255, 255, 255, 0.05)',
+                border: isLight ? '1px solid #cbd5e1' : '1px solid rgba(255, 255, 255, 0.1)',
+                color: isLight ? '#475569' : '#94a3b8',
                 borderRadius: '8px',
                 padding: '0.45rem',
                 cursor: 'pointer',
@@ -345,15 +349,15 @@ export default function DepthAnalysisModal({
         </div>
 
         {/* ── BODY SCROLL AREA ── */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: '1.4rem' }}>
+        <div style={{ flex: 1, overflowY: 'auto', padding: '1.4rem', background: isLight ? '#ffffff' : 'transparent' }}>
           {error && (
             <div
               style={{
-                background: 'rgba(239, 68, 68, 0.15)',
-                border: '1px solid rgba(239, 68, 68, 0.4)',
+                background: isLight ? '#fef2f2' : 'rgba(239, 68, 68, 0.15)',
+                border: isLight ? '1px solid #fca5a5' : '1px solid rgba(239, 68, 68, 0.4)',
                 borderRadius: '12px',
                 padding: '0.85rem 1.1rem',
-                color: '#f87171',
+                color: isLight ? '#b91c1c' : '#f87171',
                 fontSize: '0.88rem',
                 display: 'flex',
                 alignItems: 'center',
@@ -383,9 +387,11 @@ export default function DepthAnalysisModal({
                 onDrop={handleDrop}
                 onClick={() => fileInputRef.current?.click()}
                 style={{
-                  border: '2px dashed rgba(0, 245, 160, 0.35)',
+                  border: isLight ? '2px dashed #cbd5e1' : '2px dashed rgba(0, 245, 160, 0.35)',
                   borderRadius: '16px',
-                  background: imagePreview ? 'rgba(0, 0, 0, 0.4)' : 'rgba(15, 23, 42, 0.6)',
+                  background: imagePreview
+                    ? (isLight ? '#f8fafc' : 'rgba(0, 0, 0, 0.4)')
+                    : (isLight ? '#f8fafc' : 'rgba(15, 23, 42, 0.6)'),
                   padding: imagePreview ? '0.75rem' : '2rem 1.5rem',
                   textAlign: 'center',
                   cursor: 'pointer',
@@ -404,7 +410,7 @@ export default function DepthAnalysisModal({
                         maxHeight: '220px',
                         objectFit: 'cover',
                         borderRadius: '10px',
-                        boxShadow: '0 4px 15px rgba(0, 0, 0, 0.5)',
+                        boxShadow: isLight ? '0 4px 15px rgba(0, 0, 0, 0.1)' : '0 4px 15px rgba(0, 0, 0, 0.5)',
                       }}
                     />
                     <div style={{ marginTop: '0.5rem', display: 'flex', justifyContent: 'center', gap: '0.5rem' }}>
@@ -415,9 +421,9 @@ export default function DepthAnalysisModal({
                           fileInputRef.current?.click();
                         }}
                         style={{
-                          background: 'rgba(0, 245, 160, 0.15)',
-                          border: '1px solid rgba(0, 245, 160, 0.4)',
-                          color: '#00f5a0',
+                          background: isLight ? '#ecfdf5' : 'rgba(0, 245, 160, 0.15)',
+                          border: isLight ? '1px solid #86efac' : '1px solid rgba(0, 245, 160, 0.4)',
+                          color: isLight ? '#047857' : '#00f5a0',
                           borderRadius: '6px',
                           padding: '0.25rem 0.6rem',
                           fontSize: '0.74rem',
@@ -436,9 +442,9 @@ export default function DepthAnalysisModal({
                           setDepthResult(null);
                         }}
                         style={{
-                          background: 'rgba(239, 68, 68, 0.15)',
-                          border: '1px solid rgba(239, 68, 68, 0.4)',
-                          color: '#f87171',
+                          background: isLight ? '#fef2f2' : 'rgba(239, 68, 68, 0.15)',
+                          border: isLight ? '1px solid #fca5a5' : '1px solid rgba(239, 68, 68, 0.4)',
+                          color: isLight ? '#b91c1c' : '#f87171',
                           borderRadius: '6px',
                           padding: '0.25rem 0.6rem',
                           fontSize: '0.74rem',
@@ -457,20 +463,20 @@ export default function DepthAnalysisModal({
                         width: '54px',
                         height: '54px',
                         borderRadius: '50%',
-                        background: 'rgba(0, 245, 160, 0.1)',
+                        background: isLight ? '#ecfdf5' : 'rgba(0, 245, 160, 0.1)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         margin: '0 auto 0.85rem auto',
-                        color: '#00f5a0',
+                        color: isLight ? '#047857' : '#00f5a0',
                       }}
                     >
                       <Upload size={24} />
                     </div>
-                    <strong style={{ fontSize: '0.98rem', color: '#f8fafc', display: 'block' }}>
+                    <strong style={{ fontSize: '0.98rem', color: isLight ? '#0f172a' : '#f8fafc', display: 'block' }}>
                       Upload Affected Leaf Photo
                     </strong>
-                    <p style={{ fontSize: '0.78rem', color: '#94a3b8', margin: '0.35rem 0 0.85rem 0' }}>
+                    <p style={{ fontSize: '0.78rem', color: isLight ? '#64748b' : '#94a3b8', margin: '0.35rem 0 0.85rem 0' }}>
                       Drag and drop image, or click to browse (JPEG, PNG)
                     </p>
                     <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem' }}>
@@ -481,9 +487,9 @@ export default function DepthAnalysisModal({
                           cameraInputRef.current?.click();
                         }}
                         style={{
-                          background: 'linear-gradient(135deg, rgba(0, 245, 160, 0.15) 0%, rgba(0, 217, 245, 0.15) 100%)',
-                          border: '1px solid #00f5a0',
-                          color: '#00f5a0',
+                          background: isLight ? '#ffffff' : 'linear-gradient(135deg, rgba(0, 245, 160, 0.15) 0%, rgba(0, 217, 245, 0.15) 100%)',
+                          border: isLight ? '1px solid #10b981' : '1px solid #00f5a0',
+                          color: isLight ? '#047857' : '#00f5a0',
                           borderRadius: '8px',
                           padding: '0.35rem 0.75rem',
                           fontSize: '0.78rem',
@@ -522,8 +528,8 @@ export default function DepthAnalysisModal({
             {/* Controls: Crop Type & Action */}
             <div
               style={{
-                background: 'rgba(15, 23, 42, 0.7)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: isLight ? '#f8fafc' : 'rgba(15, 23, 42, 0.7)',
+                border: isLight ? '1px solid #e2e8f0' : '1px solid rgba(255, 255, 255, 0.08)',
                 borderRadius: '16px',
                 padding: '1.25rem',
                 display: 'flex',
@@ -532,7 +538,7 @@ export default function DepthAnalysisModal({
               }}
             >
               <div>
-                <label style={{ fontSize: '0.78rem', color: '#94a3b8', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.04em', display: 'block', marginBottom: '0.4rem' }}>
+                <label style={{ fontSize: '0.78rem', color: isLight ? '#475569' : '#94a3b8', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.04em', display: 'block', marginBottom: '0.4rem' }}>
                   Crop Type (Auto-detected or Select):
                 </label>
                 <select
@@ -540,11 +546,11 @@ export default function DepthAnalysisModal({
                   onChange={(e) => setSelectedCrop(e.target.value)}
                   style={{
                     width: '100%',
-                    background: 'rgba(2, 6, 23, 0.8)',
-                    border: '1.5px solid rgba(0, 245, 160, 0.3)',
+                    background: isLight ? '#ffffff' : 'rgba(2, 6, 23, 0.8)',
+                    border: isLight ? '1.5px solid #cbd5e1' : '1.5px solid rgba(0, 245, 160, 0.3)',
                     borderRadius: '10px',
                     padding: '0.65rem 0.9rem',
-                    color: '#ffffff',
+                    color: isLight ? '#0f172a' : '#ffffff',
                     fontSize: '0.92rem',
                     fontWeight: '700',
                     outline: 'none',
@@ -552,7 +558,7 @@ export default function DepthAnalysisModal({
                   }}
                 >
                   {CROP_OPTIONS.map((c) => (
-                    <option key={c} value={c} style={{ background: '#081020', color: '#fff' }}>
+                    <option key={c} value={c} style={{ background: isLight ? '#ffffff' : '#081020', color: isLight ? '#0f172a' : '#fff' }}>
                       {c}
                     </option>
                   ))}
@@ -562,17 +568,17 @@ export default function DepthAnalysisModal({
               {/* Satellite Telemetry Sync Card */}
               <div
                 style={{
-                  background: 'rgba(0, 245, 160, 0.06)',
-                  border: '1px solid rgba(0, 245, 160, 0.25)',
+                  background: isLight ? '#f0fdf4' : 'rgba(0, 245, 160, 0.06)',
+                  border: isLight ? '1px solid #86efac' : '1px solid rgba(0, 245, 160, 0.25)',
                   borderRadius: '10px',
                   padding: '0.75rem 0.95rem',
                   fontSize: '0.82rem',
-                  color: '#cbd5e1',
+                  color: isLight ? '#334155' : '#cbd5e1',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.25rem' }}>
-                  <span style={{ fontSize: '1rem' }}>️</span>
-                  <strong style={{ color: '#00f5a0' }}>Active Satellite Telemetry Linked:</strong>
+                  <Sparkles size={14} color={isLight ? '#047857' : '#00f5a0'} />
+                  <strong style={{ color: isLight ? '#047857' : '#00f5a0' }}>Active Satellite Telemetry Linked:</strong>
                 </div>
                 <div>
                   • Health Grade: <strong>{grade}</strong> | Area: <strong>{acres > 0 ? acres.toFixed(2) : 2.5} acres</strong>
@@ -587,12 +593,12 @@ export default function DepthAnalysisModal({
                 disabled={isAnalyzing || !imagePreview}
                 style={{
                   background: imagePreview && !isAnalyzing
-                    ? 'linear-gradient(135deg, #00f5a0 0%, #00d9f5 100%)'
-                    : 'rgba(255, 255, 255, 0.08)',
+                    ? (isLight ? '#059669' : 'linear-gradient(135deg, #00f5a0 0%, #00d9f5 100%)')
+                    : (isLight ? '#e2e8f0' : 'rgba(255, 255, 255, 0.08)'),
                   border: 'none',
                   borderRadius: '12px',
                   padding: '0.85rem 1.4rem',
-                  color: imagePreview && !isAnalyzing ? '#030712' : '#64748b',
+                  color: imagePreview && !isAnalyzing ? '#ffffff' : (isLight ? '#94a3b8' : '#64748b'),
                   fontSize: '0.96rem',
                   fontWeight: '900',
                   cursor: imagePreview && !isAnalyzing ? 'pointer' : 'not-allowed',
@@ -600,7 +606,7 @@ export default function DepthAnalysisModal({
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: '0.6rem',
-                  boxShadow: imagePreview && !isAnalyzing ? '0 4px 20px rgba(0, 245, 160, 0.4)' : 'none',
+                  boxShadow: imagePreview && !isAnalyzing ? (isLight ? '0 4px 15px rgba(5, 150, 105, 0.3)' : '0 4px 20px rgba(0, 245, 160, 0.4)') : 'none',
                   transition: 'all 0.2s ease',
                 }}
               >
@@ -618,7 +624,7 @@ export default function DepthAnalysisModal({
               </button>
 
               {isAnalyzing && analysisStep && (
-                <div style={{ fontSize: '0.82rem', color: '#00d9f5', fontStyle: 'italic', textAlign: 'center' }}>
+                <div style={{ fontSize: '0.82rem', color: isLight ? '#0284c7' : '#00d9f5', fontStyle: 'italic', textAlign: 'center' }}>
                   {analysisStep}
                 </div>
               )}
@@ -631,8 +637,10 @@ export default function DepthAnalysisModal({
               {/* Header result row */}
               <div
                 style={{
-                  background: 'linear-gradient(135deg, rgba(0, 245, 160, 0.12) 0%, rgba(0, 217, 245, 0.08) 100%)',
-                  border: '1.5px solid #00f5a0',
+                  background: isLight
+                    ? '#f0fdf4'
+                    : 'linear-gradient(135deg, rgba(0, 245, 160, 0.12) 0%, rgba(0, 217, 245, 0.08) 100%)',
+                  border: isLight ? '1.5px solid #86efac' : '1.5px solid #00f5a0',
                   borderRadius: '16px',
                   padding: '1.2rem 1.4rem',
                   display: 'flex',
@@ -640,7 +648,7 @@ export default function DepthAnalysisModal({
                   justifyContent: 'space-between',
                   flexWrap: 'wrap',
                   gap: '1rem',
-                  boxShadow: '0 8px 30px rgba(0, 245, 160, 0.15)',
+                  boxShadow: isLight ? '0 4px 15px rgba(0,0,0,0.05)' : '0 8px 30px rgba(0, 245, 160, 0.15)',
                 }}
               >
                 <div>
@@ -658,14 +666,14 @@ export default function DepthAnalysisModal({
                     >
                       {depthResult.leaf_pathology?.pathogen_category || 'PATHOLOGY DETECTED'}
                     </span>
-                    <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>
-                      Confidence: <strong style={{ color: '#00f5a0' }}>{depthResult.leaf_pathology?.confidence_pct || 94}%</strong>
+                    <span style={{ fontSize: '0.8rem', color: isLight ? '#475569' : '#94a3b8' }}>
+                      Confidence: <strong style={{ color: isLight ? '#047857' : '#00f5a0' }}>{depthResult.leaf_pathology?.confidence_pct || 94}%</strong>
                     </span>
                   </div>
-                  <h3 style={{ fontSize: '1.4rem', fontWeight: '900', color: '#ffffff', margin: 0 }}>
+                  <h3 style={{ fontSize: '1.4rem', fontWeight: '900', color: isLight ? '#064e3b' : '#ffffff', margin: 0 }}>
                     {depthResult.leaf_pathology?.disease_name || 'Foliar Blight Complex'}
                   </h3>
-                  <div style={{ fontSize: '0.84rem', color: '#94a3b8', fontStyle: 'italic', marginTop: '0.2rem' }}>
+                  <div style={{ fontSize: '0.84rem', color: isLight ? '#475569' : '#94a3b8', fontStyle: 'italic', marginTop: '0.2rem' }}>
                     Pathogen: {depthResult.leaf_pathology?.scientific_pathogen || 'Foliar organism'}
                   </div>
                 </div>
@@ -674,9 +682,11 @@ export default function DepthAnalysisModal({
                   <button
                     onClick={() => speakDiagnosis(depthResult.spoken_explanation)}
                     style={{
-                      background: isSpeaking ? 'rgba(239, 68, 68, 0.2)' : 'linear-gradient(135deg, #00f5a0, #00d9f5)',
-                      border: isSpeaking ? '1.5px solid #ef4444' : 'none',
-                      color: isSpeaking ? '#f87171' : '#030712',
+                      background: isSpeaking
+                        ? (isLight ? '#fee2e2' : 'rgba(239, 68, 68, 0.2)')
+                        : (isLight ? '#059669' : 'linear-gradient(135deg, #00f5a0, #00d9f5)'),
+                      border: isSpeaking ? (isLight ? '1.5px solid #fca5a5' : '1.5px solid #ef4444') : 'none',
+                      color: isSpeaking ? '#b91c1c' : '#ffffff',
                       borderRadius: '10px',
                       padding: '0.65rem 1.15rem',
                       fontSize: '0.86rem',
@@ -685,11 +695,13 @@ export default function DepthAnalysisModal({
                       display: 'inline-flex',
                       alignItems: 'center',
                       gap: '0.45rem',
-                      boxShadow: isSpeaking ? '0 0 15px rgba(239,68,68,0.4)' : '0 4px 16px rgba(0, 245, 160, 0.3)',
+                      boxShadow: isSpeaking
+                        ? '0 0 15px rgba(239,68,68,0.4)'
+                        : (isLight ? '0 2px 8px rgba(0,0,0,0.08)' : '0 4px 16px rgba(0, 245, 160, 0.3)'),
                     }}
                   >
                     <Volume2 size={16} />
-                    <span>{isSpeaking ? '️ Stop Voice' : '️ Listen to Diagnosis'}</span>
+                    <span>{isSpeaking ? 'Stop Voice' : 'Listen to Diagnosis'}</span>
                   </button>
                 )}
               </div>
@@ -697,39 +709,39 @@ export default function DepthAnalysisModal({
               {/* MACRO-MICRO CORRELATION CARD */}
               <div
                 style={{
-                  background: 'rgba(15, 23, 42, 0.85)',
-                  border: '1px solid rgba(0, 217, 245, 0.35)',
+                  background: isLight ? '#f8fafc' : 'rgba(15, 23, 42, 0.85)',
+                  border: isLight ? '1px solid #cbd5e1' : '1px solid rgba(0, 217, 245, 0.35)',
                   borderRadius: '16px',
                   padding: '1.25rem',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.65rem' }}>
-                  <span style={{ fontSize: '1.2rem' }}></span>
-                  <strong style={{ fontSize: '1.05rem', color: '#00d9f5' }}>
+                  <Layers size={18} color={isLight ? '#0284c7' : '#00d9f5'} />
+                  <strong style={{ fontSize: '1.05rem', color: isLight ? '#0369a1' : '#00d9f5' }}>
                     Macro-to-Micro Spatial Correlation
                   </strong>
                 </div>
 
-                <h4 style={{ color: '#ffffff', fontSize: '1rem', fontWeight: '800', marginBottom: '0.4rem' }}>
+                <h4 style={{ color: isLight ? '#0f172a' : '#ffffff', fontSize: '1rem', fontWeight: '800', marginBottom: '0.4rem' }}>
                   {depthResult.macro_micro_correlation?.headline}
                 </h4>
 
-                <p style={{ fontSize: '0.9rem', color: '#cbd5e1', lineHeight: '1.6', margin: '0 0 0.65rem 0' }}>
+                <p style={{ fontSize: '0.9rem', color: isLight ? '#334155' : '#cbd5e1', lineHeight: '1.6', margin: '0 0 0.65rem 0' }}>
                   {depthResult.macro_micro_correlation?.spatial_link}
                 </p>
 
                 {depthResult.macro_micro_correlation?.ndvi_impact && (
                   <div
                     style={{
-                      background: 'rgba(2, 6, 23, 0.6)',
-                      border: '1px solid rgba(255, 255, 255, 0.08)',
+                      background: isLight ? '#ffffff' : 'rgba(2, 6, 23, 0.6)',
+                      border: isLight ? '1px solid #e2e8f0' : '1px solid rgba(255, 255, 255, 0.08)',
                       borderRadius: '8px',
                       padding: '0.65rem 0.85rem',
                       fontSize: '0.84rem',
-                      color: '#94a3b8',
+                      color: isLight ? '#475569' : '#94a3b8',
                     }}
                   >
-                     <strong>NDVI Impact:</strong> {depthResult.macro_micro_correlation.ndvi_impact}
+                    <strong>NDVI Impact:</strong> {depthResult.macro_micro_correlation.ndvi_impact}
                   </div>
                 )}
               </div>
@@ -739,53 +751,53 @@ export default function DepthAnalysisModal({
                 {/* Prescription */}
                 <div
                   style={{
-                    background: 'rgba(15, 23, 42, 0.85)',
-                    border: '1px solid rgba(52, 211, 153, 0.35)',
+                    background: isLight ? '#f8fafc' : 'rgba(15, 23, 42, 0.85)',
+                    border: isLight ? '1px solid #86efac' : '1px solid rgba(52, 211, 153, 0.35)',
                     borderRadius: '16px',
                     padding: '1.25rem',
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
-                    <span style={{ fontSize: '1.2rem' }}></span>
-                    <strong style={{ fontSize: '1rem', color: '#34d399' }}>
+                    <FileText size={18} color={isLight ? '#047857' : '#34d399'} />
+                    <strong style={{ fontSize: '1rem', color: isLight ? '#047857' : '#34d399' }}>
                       Targeted Field Prescription
                     </strong>
                   </div>
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', fontSize: '0.88rem' }}>
                     <div>
-                      <span style={{ color: '#64748b', fontSize: '0.76rem', fontWeight: '800', textTransform: 'uppercase' }}>Primary Treatment:</span>
-                      <div style={{ color: '#ffffff', fontWeight: '800', fontSize: '0.98rem' }}>
+                      <span style={{ color: isLight ? '#64748b' : '#64748b', fontSize: '0.76rem', fontWeight: '800', textTransform: 'uppercase' }}>Primary Treatment:</span>
+                      <div style={{ color: isLight ? '#0f172a' : '#ffffff', fontWeight: '800', fontSize: '0.98rem' }}>
                         {depthResult.targeted_prescription?.primary_treatment}
                       </div>
                     </div>
 
                     <div>
-                      <span style={{ color: '#64748b', fontSize: '0.76rem', fontWeight: '800', textTransform: 'uppercase' }}>Dosage:</span>
-                      <div style={{ color: '#38bdf8', fontWeight: '700' }}>
+                      <span style={{ color: isLight ? '#64748b' : '#64748b', fontSize: '0.76rem', fontWeight: '800', textTransform: 'uppercase' }}>Dosage:</span>
+                      <div style={{ color: isLight ? '#0284c7' : '#38bdf8', fontWeight: '700' }}>
                         {depthResult.targeted_prescription?.dosage}
                       </div>
                     </div>
 
                     <div>
-                      <span style={{ color: '#64748b', fontSize: '0.76rem', fontWeight: '800', textTransform: 'uppercase' }}>Application Target:</span>
-                      <div style={{ color: '#fbbf24', fontWeight: '700' }}>
-                         {depthResult.targeted_prescription?.application_area}
+                      <span style={{ color: isLight ? '#64748b' : '#64748b', fontSize: '0.76rem', fontWeight: '800', textTransform: 'uppercase' }}>Application Target:</span>
+                      <div style={{ color: isLight ? '#b45309' : '#fbbf24', fontWeight: '700' }}>
+                        {depthResult.targeted_prescription?.application_area}
                       </div>
                     </div>
 
                     <div>
-                      <span style={{ color: '#64748b', fontSize: '0.76rem', fontWeight: '800', textTransform: 'uppercase' }}>Organic Alternative:</span>
-                      <div style={{ color: '#a7f3d0' }}>
-                         {depthResult.targeted_prescription?.organic_alternative}
+                      <span style={{ color: isLight ? '#64748b' : '#64748b', fontSize: '0.76rem', fontWeight: '800', textTransform: 'uppercase' }}>Organic Alternative:</span>
+                      <div style={{ color: isLight ? '#047857' : '#a7f3d0' }}>
+                        {depthResult.targeted_prescription?.organic_alternative}
                       </div>
                     </div>
 
                     {depthResult.targeted_prescription?.soil_nutrient_boost && (
                       <div>
-                        <span style={{ color: '#64748b', fontSize: '0.76rem', fontWeight: '800', textTransform: 'uppercase' }}>Nutrient Boost:</span>
-                        <div style={{ color: '#cbd5e1' }}>
-                           {depthResult.targeted_prescription.soil_nutrient_boost}
+                        <span style={{ color: isLight ? '#64748b' : '#64748b', fontSize: '0.76rem', fontWeight: '800', textTransform: 'uppercase' }}>Nutrient Boost:</span>
+                        <div style={{ color: isLight ? '#334155' : '#cbd5e1' }}>
+                          {depthResult.targeted_prescription.soil_nutrient_boost}
                         </div>
                       </div>
                     )}
@@ -795,8 +807,8 @@ export default function DepthAnalysisModal({
                 {/* 5-Day Spread Risk */}
                 <div
                   style={{
-                    background: 'rgba(15, 23, 42, 0.85)',
-                    border: '1px solid rgba(239, 68, 68, 0.35)',
+                    background: isLight ? '#fff5f5' : 'rgba(15, 23, 42, 0.85)',
+                    border: isLight ? '1px solid #fecaca' : '1px solid rgba(239, 68, 68, 0.35)',
                     borderRadius: '16px',
                     padding: '1.25rem',
                     display: 'flex',
@@ -808,7 +820,7 @@ export default function DepthAnalysisModal({
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                         <ShieldAlert size={18} color="#ef4444" />
-                        <strong style={{ fontSize: '1rem', color: '#f87171' }}>
+                        <strong style={{ fontSize: '1rem', color: isLight ? '#b91c1c' : '#f87171' }}>
                           5-Day Spread Risk
                         </strong>
                       </div>
@@ -826,15 +838,15 @@ export default function DepthAnalysisModal({
                       </span>
                     </div>
 
-                    <p style={{ fontSize: '0.88rem', color: '#cbd5e1', lineHeight: '1.55', margin: '0 0 1rem 0' }}>
+                    <p style={{ fontSize: '0.88rem', color: isLight ? '#334155' : '#cbd5e1', lineHeight: '1.55', margin: '0 0 1rem 0' }}>
                       {depthResult.spread_risk_forecast?.forecast_summary}
                     </p>
                   </div>
 
                   <div
                     style={{
-                      background: 'rgba(239, 68, 68, 0.1)',
-                      border: '1px solid rgba(239, 68, 68, 0.25)',
+                      background: isLight ? '#fee2e2' : 'rgba(239, 68, 68, 0.1)',
+                      border: isLight ? '1px solid #fca5a5' : '1px solid rgba(239, 68, 68, 0.25)',
                       borderRadius: '10px',
                       padding: '0.65rem 0.85rem',
                       display: 'flex',
@@ -842,7 +854,7 @@ export default function DepthAnalysisModal({
                       justifyContent: 'space-between',
                     }}
                   >
-                    <span style={{ fontSize: '0.78rem', color: '#fca5a5' }}>Potential Yield Loss If Unchecked:</span>
+                    <span style={{ fontSize: '0.78rem', color: isLight ? '#991b1b' : '#fca5a5' }}>Potential Yield Loss If Unchecked:</span>
                     <strong style={{ fontSize: '1.1rem', color: '#ef4444' }}>
                       ~{depthResult.spread_risk_forecast?.potential_yield_loss_pct || 20}%
                     </strong>

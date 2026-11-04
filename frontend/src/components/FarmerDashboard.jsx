@@ -41,15 +41,17 @@ function HealthGradeBadge({ grade }) {
   );
 }
 
-function StatChip({ label, value, color = '#94a3b8', unit = '' }) {
+function StatChip({ label, value, color = '#94a3b8', unit = '', isLight = false }) {
   return (
     <div style={{
-      background: 'rgba(15,23,42,0.8)', border: '1px solid rgba(255,255,255,0.08)',
+      background: isLight ? '#f8fafc' : 'rgba(15,23,42,0.8)',
+      border: isLight ? '1px solid #e2e8f0' : '1px solid rgba(255,255,255,0.08)',
       borderRadius: '10px', padding: '0.65rem 0.9rem', flex: '1 1 130px',
+      boxShadow: isLight ? '0 1px 3px rgba(0,0,0,0.04)' : 'none',
     }}>
-      <div style={{ fontSize: '0.7rem', color: '#64748b', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{label}</div>
+      <div style={{ fontSize: '0.7rem', color: isLight ? '#475569' : '#64748b', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{label}</div>
       <div style={{ fontSize: '1.25rem', fontWeight: '800', color, marginTop: '0.15rem' }}>
-        {value ?? '—'}<span style={{ fontSize: '0.78rem', color: '#64748b', marginLeft: '2px' }}>{unit}</span>
+        {value ?? '—'}<span style={{ fontSize: '0.78rem', color: isLight ? '#64748b' : '#64748b', marginLeft: '2px' }}>{unit}</span>
       </div>
     </div>
   );
@@ -65,6 +67,8 @@ export default function FarmerDashboard({
   onViewMap,            // callback(farm) → switch to map view to inspect satellite layers
   onRefreshFarms,       // callback → re-fetch saved farms list
   onLogout,
+  theme = 'dark',
+  onToggleTheme,
 }) {
   const [activeFarmId, setActiveFarmId] = useState(null);
   const [activeFarm, setActiveFarm] = useState(null);
@@ -272,40 +276,44 @@ export default function FarmerDashboard({
     catch { return iso; }
   };
 
+  const isLight = theme === 'light';
+
   // ── Render ──────────────────────────────────────────────────────────────────
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'linear-gradient(160deg, #040d1a 0%, #071225 50%, #030d1a 100%)',
-      color: '#e2e8f0',
+      background: isLight ? '#ffffff' : 'linear-gradient(160deg, #040d1a 0%, #071225 50%, #030d1a 100%)',
+      color: isLight ? '#0f172a' : '#e2e8f0',
       fontFamily: "'Plus Jakarta Sans', 'Inter', sans-serif",
       paddingBottom: '4rem',
     }}>
       {/* ── TOP HEADER BAR ── */}
       <div style={{
-        background: 'rgba(8,16,32,0.95)',
-        borderBottom: '1px solid rgba(0,245,160,0.15)',
+        background: isLight ? '#ffffff' : 'rgba(8,16,32,0.95)',
+        borderBottom: isLight ? '1px solid #e2e8f0' : '1px solid rgba(0,245,160,0.15)',
         padding: '0.85rem 1.75rem',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         flexWrap: 'wrap', gap: '0.75rem',
         backdropFilter: 'blur(20px)',
         position: 'sticky', top: 0, zIndex: 100,
+        boxShadow: isLight ? '0 2px 10px rgba(0,0,0,0.04)' : 'none',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <span style={{ fontSize: '1.5rem' }}></span>
           <div>
-            <div style={{ fontSize: '1.1rem', fontWeight: '900', color: '#00f5a0', letterSpacing: '-0.02em' }}>
+            <div style={{ fontSize: '1.1rem', fontWeight: '900', color: isLight ? '#059669' : '#00f5a0', letterSpacing: '-0.02em' }}>
               SENTIFIELD AI
             </div>
-            <div style={{ fontSize: '0.72rem', color: '#475569' }}>Farmer Dashboard</div>
+            <div style={{ fontSize: '0.72rem', color: isLight ? '#64748b' : '#475569' }}>Farmer Dashboard</div>
           </div>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap' }}>
           <div style={{
-            background: 'rgba(0,245,160,0.08)', border: '1px solid rgba(0,245,160,0.25)',
+            background: isLight ? 'rgba(5,150,105,0.08)' : 'rgba(0,245,160,0.08)',
+            border: isLight ? '1px solid rgba(5,150,105,0.25)' : '1px solid rgba(0,245,160,0.25)',
             borderRadius: '10px', padding: '0.4rem 0.8rem',
-            fontSize: '0.85rem', color: '#00f5a0', fontWeight: '700',
+            fontSize: '0.85rem', color: isLight ? '#059669' : '#00f5a0', fontWeight: '700',
             display: 'flex', alignItems: 'center', gap: '0.4rem',
           }}>
             <span style={{
@@ -322,32 +330,32 @@ export default function FarmerDashboard({
           <button
             onClick={() => setIsVoiceModalOpen(true)}
             style={{
-              background: 'linear-gradient(135deg, rgba(0,245,160,0.18) 0%, rgba(0,217,245,0.18) 100%)',
-              border: '1.5px solid #00f5a0',
+              background: isLight ? 'rgba(5,150,105,0.1)' : 'linear-gradient(135deg, rgba(0,245,160,0.18) 0%, rgba(0,217,245,0.18) 100%)',
+              border: isLight ? '1.5px solid #059669' : '1.5px solid #00f5a0',
               borderRadius: '8px', padding: '0.45rem 0.9rem',
-              color: '#00f5a0', fontSize: '0.82rem', fontWeight: '800', cursor: 'pointer',
+              color: isLight ? '#059669' : '#00f5a0', fontSize: '0.82rem', fontWeight: '800', cursor: 'pointer',
               display: 'flex', alignItems: 'center', gap: '0.35rem',
-              boxShadow: '0 0 12px rgba(0,245,160,0.25)',
+              boxShadow: isLight ? '0 1px 4px rgba(0,0,0,0.05)' : '0 0 12px rgba(0,245,160,0.25)',
               transition: 'all 0.2s ease',
             }}
             title="Ask AI Voice Agronomist (Mic & Chat)"
           >
-            ️ Voice Agronomist
+            Voice Agronomist
           </button>
 
           {onViewMap && (
             <button
               onClick={() => onViewMap(activeFarm)}
               style={{
-                background: 'rgba(0,217,245,0.15)',
-                border: '1px solid rgba(0,217,245,0.4)',
+                background: isLight ? '#f8fafc' : 'rgba(0,217,245,0.15)',
+                border: isLight ? '1px solid rgba(2,132,199,0.4)' : '1px solid rgba(0,217,245,0.4)',
                 borderRadius: '8px', padding: '0.45rem 0.9rem',
-                color: '#00d9f5', fontSize: '0.82rem', fontWeight: '700', cursor: 'pointer',
+                color: isLight ? '#0284c7' : '#00d9f5', fontSize: '0.82rem', fontWeight: '700', cursor: 'pointer',
                 display: 'flex', alignItems: 'center', gap: '0.35rem',
               }}
               title="Open Interactive Satellite Map"
             >
-              ️ Map View
+              Map View
             </button>
           )}
 
@@ -360,8 +368,27 @@ export default function FarmerDashboard({
               display: 'flex', alignItems: 'center', gap: '0.35rem',
             }}
           >
-            ️ Draw New Farm
+            Draw New Farm
           </button>
+
+          {/* Theme Switcher Button */}
+          {onToggleTheme && (
+            <button
+              onClick={onToggleTheme}
+              style={{
+                background: isLight ? '#f1f5f9' : 'rgba(8,16,32,0.85)',
+                border: isLight ? '1px solid #cbd5e1' : '1px solid rgba(255,255,255,0.15)',
+                color: isLight ? '#0f172a' : '#f8fafc',
+                borderRadius: '8px', padding: '0.45rem 0.85rem',
+                fontSize: '0.8rem', fontWeight: '700', cursor: 'pointer',
+                display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
+                transition: 'all 0.2s ease',
+              }}
+              title={`Switch to ${isLight ? 'Dark' : 'Light'} Mode`}
+            >
+              <span>{isLight ? 'Dark Mode' : 'Light Mode'}</span>
+            </button>
+          )}
 
           <button
             onClick={onLogout}
@@ -380,9 +407,11 @@ export default function FarmerDashboard({
 
         {/* ── SIDEBAR: FARM LIST ── */}
         <aside style={{
-          background: 'rgba(8,16,32,0.85)', border: '1px solid rgba(255,255,255,0.08)',
+          background: isLight ? '#ffffff' : 'rgba(8,16,32,0.85)',
+          border: isLight ? '1px solid #e2e8f0' : '1px solid rgba(255,255,255,0.08)',
           borderRadius: '16px', padding: '1.1rem',
           position: 'sticky', top: '72px',
+          boxShadow: isLight ? '0 4px 20px rgba(0,0,0,0.04)' : 'none',
         }}>
           {/* Combined Portfolio Master Button */}
           <div
@@ -392,23 +421,23 @@ export default function FarmerDashboard({
             }}
             style={{
               background: viewMode === 'combined'
-                ? 'linear-gradient(135deg, rgba(0,245,160,0.18) 0%, rgba(0,217,245,0.18) 100%)'
-                : 'rgba(15,23,42,0.7)',
+                ? (isLight ? 'rgba(5,150,105,0.1)' : 'linear-gradient(135deg, rgba(0,245,160,0.18) 0%, rgba(0,217,245,0.18) 100%)')
+                : (isLight ? '#f8fafc' : 'rgba(15,23,42,0.7)'),
               border: viewMode === 'combined'
-                ? '1.5px solid #00f5a0'
-                : '1px solid rgba(255,255,255,0.08)',
+                ? (isLight ? '1.5px solid #059669' : '1.5px solid #00f5a0')
+                : (isLight ? '1px solid #e2e8f0' : '1px solid rgba(255,255,255,0.08)'),
               borderRadius: '12px',
               padding: '0.85rem 0.95rem',
               cursor: 'pointer',
               marginBottom: '1.1rem',
-              boxShadow: viewMode === 'combined' ? '0 0 16px rgba(0,245,160,0.2)' : 'none',
+              boxShadow: viewMode === 'combined' ? (isLight ? '0 2px 8px rgba(5,150,105,0.15)' : '0 0 16px rgba(0,245,160,0.2)') : 'none',
               transition: 'all 0.2s ease',
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
                 <span style={{ fontSize: '1.2rem' }}></span>
-                <strong style={{ fontSize: '0.95rem', color: viewMode === 'combined' ? '#00f5a0' : '#ffffff' }}>
+                <strong style={{ fontSize: '0.95rem', color: viewMode === 'combined' ? (isLight ? '#059669' : '#00f5a0') : (isLight ? '#0f172a' : '#ffffff') }}>
                   All Farms Combined
                 </strong>
               </div>
@@ -426,7 +455,7 @@ export default function FarmerDashboard({
                 </span>
               )}
             </div>
-            <div style={{ fontSize: '0.74rem', color: '#94a3b8' }}>
+            <div style={{ fontSize: '0.74rem', color: isLight ? '#64748b' : '#94a3b8' }}>
               Operations Center • {portfolioData?.total_farms || savedFarms?.length || 0} Plots ({portfolioData?.total_acres || 0} ac)
             </div>
           </div>
@@ -460,36 +489,40 @@ export default function FarmerDashboard({
                   key={farm.id}
                   onClick={() => selectFarm(farm)}
                   style={{
-                    background: isActive ? 'rgba(0,245,160,0.1)' : 'rgba(15,23,42,0.6)',
-                    border: isActive ? '1.5px solid rgba(0,245,160,0.4)' : '1px solid rgba(255,255,255,0.06)',
+                    background: isActive
+                      ? (isLight ? 'rgba(5,150,105,0.08)' : 'rgba(0,245,160,0.1)')
+                      : (isLight ? '#f8fafc' : 'rgba(15,23,42,0.6)'),
+                    border: isActive
+                      ? (isLight ? '1.5px solid rgba(5,150,105,0.4)' : '1.5px solid rgba(0,245,160,0.4)')
+                      : (isLight ? '1px solid #e2e8f0' : '1px solid rgba(255,255,255,0.06)'),
                     borderRadius: '10px', padding: '0.75rem 0.9rem',
                     cursor: 'pointer', transition: 'all 0.2s ease',
-                    boxShadow: isActive ? '0 0 12px rgba(0,245,160,0.1)' : 'none',
+                    boxShadow: isActive ? (isLight ? '0 2px 8px rgba(5,150,105,0.1)' : '0 0 12px rgba(0,245,160,0.1)') : 'none',
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.2rem' }}>
                     <span style={{ fontSize: '1rem' }}>{CROP_ICONS[farm.crop_type] || ''}</span>
-                    <strong style={{ fontSize: '0.9rem', color: isActive ? '#00f5a0' : '#ffffff', lineHeight: 1.2 }}>
+                    <strong style={{ fontSize: '0.9rem', color: isActive ? (isLight ? '#059669' : '#00f5a0') : (isLight ? '#0f172a' : '#ffffff'), lineHeight: 1.2 }}>
                       {farm.farm_name}
                     </strong>
                   </div>
                   <div style={{ fontSize: '0.75rem', color: '#64748b' }}>
                     {farm.crop_type} · {farm.area_acres?.toFixed(2)} ac
                   </div>
-                  <div style={{ fontSize: '0.72rem', color: '#475569', marginTop: '0.15rem' }}>
-                     {farm.center_lat?.toFixed(4)}°, {farm.center_lon?.toFixed(4)}°
+                  <div style={{ fontSize: '0.72rem', color: isLight ? '#64748b' : '#475569', marginTop: '0.15rem' }}>
+                    {farm.center_lat?.toFixed(4)}°, {farm.center_lon?.toFixed(4)}°
                   </div>
                   {isActive && (
                     <div style={{ marginTop: '0.5rem', display: 'flex', gap: '0.4rem' }}>
                       <button
                         onClick={(e) => { e.stopPropagation(); onChangeFarmLocation(farm); }}
                         style={{
-                          flex: 1, background: 'rgba(59,130,246,0.15)', border: '1px solid rgba(59,130,246,0.35)',
-                          borderRadius: '6px', padding: '0.3rem 0.4rem', color: '#60a5fa',
+                          flex: 1, background: isLight ? '#f1f5f9' : 'rgba(59,130,246,0.15)', border: isLight ? '1px solid #cbd5e1' : '1px solid rgba(59,130,246,0.35)',
+                          borderRadius: '6px', padding: '0.3rem 0.4rem', color: isLight ? '#0284c7' : '#60a5fa',
                           fontSize: '0.72rem', fontWeight: '700', cursor: 'pointer',
                         }}
                       >
-                         Change Location
+                        Change Location
                       </button>
                     </div>
                   )}
@@ -510,16 +543,16 @@ export default function FarmerDashboard({
               {/* TOP SUGGESTION HERO BANNER */}
               <div style={{
                 background: portfolioData?.critical_count > 0
-                  ? 'linear-gradient(135deg, rgba(220,38,38,0.2) 0%, rgba(15,23,42,0.95) 100%)'
-                  : 'linear-gradient(135deg, rgba(16,185,129,0.15) 0%, rgba(15,23,42,0.95) 100%)',
+                  ? (isLight ? '#fef2f2' : 'linear-gradient(135deg, rgba(220,38,38,0.2) 0%, rgba(15,23,42,0.95) 100%)')
+                  : (isLight ? '#f0fdf4' : 'linear-gradient(135deg, rgba(16,185,129,0.15) 0%, rgba(15,23,42,0.95) 100%)'),
                 border: portfolioData?.critical_count > 0
-                  ? '2px solid rgba(239,68,68,0.6)'
-                  : '2px solid rgba(16,185,129,0.5)',
+                  ? (isLight ? '2px solid rgba(239,68,68,0.4)' : '2px solid rgba(239,68,68,0.6)')
+                  : (isLight ? '2px solid rgba(5,150,105,0.4)' : '2px solid rgba(16,185,129,0.5)'),
                 borderRadius: '16px',
                 padding: '1.4rem 1.6rem',
                 boxShadow: portfolioData?.critical_count > 0
-                  ? '0 6px 30px rgba(239,68,68,0.2)'
-                  : '0 6px 30px rgba(16,185,129,0.15)',
+                  ? (isLight ? '0 4px 20px rgba(239,68,68,0.1)' : '0 6px 30px rgba(239,68,68,0.2)')
+                  : (isLight ? '0 4px 20px rgba(5,150,105,0.08)' : '0 6px 30px rgba(16,185,129,0.15)'),
                 display: 'flex',
                 alignItems: 'center',
                 gap: '1.25rem',
@@ -527,25 +560,25 @@ export default function FarmerDashboard({
               }}>
                 <div style={{
                   width: '56px', height: '56px', borderRadius: '50%',
-                  background: portfolioData?.critical_count > 0 ? '#dc2626' : '#10b981',
+                  background: portfolioData?.critical_count > 0 ? '#dc2626' : (isLight ? '#059669' : '#10b981'),
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   fontSize: '1.6rem', flexShrink: 0,
-                  boxShadow: portfolioData?.critical_count > 0 ? '0 0 20px rgba(239,68,68,0.5)' : '0 0 20px rgba(16,185,129,0.5)'
+                  boxShadow: portfolioData?.critical_count > 0 ? '0 0 20px rgba(239,68,68,0.4)' : '0 0 20px rgba(16,185,129,0.4)'
                 }}>
                   {portfolioData?.critical_count > 0 ? '' : ''}
                 </div>
                 <div style={{ flex: '1 1 320px' }}>
                   <div style={{
                     fontSize: '0.75rem',
-                    color: portfolioData?.critical_count > 0 ? '#f87171' : '#34d399',
+                    color: portfolioData?.critical_count > 0 ? '#dc2626' : (isLight ? '#059669' : '#34d399'),
                     fontWeight: '900',
                     textTransform: 'uppercase',
                     letterSpacing: '0.08em'
                   }}>
-                    ▶ AI Operations Priority Directive
+                    Operations Priority Directive
                   </div>
                   <h3 style={{
-                    color: '#ffffff',
+                    color: isLight ? '#0f172a' : '#ffffff',
                     fontSize: '1.2rem',
                     fontWeight: '900',
                     margin: '0.3rem 0 0.2rem 0',
@@ -554,12 +587,12 @@ export default function FarmerDashboard({
                     {portfolioData?.top_suggestion || 'Aggregating crop health across your farm portfolio…'}
                   </h3>
                   {portfolioData?.highest_priority_farm && (
-                    <div style={{ fontSize: '0.85rem', color: '#cbd5e1', marginTop: '0.35rem' }}>
+                    <div style={{ fontSize: '0.85rem', color: isLight ? '#475569' : '#cbd5e1', marginTop: '0.35rem' }}>
                       <span>Immediate Target: </span>
-                      <strong style={{ color: '#00f5a0' }}>{portfolioData.highest_priority_farm.farm_name}</strong>
+                      <strong style={{ color: isLight ? '#059669' : '#00f5a0' }}>{portfolioData.highest_priority_farm.farm_name}</strong>
                       <span> ({portfolioData.highest_priority_farm.crop_type})</span>
-                      <span style={{ margin: '0 0.5rem', color: '#475569' }}>•</span>
-                      <span style={{ color: '#f87171' }}>{portfolioData.highest_priority_farm.problem_area_pct}% stressed zone</span>
+                      <span style={{ margin: '0 0.5rem', color: '#94a3b8' }}>•</span>
+                      <span style={{ color: '#dc2626' }}>{portfolioData.highest_priority_farm.problem_area_pct}% stressed zone</span>
                     </div>
                   )}
                 </div>
@@ -567,11 +600,11 @@ export default function FarmerDashboard({
                   <button
                     onClick={() => setIsVoiceModalOpen(true)}
                     style={{
-                      background: 'rgba(0, 245, 160, 0.15)',
-                      border: '1.5px solid #00f5a0',
+                      background: isLight ? '#ffffff' : 'rgba(0, 245, 160, 0.15)',
+                      border: isLight ? '1.5px solid #059669' : '1.5px solid #00f5a0',
                       borderRadius: '10px',
                       padding: '0.75rem 1.1rem',
-                      color: '#00f5a0',
+                      color: isLight ? '#059669' : '#00f5a0',
                       fontSize: '0.86rem',
                       fontWeight: '800',
                       cursor: 'pointer',
@@ -579,20 +612,20 @@ export default function FarmerDashboard({
                       alignItems: 'center',
                       gap: '0.4rem',
                       whiteSpace: 'nowrap',
-                      boxShadow: '0 0 15px rgba(0, 245, 160, 0.25)',
+                      boxShadow: isLight ? '0 2px 8px rgba(0,0,0,0.06)' : '0 0 15px rgba(0, 245, 160, 0.25)',
                     }}
                   >
-                    ️ Ask AI Agronomist
+                    Ask AI Agronomist
                   </button>
 
                   <button
                     onClick={() => setIsDepthModalOpen(true)}
                     style={{
-                      background: 'linear-gradient(135deg, rgba(0, 217, 245, 0.18) 0%, rgba(99, 102, 241, 0.18) 100%)',
-                      border: '1.5px solid #00d9f5',
+                      background: isLight ? '#ffffff' : 'linear-gradient(135deg, rgba(0, 217, 245, 0.18) 0%, rgba(99, 102, 241, 0.18) 100%)',
+                      border: isLight ? '1.5px solid #0284c7' : '1.5px solid #00d9f5',
                       borderRadius: '10px',
                       padding: '0.75rem 1.1rem',
-                      color: '#00d9f5',
+                      color: isLight ? '#0284c7' : '#00d9f5',
                       fontSize: '0.86rem',
                       fontWeight: '800',
                       cursor: 'pointer',
@@ -600,11 +633,11 @@ export default function FarmerDashboard({
                       alignItems: 'center',
                       gap: '0.4rem',
                       whiteSpace: 'nowrap',
-                      boxShadow: '0 0 15px rgba(0, 217, 245, 0.25)',
+                      boxShadow: isLight ? '0 2px 8px rgba(0,0,0,0.06)' : '0 0 15px rgba(0, 217, 245, 0.25)',
                     }}
                     title="Upload leaf photo for Macro-to-Micro Depth Analysis"
                   >
-                     Leaf Disease Diagnosis
+                    Leaf Disease Diagnosis
                   </button>
 
                   {portfolioData?.highest_priority_farm && (
@@ -634,37 +667,44 @@ export default function FarmerDashboard({
 
               {/* PORTFOLIO STATS KPI ROW */}
               <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-                <StatChip label="Total Farm Plots" value={portfolioData?.total_farms || savedFarms?.length || 0} color="#00f5a0" />
-                <StatChip label="Total Acreage" value={portfolioData?.total_acres?.toFixed(1) || 0} unit=" ac" color="#38bdf8" />
-                <StatChip label="Urgent / Critical" value={portfolioData?.critical_count || 0} color="#f87171" unit=" plots" />
-                <StatChip label="Needs Attention" value={portfolioData?.attention_count || 0} color="#fbbf24" unit=" plots" />
-                <StatChip label="Optimal Health" value={portfolioData?.optimal_count || 0} color="#34d399" unit=" plots" />
-                <StatChip label="Region Belt" value="Namakkal/Salem" color="#a78bfa" />
+                <StatChip label="Total Farm Plots" value={portfolioData?.total_farms || savedFarms?.length || 0} color={isLight ? '#059669' : '#00f5a0'} isLight={isLight} />
+                <StatChip label="Total Acreage" value={portfolioData?.total_acres?.toFixed(1) || 0} unit=" ac" color={isLight ? '#0284c7' : '#38bdf8'} isLight={isLight} />
+                <StatChip label="Urgent / Critical" value={portfolioData?.critical_count || 0} color="#dc2626" unit=" plots" isLight={isLight} />
+                <StatChip label="Needs Attention" value={portfolioData?.attention_count || 0} color="#d97706" unit=" plots" isLight={isLight} />
+                <StatChip label="Optimal Health" value={portfolioData?.optimal_count || 0} color={isLight ? '#059669' : '#34d399'} unit=" plots" isLight={isLight} />
+                <StatChip label="Region Belt" value="Namakkal/Salem" color={isLight ? '#7c3aed' : '#a78bfa'} isLight={isLight} />
               </div>
 
               {/* SECTION 1: MASTER CROSS-FARM PRIORITY ACTION PLAN */}
               <div style={{
-                background: 'rgba(8,16,32,0.85)',
-                border: '1px solid rgba(255,255,255,0.08)',
+                background: isLight ? '#ffffff' : 'rgba(8,16,32,0.85)',
+                border: isLight ? '1px solid #e2e8f0' : '1px solid rgba(255,255,255,0.08)',
                 borderRadius: '16px',
                 padding: '1.35rem 1.5rem',
-                boxShadow: '0 8px 30px rgba(0,0,0,0.3)'
+                boxShadow: isLight ? '0 4px 20px rgba(0,0,0,0.04)' : '0 8px 30px rgba(0,0,0,0.3)'
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.1rem' }}>
                   <div>
                     <div style={{ fontSize: '0.72rem', color: '#64748b', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                       PRIORITY WORKLIST
                     </div>
-                    <h3 style={{ fontSize: '1.25rem', fontWeight: '900', color: '#ffffff', margin: '0.2rem 0 0 0' }}>
-                       Farm Priority Tasks
+                    <h3 style={{ fontSize: '1.25rem', fontWeight: '900', color: isLight ? '#0f172a' : '#ffffff', margin: '0.2rem 0 0 0' }}>
+                      Farm Priority Tasks
                     </h3>
-                    <p style={{ fontSize: '0.82rem', color: '#94a3b8', margin: '0.2rem 0 0 0' }}>
+                    <p style={{ fontSize: '0.82rem', color: isLight ? '#475569' : '#94a3b8', margin: '0.2rem 0 0 0' }}>
                       All farm operations ranked by urgency score. Execute sequentially starting with #1 to prevent crop losses.
                     </p>
                   </div>
 
                   {/* Timeframe Filter Tabs */}
-                  <div style={{ display: 'flex', gap: '0.4rem', background: 'rgba(15,23,42,0.8)', padding: '0.25rem', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.08)' }}>
+                  <div style={{
+                    display: 'flex',
+                    gap: '0.4rem',
+                    background: isLight ? '#f1f5f9' : 'rgba(15,23,42,0.8)',
+                    padding: '0.25rem',
+                    borderRadius: '10px',
+                    border: isLight ? '1px solid #cbd5e1' : '1px solid rgba(255,255,255,0.08)'
+                  }}>
                     {[
                       { key: 'all', label: `All Tasks (${portfolioData?.ranked_action_items?.length || 0})` },
                       { key: 'immediate', label: `Next 24-48h (${portfolioData?.ranked_action_items?.filter(i => i.timeframe_order === 1).length || 0})` },
@@ -708,13 +748,13 @@ export default function FarmerDashboard({
                         key={item.step_key}
                         style={{
                           background: item.is_completed
-                            ? 'rgba(15,23,42,0.4)'
+                            ? (isLight ? '#f8fafc' : 'rgba(15,23,42,0.4)')
                             : isCrit
-                              ? 'linear-gradient(135deg, rgba(220,38,38,0.08) 0%, rgba(15,23,42,0.85) 100%)'
-                              : 'rgba(15,23,42,0.85)',
+                              ? (isLight ? '#fef2f2' : 'linear-gradient(135deg, rgba(220,38,38,0.08) 0%, rgba(15,23,42,0.85) 100%)')
+                              : (isLight ? '#ffffff' : 'rgba(15,23,42,0.85)'),
                           border: item.is_completed
-                            ? '1px solid rgba(255,255,255,0.05)'
-                            : `1.5px solid ${badgeColor}55`,
+                            ? (isLight ? '1px solid #e2e8f0' : '1px solid rgba(255,255,255,0.05)')
+                            : (isLight ? `1.5px solid ${badgeColor}66` : `1.5px solid ${badgeColor}55`),
                           borderRadius: '12px',
                           padding: '1rem 1.25rem',
                           display: 'flex',
@@ -722,13 +762,15 @@ export default function FarmerDashboard({
                           gap: '1rem',
                           opacity: item.is_completed ? 0.65 : 1,
                           transition: 'all 0.2s ease',
-                          boxShadow: !item.is_completed && isCrit ? '0 0 16px rgba(239,68,68,0.1)' : 'none'
+                          boxShadow: isLight
+                            ? '0 2px 8px rgba(0,0,0,0.04)'
+                            : (!item.is_completed && isCrit ? '0 0 16px rgba(239,68,68,0.1)' : 'none')
                         }}
                       >
                         {/* Priority Rank Badge */}
                         <div style={{
                           width: '36px', height: '36px', borderRadius: '10px',
-                          background: item.is_completed ? '#334155' : isCrit ? '#dc2626' : isAttn ? '#d97706' : '#059669',
+                          background: item.is_completed ? '#334155' : isCrit ? '#dc2626' : isAttn ? '#d97706' : (isLight ? '#059669' : '#059669'),
                           display: 'flex', alignItems: 'center', justifyContent: 'center',
                           color: '#ffffff', fontWeight: '900', fontSize: '0.95rem',
                           flexShrink: 0
@@ -755,9 +797,9 @@ export default function FarmerDashboard({
                         <div style={{ flex: 1, minWidth: 0 }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap', marginBottom: '0.3rem' }}>
                             <span style={{
-                              background: 'rgba(0, 245, 160, 0.12)',
-                              color: '#00f5a0',
-                              border: '1px solid rgba(0, 245, 160, 0.3)',
+                              background: isLight ? 'rgba(5, 150, 105, 0.1)' : 'rgba(0, 245, 160, 0.12)',
+                              color: isLight ? '#059669' : '#00f5a0',
+                              border: isLight ? '1px solid rgba(5, 150, 105, 0.3)' : '1px solid rgba(0, 245, 160, 0.3)',
                               borderRadius: '6px',
                               padding: '0.15rem 0.55rem',
                               fontSize: '0.76rem',
@@ -786,14 +828,14 @@ export default function FarmerDashboard({
                           <div style={{
                             fontSize: '0.98rem',
                             fontWeight: '800',
-                            color: item.is_completed ? '#94a3b8' : '#ffffff',
+                            color: item.is_completed ? '#94a3b8' : (isLight ? '#0f172a' : '#ffffff'),
                             textDecoration: item.is_completed ? 'line-through' : 'none'
                           }}>
                             {item.action}
                           </div>
 
-                          <div style={{ fontSize: '0.82rem', color: '#94a3b8', marginTop: '0.25rem', fontStyle: 'italic' }}>
-                             <strong>Reason:</strong> {item.reason}
+                          <div style={{ fontSize: '0.82rem', color: isLight ? '#64748b' : '#94a3b8', marginTop: '0.25rem', fontStyle: 'italic' }}>
+                            <strong>Reason:</strong> {item.reason}
                           </div>
                         </div>
 
@@ -804,11 +846,11 @@ export default function FarmerDashboard({
                             if (f) selectFarm(f);
                           }}
                           style={{
-                            background: 'rgba(59,130,246,0.12)',
-                            border: '1px solid rgba(59,130,246,0.3)',
+                            background: isLight ? '#f1f5f9' : 'rgba(59,130,246,0.12)',
+                            border: isLight ? '1px solid #cbd5e1' : '1px solid rgba(59,130,246,0.3)',
                             borderRadius: '8px',
                             padding: '0.45rem 0.85rem',
-                            color: '#60a5fa',
+                            color: isLight ? '#0284c7' : '#60a5fa',
                             fontSize: '0.78rem',
                             fontWeight: '700',
                             cursor: 'pointer',
@@ -825,19 +867,20 @@ export default function FarmerDashboard({
 
               {/* SECTION 2: COMPARATIVE MULTI-FARM HEALTH MATRIX */}
               <div style={{
-                background: 'rgba(8,16,32,0.85)',
-                border: '1px solid rgba(255,255,255,0.08)',
+                background: isLight ? '#ffffff' : 'rgba(8,16,32,0.85)',
+                border: isLight ? '1px solid #e2e8f0' : '1px solid rgba(255,255,255,0.08)',
                 borderRadius: '16px',
-                padding: '1.35rem 1.5rem'
+                padding: '1.35rem 1.5rem',
+                boxShadow: isLight ? '0 4px 20px rgba(0,0,0,0.04)' : 'none'
               }}>
                 <div style={{ marginBottom: '1.1rem' }}>
-                  <div style={{ fontSize: '0.72rem', color: '#64748b', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                  <div style={{ fontSize: '0.72rem', color: isLight ? '#64748b' : '#64748b', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                     FARM PORTFOLIO OVERVIEW
                   </div>
-                  <h3 style={{ fontSize: '1.25rem', fontWeight: '900', color: '#ffffff', margin: '0.2rem 0 0 0' }}>
-                    ️ Farm Health Comparison
+                  <h3 style={{ fontSize: '1.25rem', fontWeight: '900', color: isLight ? '#0f172a' : '#ffffff', margin: '0.2rem 0 0 0' }}>
+                    Farm Health Comparison
                   </h3>
-                  <p style={{ fontSize: '0.82rem', color: '#94a3b8', margin: '0.2rem 0 0 0' }}>
+                  <p style={{ fontSize: '0.82rem', color: isLight ? '#475569' : '#94a3b8', margin: '0.2rem 0 0 0' }}>
                     Satellite vegetation vigor, problem area coverage, and live weather stress for each plot.
                   </p>
                 </div>
@@ -846,20 +889,20 @@ export default function FarmerDashboard({
                   {portfolioData?.farms?.map((farm) => {
                     const isCrit = farm.urgency_level === 'CRITICAL';
                     const isAttn = farm.urgency_level === 'ATTENTION';
-                    const cardCol = isCrit ? '#ef4444' : isAttn ? '#f59e0b' : '#10b981';
+                    const cardCol = isCrit ? '#ef4444' : isAttn ? '#f59e0b' : (isLight ? '#059669' : '#10b981');
 
                     return (
                       <div
                         key={farm.farm_id}
                         style={{
-                          background: 'rgba(15,23,42,0.9)',
-                          border: `1.5px solid ${cardCol}44`,
+                          background: isLight ? '#ffffff' : 'rgba(15,23,42,0.9)',
+                          border: isLight ? `1.5px solid ${cardCol}55` : `1.5px solid ${cardCol}44`,
                           borderRadius: '14px',
                           padding: '1.2rem',
                           display: 'flex',
                           flexDirection: 'column',
                           justifyContent: 'space-between',
-                          boxShadow: isCrit ? '0 0 20px rgba(239,68,68,0.15)' : 'none'
+                          boxShadow: isLight ? '0 4px 16px rgba(0,0,0,0.05)' : (isCrit ? '0 0 20px rgba(239,68,68,0.15)' : 'none')
                         }}
                       >
                         <div>
@@ -867,9 +910,9 @@ export default function FarmerDashboard({
                             <div>
                               <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
                                 <span style={{ fontSize: '1.2rem' }}>{CROP_ICONS[farm.crop_type] || ''}</span>
-                                <strong style={{ fontSize: '1.05rem', color: '#ffffff' }}>{farm.farm_name}</strong>
+                                <strong style={{ fontSize: '1.05rem', color: isLight ? '#0f172a' : '#ffffff' }}>{farm.farm_name}</strong>
                               </div>
-                              <div style={{ fontSize: '0.76rem', color: '#64748b', marginTop: '0.15rem' }}>
+                              <div style={{ fontSize: '0.76rem', color: isLight ? '#64748b' : '#64748b', marginTop: '0.15rem' }}>
                                 {farm.crop_type} • {farm.area_acres?.toFixed(2)} acres •  {farm.center_lat?.toFixed(3)}°, {farm.center_lon?.toFixed(3)}°
                               </div>
                             </div>
@@ -892,11 +935,11 @@ export default function FarmerDashboard({
                           </div>
 
                           {/* Quick stats row */}
-                          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', background: 'rgba(8,16,32,0.6)', padding: '0.65rem 0.8rem', borderRadius: '10px', marginBottom: '0.85rem' }}>
+                          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', background: isLight ? '#f8fafc' : 'rgba(8,16,32,0.6)', border: isLight ? '1px solid #e2e8f0' : 'none', padding: '0.65rem 0.8rem', borderRadius: '10px', marginBottom: '0.85rem' }}>
                             <div>
-                              <div style={{ fontSize: '0.68rem', color: '#64748b', textTransform: 'uppercase' }}>Current NDVI</div>
-                              <div style={{ fontSize: '1rem', fontWeight: '800', color: farm.ndvi >= 0.6 ? '#34d399' : farm.ndvi >= 0.5 ? '#fbbf24' : '#f87171' }}>
-                                {farm.ndvi ? farm.ndvi.toFixed(2) : '—'} <span style={{ fontSize: '0.72rem', color: '#94a3b8' }}>({farm.ndvi_delta || '—'})</span>
+                              <div style={{ fontSize: '0.68rem', color: isLight ? '#64748b' : '#64748b', textTransform: 'uppercase' }}>Current NDVI</div>
+                              <div style={{ fontSize: '1rem', fontWeight: '800', color: farm.ndvi >= 0.6 ? (isLight ? '#059669' : '#34d399') : farm.ndvi >= 0.5 ? '#fbbf24' : '#f87171' }}>
+                                {farm.ndvi ? farm.ndvi.toFixed(2) : '—'} <span style={{ fontSize: '0.72rem', color: isLight ? '#64748b' : '#94a3b8' }}>({farm.ndvi_delta || '—'})</span>
                               </div>
                             </div>
                             <div>
@@ -956,7 +999,7 @@ export default function FarmerDashboard({
                             }}
                             title="View on interactive GIS map"
                           >
-                            ️ Map
+                            Map
                           </button>
                         </div>
                       </div>
@@ -972,28 +1015,30 @@ export default function FarmerDashboard({
              ══════════════════════════════════════════════════════════════ */}
           {viewMode === 'single' && !activeFarm && !farmsLoading && (
             <div style={{
-              background: 'rgba(8,16,32,0.7)', border: '1px dashed rgba(255,255,255,0.12)',
+              background: isLight ? '#f8fafc' : 'rgba(8,16,32,0.7)',
+              border: isLight ? '1px dashed #cbd5e1' : '1px dashed rgba(255,255,255,0.12)',
               borderRadius: '16px', padding: '3rem', textAlign: 'center',
             }}>
-              <div style={{ fontSize: '3rem', marginBottom: '0.75rem' }}>️</div>
-              <h2 style={{ color: '#ffffff', fontSize: '1.4rem', fontWeight: '800' }}>Select or Add a Farm Plot</h2>
-              <p style={{ color: '#64748b', marginTop: '0.4rem' }}>
+              <div style={{ fontSize: '1.5rem', fontWeight: '900', color: isLight ? '#64748b' : '#94a3b8', marginBottom: '0.75rem' }}>PLOTS</div>
+              <h2 style={{ color: isLight ? '#0f172a' : '#ffffff', fontSize: '1.4rem', fontWeight: '800' }}>Select or Add a Farm Plot</h2>
+              <p style={{ color: isLight ? '#475569' : '#64748b', marginTop: '0.4rem' }}>
                 Choose a farm from the sidebar or return to the combined operations center.
               </p>
               <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', marginTop: '1.25rem' }}>
                 <button onClick={() => setViewMode('combined')} style={{
-                  background: 'rgba(0,245,160,0.15)', border: '1px solid rgba(0,245,160,0.4)',
+                  background: isLight ? '#ecfdf5' : 'rgba(0,245,160,0.15)',
+                  border: isLight ? '1px solid #86efac' : '1px solid rgba(0,245,160,0.4)',
                   borderRadius: '10px', padding: '0.75rem 1.4rem',
-                  color: '#00f5a0', fontSize: '0.95rem', fontWeight: '700', cursor: 'pointer',
+                  color: isLight ? '#047857' : '#00f5a0', fontSize: '0.95rem', fontWeight: '700', cursor: 'pointer',
                 }}>
-                   All Farms Combined
+                  All Farms Combined
                 </button>
                 <button onClick={onAddNewFarm} style={{
-                  background: 'linear-gradient(135deg,#059669,#10b981)',
+                  background: isLight ? '#059669' : 'linear-gradient(135deg,#059669,#10b981)',
                   border: 'none', borderRadius: '10px', padding: '0.75rem 1.5rem',
                   color: '#fff', fontSize: '0.95rem', fontWeight: '700', cursor: 'pointer',
                 }}>
-                  ️ Draw Farm Boundary
+                  Draw Farm Boundary
                 </button>
               </div>
             </div>
@@ -1078,29 +1123,29 @@ export default function FarmerDashboard({
                       transition: 'all 0.2s ease',
                     }}
                   >
-                    {analysisLoading ? ' Analysing Satellite Data…' : '️ Run Field Analysis'}
+                    {analysisLoading ? 'Analysing Satellite Data…' : 'Run Field Analysis'}
                   </button>
 
                   <button
                     onClick={() => setIsDepthModalOpen(true)}
                     style={{
-                      background: 'linear-gradient(135deg, rgba(0, 217, 245, 0.18) 0%, rgba(99, 102, 241, 0.18) 100%)',
-                      border: '1.5px solid #00d9f5',
+                      background: isLight ? '#f0fdf4' : 'linear-gradient(135deg, rgba(0, 217, 245, 0.18) 0%, rgba(99, 102, 241, 0.18) 100%)',
+                      border: isLight ? '1.5px solid #10b981' : '1.5px solid #00d9f5',
                       borderRadius: '10px',
                       padding: '0.65rem 1.15rem',
-                      color: '#00d9f5',
+                      color: isLight ? '#047857' : '#00d9f5',
                       fontSize: '0.86rem',
                       fontWeight: '800',
                       cursor: 'pointer',
                       display: 'flex',
                       alignItems: 'center',
                       gap: '0.4rem',
-                      boxShadow: '0 0 15px rgba(0, 217, 245, 0.25)',
+                      boxShadow: isLight ? '0 2px 8px rgba(0,0,0,0.05)' : '0 0 15px rgba(0, 217, 245, 0.25)',
                       transition: 'all 0.2s ease',
                     }}
                     title="Upload leaf photo for Macro-to-Micro Depth Analysis"
                   >
-                     Leaf Disease Diagnosis
+                    Leaf Disease Diagnosis
                   </button>
 
                   {cachedAnalysis?.pdf_download_url && (
@@ -1108,13 +1153,14 @@ export default function FarmerDashboard({
                       href={cachedAnalysis.pdf_download_url}
                       target="_blank" rel="noopener noreferrer"
                       style={{
-                        background: 'rgba(37,99,235,0.2)', border: '1px solid rgba(59,130,246,0.4)',
+                        background: isLight ? '#eff6ff' : 'rgba(37,99,235,0.2)',
+                        border: isLight ? '1px solid #93c5fd' : '1px solid rgba(59,130,246,0.4)',
                         borderRadius: '10px', padding: '0.65rem 1.1rem',
-                        color: '#60a5fa', fontSize: '0.85rem', fontWeight: '700',
+                        color: isLight ? '#1d4ed8' : '#60a5fa', fontSize: '0.85rem', fontWeight: '700',
                         textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.35rem',
                       }}
                     >
-                       Download Field Report
+                      Download Field Report
                     </a>
                   )}
 
@@ -1122,14 +1168,15 @@ export default function FarmerDashboard({
                     <button
                       onClick={() => onViewMap(activeFarm)}
                       style={{
-                        background: 'rgba(0,217,245,0.12)', border: '1px solid rgba(0,217,245,0.3)',
+                        background: isLight ? '#f8fafc' : 'rgba(0,217,245,0.12)',
+                        border: isLight ? '1px solid #cbd5e1' : '1px solid rgba(0,217,245,0.3)',
                         borderRadius: '10px', padding: '0.65rem 1rem',
-                        color: '#00d9f5', fontSize: '0.85rem', fontWeight: '700', cursor: 'pointer',
+                        color: isLight ? '#0f172a' : '#00d9f5', fontSize: '0.85rem', fontWeight: '700', cursor: 'pointer',
                         display: 'flex', alignItems: 'center', gap: '0.35rem',
                       }}
                       title="Inspect multispectral satellite tiles on full map"
                     >
-                      ️ Map View
+                      Map View
                     </button>
                   )}
 
@@ -1168,12 +1215,17 @@ export default function FarmerDashboard({
                     key={tab.key}
                     onClick={() => setActiveTab(tab.key)}
                     style={{
-                      background: activeTab === tab.key ? 'rgba(0,245,160,0.15)' : 'rgba(15,23,42,0.7)',
-                      border: activeTab === tab.key ? '1.5px solid rgba(0,245,160,0.5)' : '1px solid rgba(255,255,255,0.08)',
+                      background: activeTab === tab.key
+                        ? (isLight ? '#ffffff' : 'rgba(0,245,160,0.15)')
+                        : (isLight ? '#f8fafc' : 'rgba(15,23,42,0.7)'),
+                      border: activeTab === tab.key
+                        ? (isLight ? '1.5px solid #059669' : '1.5px solid rgba(0,245,160,0.5)')
+                        : (isLight ? '1px solid #cbd5e1' : '1px solid rgba(255,255,255,0.08)'),
                       borderRadius: '10px', padding: '0.5rem 1rem',
-                      color: activeTab === tab.key ? '#00f5a0' : '#94a3b8',
+                      color: activeTab === tab.key ? (isLight ? '#059669' : '#00f5a0') : (isLight ? '#475569' : '#94a3b8'),
                       fontSize: '0.85rem', fontWeight: '700', cursor: 'pointer',
                       transition: 'all 0.2s ease',
+                      boxShadow: activeTab === tab.key && isLight ? '0 2px 6px rgba(0,0,0,0.06)' : 'none',
                     }}
                   >
                     {tab.label}
@@ -1184,11 +1236,13 @@ export default function FarmerDashboard({
               {/* ── NO ANALYSIS YET ── */}
               {!cachedAnalysis && !analysisLoading && (
                 <div style={{
-                  background: 'rgba(8,16,32,0.7)', border: '1px dashed rgba(255,255,255,0.1)',
+                  background: isLight ? '#ffffff' : 'rgba(8,16,32,0.7)',
+                  border: isLight ? '1px dashed #cbd5e1' : '1px dashed rgba(255,255,255,0.1)',
                   borderRadius: '14px', padding: '2.5rem', textAlign: 'center',
+                  boxShadow: isLight ? '0 2px 8px rgba(0,0,0,0.04)' : 'none',
                 }}>
-                  <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>️</div>
-                  <h3 style={{ color: '#ffffff', fontSize: '1.15rem', fontWeight: '800' }}>No Satellite Analysis Yet</h3>
+                  <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}></div>
+                  <h3 style={{ color: isLight ? '#0f172a' : '#ffffff', fontSize: '1.15rem', fontWeight: '800' }}>No Satellite Analysis Yet</h3>
                   <p style={{ color: '#64748b', fontSize: '0.9rem', margin: '0.4rem 0 1.25rem 0' }}>
                     Run a deep analysis to get AI crop health diagnostics, weather correlation, and your priority action timeline.
                   </p>
@@ -1198,7 +1252,7 @@ export default function FarmerDashboard({
                     color: '#fff', fontSize: '1rem', fontWeight: '800', cursor: 'pointer',
                     boxShadow: '0 4px 20px rgba(124,58,237,0.4)',
                   }}>
-                    ️ Run Field Analysis
+                    Run Field Analysis
                   </button>
                 </div>
               )}
@@ -1210,16 +1264,19 @@ export default function FarmerDashboard({
                   {/* Executive summary */}
                   {exec && (
                     <div style={{
-                      background: 'rgba(15,23,42,0.9)', borderLeft: '4px solid #10b981',
+                      background: isLight ? '#f0fdf4' : 'rgba(15,23,42,0.9)',
+                      borderLeft: '4px solid #10b981',
+                      border: isLight ? '1px solid rgba(5,150,105,0.25)' : undefined,
                       borderRadius: '12px', padding: '1.1rem 1.25rem',
+                      boxShadow: isLight ? '0 2px 8px rgba(0,0,0,0.04)' : 'none',
                     }}>
-                      <div style={{ fontSize: '0.75rem', color: '#10b981', fontWeight: '800', textTransform: 'uppercase', marginBottom: '0.35rem' }}>
+                      <div style={{ fontSize: '0.75rem', color: isLight ? '#059669' : '#10b981', fontWeight: '800', textTransform: 'uppercase', marginBottom: '0.35rem' }}>
                         AI Agronomic Summary
                       </div>
-                      <strong style={{ fontSize: '1.05rem', color: '#6ee7b7', display: 'block', marginBottom: '0.3rem' }}>
+                      <strong style={{ fontSize: '1.05rem', color: isLight ? '#059669' : '#6ee7b7', display: 'block', marginBottom: '0.3rem' }}>
                         {typeof exec === 'object' ? exec.headline : 'Farm Health Diagnostic'}
                       </strong>
-                      <p style={{ fontSize: '0.9rem', color: '#e2e8f0', margin: 0, lineHeight: 1.55 }}>
+                      <p style={{ fontSize: '0.9rem', color: isLight ? '#334155' : '#e2e8f0', margin: 0, lineHeight: 1.55 }}>
                         {typeof exec === 'object' ? exec.farmer_friendly_message : exec}
                       </p>
                     </div>
@@ -1227,17 +1284,22 @@ export default function FarmerDashboard({
 
                   {/* Key metrics row */}
                   <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-                    <StatChip label="Current NDVI" value={ndviCurrent} color="#34d399" />
-                    <StatChip label="Temperature" value={weather?.temperature_c} color="#f97316" unit="°C" />
-                    <StatChip label="Humidity" value={weather?.humidity_pct} color="#38bdf8" unit="%" />
-                    <StatChip label="7-Day Rainfall" value={weather?.rain_7day_sum_mm} color="#60a5fa" unit="mm" />
-                    <StatChip label="14-Day Forecast" value={trend?.trend_status?.replace('_', ' ')} color="#a78bfa" />
-                    <StatChip label="Farm Health Grade" value={healthGrade} color="#00f5a0" />
+                    <StatChip label="Current NDVI" value={ndviCurrent} color={isLight ? '#059669' : '#34d399'} isLight={isLight} />
+                    <StatChip label="Temperature" value={weather?.temperature_c} color="#f97316" unit="°C" isLight={isLight} />
+                    <StatChip label="Humidity" value={weather?.humidity_pct} color={isLight ? '#0284c7' : '#38bdf8'} unit="%" isLight={isLight} />
+                    <StatChip label="7-Day Rainfall" value={weather?.rain_7day_sum_mm} color={isLight ? '#2563eb' : '#60a5fa'} unit="mm" isLight={isLight} />
+                    <StatChip label="14-Day Forecast" value={trend?.trend_status?.replace('_', ' ')} color={isLight ? '#7c3aed' : '#a78bfa'} isLight={isLight} />
+                    <StatChip label="Farm Health Grade" value={healthGrade} color={isLight ? '#059669' : '#00f5a0'} isLight={isLight} />
                   </div>
 
                   {/* Canopy health bar */}
                   {damage && (
-                    <div style={{ background: 'rgba(8,16,32,0.85)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '1.1rem 1.25rem' }}>
+                    <div style={{
+                      background: isLight ? '#ffffff' : 'rgba(8,16,32,0.85)',
+                      border: isLight ? '1px solid #e2e8f0' : '1px solid rgba(255,255,255,0.08)',
+                      borderRadius: '12px', padding: '1.1rem 1.25rem',
+                      boxShadow: isLight ? '0 2px 8px rgba(0,0,0,0.04)' : 'none',
+                    }}>
                       <div style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.75rem' }}>
                         Canopy Health Distribution
                       </div>
@@ -1247,9 +1309,9 @@ export default function FarmerDashboard({
                         <div style={{ width: `${damage.damaged_red?.percentage || 0}%`, background: 'linear-gradient(90deg,#dc2626,#ef4444)' }} title="Stressed" />
                       </div>
                       <div style={{ display: 'flex', gap: '1.25rem', flexWrap: 'wrap', fontSize: '0.82rem' }}>
-                        <span style={{ color: '#34d399' }}> {damage.healthy_green?.percentage}% Healthy</span>
-                        <span style={{ color: '#fbbf24' }}> {damage.moderate_yellow?.percentage}% Moderate</span>
-                        <span style={{ color: '#f87171' }}> {damage.damaged_red?.percentage}% Stressed</span>
+                        <span style={{ color: isLight ? '#059669' : '#34d399' }}> {damage.healthy_green?.percentage}% Healthy</span>
+                        <span style={{ color: '#d97706' }}> {damage.moderate_yellow?.percentage}% Moderate</span>
+                        <span style={{ color: '#dc2626' }}> {damage.damaged_red?.percentage}% Stressed</span>
                       </div>
                     </div>
                   )}
@@ -1257,21 +1319,31 @@ export default function FarmerDashboard({
                   {/* Problem zones + weather risks */}
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem' }}>
                     {problemZones && (
-                      <div style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.3)', borderRadius: '12px', padding: '1rem 1.1rem' }}>
-                        <div style={{ fontSize: '0.75rem', color: '#f87171', fontWeight: '800', textTransform: 'uppercase', marginBottom: '0.5rem' }}>️ Problem Zones</div>
-                        <div style={{ fontSize: '1.5rem', fontWeight: '900', color: '#ffffff' }}>{problemZones.problem_area_percentage}%</div>
-                        <div style={{ fontSize: '0.82rem', color: '#fca5a5', marginTop: '0.2rem' }}>{problemZones.problem_area_acres} acres affected</div>
-                        <p style={{ fontSize: '0.8rem', color: '#94a3b8', marginTop: '0.5rem', margin: 0 }}>{problemZones.zone_description}</p>
+                      <div style={{
+                        background: isLight ? '#fef2f2' : 'rgba(239,68,68,0.08)',
+                        border: '1px solid rgba(239,68,68,0.3)',
+                        borderRadius: '12px', padding: '1rem 1.1rem',
+                        boxShadow: isLight ? '0 2px 8px rgba(0,0,0,0.03)' : 'none',
+                      }}>
+                        <div style={{ fontSize: '0.75rem', color: '#dc2626', fontWeight: '800', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Problem Zones</div>
+                        <div style={{ fontSize: '1.5rem', fontWeight: '900', color: isLight ? '#0f172a' : '#ffffff' }}>{problemZones.problem_area_percentage}%</div>
+                        <div style={{ fontSize: '0.82rem', color: isLight ? '#b91c1c' : '#fca5a5', marginTop: '0.2rem' }}>{problemZones.problem_area_acres} acres affected</div>
+                        <p style={{ fontSize: '0.8rem', color: isLight ? '#64748b' : '#94a3b8', marginTop: '0.5rem', margin: 0 }}>{problemZones.zone_description}</p>
                       </div>
                     )}
                     {weather?.risks && (
-                      <div style={{ background: 'rgba(56,189,248,0.08)', border: '1px solid rgba(56,189,248,0.25)', borderRadius: '12px', padding: '1rem 1.1rem' }}>
-                        <div style={{ fontSize: '0.75rem', color: '#38bdf8', fontWeight: '800', textTransform: 'uppercase', marginBottom: '0.5rem' }}>️ Weather Risks</div>
-                        <div style={{ fontSize: '0.88rem', color: '#e2e8f0', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-                          <span>Fungal Blight: <strong style={{ color: weather.risks.fungal_blight_risk === 'HIGH' ? '#f87171' : '#34d399' }}>{weather.risks.fungal_blight_risk}</strong></span>
-                          <span>Drought Stress: <strong style={{ color: weather.risks.drought_stress_risk === 'HIGH' ? '#f87171' : '#34d399' }}>{weather.risks.drought_stress_risk}</strong></span>
+                      <div style={{
+                        background: isLight ? '#f0f9ff' : 'rgba(56,189,248,0.08)',
+                        border: isLight ? '1px solid rgba(2,132,199,0.25)' : '1px solid rgba(56,189,248,0.25)',
+                        borderRadius: '12px', padding: '1rem 1.1rem',
+                        boxShadow: isLight ? '0 2px 8px rgba(0,0,0,0.03)' : 'none',
+                      }}>
+                        <div style={{ fontSize: '0.75rem', color: isLight ? '#0284c7' : '#38bdf8', fontWeight: '800', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Weather Risks</div>
+                        <div style={{ fontSize: '0.88rem', color: isLight ? '#0f172a' : '#e2e8f0', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                          <span>Fungal Blight: <strong style={{ color: weather.risks.fungal_blight_risk === 'HIGH' ? '#dc2626' : (isLight ? '#059669' : '#34d399') }}>{weather.risks.fungal_blight_risk}</strong></span>
+                          <span>Drought Stress: <strong style={{ color: weather.risks.drought_stress_risk === 'HIGH' ? '#dc2626' : (isLight ? '#059669' : '#34d399') }}>{weather.risks.drought_stress_risk}</strong></span>
                         </div>
-                        <p style={{ fontSize: '0.8rem', color: '#94a3b8', marginTop: '0.5rem', margin: 0 }}>{weather.risks.summary}</p>
+                        <p style={{ fontSize: '0.8rem', color: isLight ? '#64748b' : '#94a3b8', marginTop: '0.5rem', margin: 0 }}>{weather.risks.summary}</p>
                       </div>
                     )}
                   </div>
@@ -1283,10 +1355,11 @@ export default function FarmerDashboard({
                     if (!nextItem) return null;
                     return (
                       <div style={{
-                        background: 'linear-gradient(135deg,rgba(220,38,38,0.15) 0%,rgba(15,23,42,0.9) 100%)',
-                        border: '1.5px solid rgba(239,68,68,0.5)', borderRadius: '14px', padding: '1.1rem 1.25rem',
+                        background: isLight ? '#fef2f2' : 'linear-gradient(135deg,rgba(220,38,38,0.15) 0%,rgba(15,23,42,0.9) 100%)',
+                        border: isLight ? '1.5px solid rgba(220,38,38,0.3)' : '1.5px solid rgba(239,68,68,0.5)',
+                        borderRadius: '14px', padding: '1.1rem 1.25rem',
                         display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap',
-                        boxShadow: '0 4px 20px rgba(239,68,68,0.15)',
+                        boxShadow: isLight ? '0 2px 8px rgba(0,0,0,0.04)' : '0 4px 20px rgba(239,68,68,0.15)',
                       }}>
                         <div style={{
                           width: '46px', height: '46px', borderRadius: '50%',
@@ -1294,11 +1367,11 @@ export default function FarmerDashboard({
                           fontSize: '1.2rem', flexShrink: 0, boxShadow: '0 0 16px rgba(239,68,68,0.4)',
                         }}></div>
                         <div style={{ flex: 1 }}>
-                          <div style={{ fontSize: '0.72rem', color: '#f87171', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                            ▶ DO THIS NEXT — Immediate Priority
+                          <div style={{ fontSize: '0.72rem', color: '#dc2626', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                            DO THIS NEXT — Immediate Priority
                           </div>
-                          <strong style={{ fontSize: '1rem', color: '#ffffff', display: 'block', marginTop: '0.2rem' }}>{nextItem.action}</strong>
-                          <p style={{ fontSize: '0.82rem', color: '#fca5a5', margin: '0.15rem 0 0 0' }}>{nextItem.reason}</p>
+                          <strong style={{ fontSize: '1rem', color: isLight ? '#0f172a' : '#ffffff', display: 'block', marginTop: '0.2rem' }}>{nextItem.action}</strong>
+                          <p style={{ fontSize: '0.82rem', color: isLight ? '#991b1b' : '#fca5a5', margin: '0.15rem 0 0 0' }}>{nextItem.reason}</p>
                         </div>
                         <button
                           onClick={() => setActiveTab('timeline')}
@@ -1322,6 +1395,7 @@ export default function FarmerDashboard({
                   actionPlan={cachedAnalysis.gemini_recommendations.action_plan}
                   initialCompleted={completedSteps}
                   onStepsChange={handleStepsChange}
+                  theme={theme}
                 />
               )}
 
@@ -1333,32 +1407,34 @@ export default function FarmerDashboard({
                   {recs?.categories && (
                     <>
                       <div style={{ fontSize: '0.78rem', color: '#64748b', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                         Agronomic Assessment Breakdown
+                        Agronomic Assessment Breakdown
                       </div>
                       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))', gap: '1rem' }}>
                         {recs.categories.map((cat, idx) => {
                           const isCrit = cat.status === 'CRITICAL';
                           const isAttn = cat.status === 'ATTENTION';
-                          const col = isCrit ? '#ef4444' : isAttn ? '#f59e0b' : '#10b981';
+                          const col = isCrit ? '#ef4444' : isAttn ? '#f59e0b' : (isLight ? '#059669' : '#10b981');
                           return (
                             <div key={idx} style={{
-                              background: 'rgba(15,23,42,0.85)', border: `1px solid ${col}55`,
+                              background: isLight ? '#ffffff' : 'rgba(15,23,42,0.85)',
+                              border: isLight ? `1px solid ${col}44` : `1px solid ${col}55`,
                               borderRadius: '12px', padding: '1rem 1.1rem',
+                              boxShadow: isLight ? '0 2px 8px rgba(0,0,0,0.04)' : 'none',
                             }}>
                               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
                                   <span style={{ fontSize: '1.4rem' }}>{cat.icon}</span>
-                                  <strong style={{ color: '#ffffff', fontSize: '0.95rem' }}>{cat.title}</strong>
+                                  <strong style={{ color: isLight ? '#0f172a' : '#ffffff', fontSize: '0.95rem' }}>{cat.title}</strong>
                                 </div>
                                 <span style={{
                                   fontSize: '0.68rem', fontWeight: '800', padding: '0.15rem 0.5rem',
                                   borderRadius: '8px', background: `${col}22`, color: col, border: `1px solid ${col}55`,
                                 }}>{cat.status}</span>
                               </div>
-                              <p style={{ fontSize: '0.84rem', color: '#94a3b8', margin: '0 0 0.6rem 0', fontStyle: 'italic' }}>"{cat.summary}"</p>
+                              <p style={{ fontSize: '0.84rem', color: isLight ? '#475569' : '#94a3b8', margin: '0 0 0.6rem 0', fontStyle: 'italic' }}>"{cat.summary}"</p>
                               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
                                 {cat.specific_actions?.map((act, ai) => (
-                                  <div key={ai} style={{ display: 'flex', gap: '0.4rem', fontSize: '0.85rem', color: '#e2e8f0' }}>
+                                  <div key={ai} style={{ display: 'flex', gap: '0.4rem', fontSize: '0.85rem', color: isLight ? '#334155' : '#e2e8f0' }}>
                                     <span style={{ color: col }}>•</span>
                                     <span>{act}</span>
                                   </div>
@@ -1374,17 +1450,19 @@ export default function FarmerDashboard({
                   {/* Yield impact */}
                   {recs?.yield_impact && (
                     <div style={{
-                      background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.35)',
+                      background: isLight ? '#fffbeb' : 'rgba(245,158,11,0.1)',
+                      border: isLight ? '1px solid rgba(217,119,6,0.3)' : '1px solid rgba(245,158,11,0.35)',
                       borderRadius: '12px', padding: '1.1rem 1.25rem',
                       display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem',
+                      boxShadow: isLight ? '0 2px 8px rgba(0,0,0,0.04)' : 'none',
                     }}>
                       <div>
-                        <div style={{ fontSize: '0.75rem', color: '#fbbf24', fontWeight: '800', textTransform: 'uppercase', marginBottom: '0.35rem' }}>️ Risk If No Action</div>
-                        <p style={{ fontSize: '0.88rem', color: '#fde68a', margin: 0 }}>{recs.yield_impact.risk_if_no_action}</p>
+                        <div style={{ fontSize: '0.75rem', color: isLight ? '#b45309' : '#fbbf24', fontWeight: '800', textTransform: 'uppercase', marginBottom: '0.35rem' }}>Risk If No Action</div>
+                        <p style={{ fontSize: '0.88rem', color: isLight ? '#78350f' : '#fde68a', margin: 0 }}>{recs.yield_impact.risk_if_no_action}</p>
                       </div>
                       <div>
-                        <div style={{ fontSize: '0.75rem', color: '#34d399', fontWeight: '800', textTransform: 'uppercase', marginBottom: '0.35rem' }}> Recovery Potential</div>
-                        <p style={{ fontSize: '0.88rem', color: '#bbf7d0', margin: 0 }}>
+                        <div style={{ fontSize: '0.75rem', color: isLight ? '#059669' : '#34d399', fontWeight: '800', textTransform: 'uppercase', marginBottom: '0.35rem' }}>Recovery Potential</div>
+                        <p style={{ fontSize: '0.88rem', color: isLight ? '#065f46' : '#bbf7d0', margin: 0 }}>
                           {recs.yield_impact.potential_gain_with_action}
                           {recs.yield_impact.estimated_recovery_days && ` (~${recs.yield_impact.estimated_recovery_days} days)`}
                         </p>
@@ -1394,23 +1472,28 @@ export default function FarmerDashboard({
 
                   {/* 30-day comparison */}
                   {cachedAnalysis.historical_comparison && (
-                    <div style={{ background: 'rgba(8,16,32,0.85)', border: '1px solid rgba(59,130,246,0.25)', borderRadius: '12px', padding: '1.1rem 1.25rem' }}>
-                      <div style={{ fontSize: '0.75rem', color: '#60a5fa', fontWeight: '800', textTransform: 'uppercase', marginBottom: '0.75rem' }}> 30-Day Growth Trend</div>
+                    <div style={{
+                      background: isLight ? '#ffffff' : 'rgba(8,16,32,0.85)',
+                      border: isLight ? '1px solid #e2e8f0' : '1px solid rgba(59,130,246,0.25)',
+                      borderRadius: '12px', padding: '1.1rem 1.25rem',
+                      boxShadow: isLight ? '0 2px 8px rgba(0,0,0,0.04)' : 'none',
+                    }}>
+                      <div style={{ fontSize: '0.75rem', color: isLight ? '#0284c7' : '#60a5fa', fontWeight: '800', textTransform: 'uppercase', marginBottom: '0.75rem' }}>30-Day Growth Trend</div>
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.75rem', fontSize: '0.88rem' }}>
                         <div>
                           <div style={{ color: '#64748b', fontSize: '0.72rem' }}>Historical NDVI</div>
-                          <div style={{ color: '#94a3b8', fontWeight: '700', fontSize: '1.1rem' }}>{cachedAnalysis.historical_comparison.historical_mean_ndvi}</div>
-                          <div style={{ color: '#475569', fontSize: '0.72rem' }}>{cachedAnalysis.historical_comparison.historical_date}</div>
+                          <div style={{ color: isLight ? '#0f172a' : '#94a3b8', fontWeight: '700', fontSize: '1.1rem' }}>{cachedAnalysis.historical_comparison.historical_mean_ndvi}</div>
+                          <div style={{ color: '#64748b', fontSize: '0.72rem' }}>{cachedAnalysis.historical_comparison.historical_date}</div>
                         </div>
                         <div>
                           <div style={{ color: '#64748b', fontSize: '0.72rem' }}>Current NDVI</div>
-                          <div style={{ color: '#34d399', fontWeight: '700', fontSize: '1.1rem' }}>{cachedAnalysis.historical_comparison.current_mean_ndvi}</div>
-                          <div style={{ color: '#475569', fontSize: '0.72rem' }}>Latest pass</div>
+                          <div style={{ color: isLight ? '#059669' : '#34d399', fontWeight: '700', fontSize: '1.1rem' }}>{cachedAnalysis.historical_comparison.current_mean_ndvi}</div>
+                          <div style={{ color: '#64748b', fontSize: '0.72rem' }}>Latest pass</div>
                         </div>
                         <div>
                           <div style={{ color: '#64748b', fontSize: '0.72rem' }}>Growth Status</div>
-                          <div style={{ color: '#60a5fa', fontWeight: '700', fontSize: '1rem' }}>{cachedAnalysis.historical_comparison.growth_status}</div>
-                          <div style={{ color: '#475569', fontSize: '0.72rem' }}>{cachedAnalysis.historical_comparison.percentage_change}% change</div>
+                          <div style={{ color: isLight ? '#0284c7' : '#60a5fa', fontWeight: '700', fontSize: '1rem' }}>{cachedAnalysis.historical_comparison.growth_status}</div>
+                          <div style={{ color: '#64748b', fontSize: '0.72rem' }}>{cachedAnalysis.historical_comparison.percentage_change}% change</div>
                         </div>
                       </div>
                     </div>
@@ -1430,31 +1513,36 @@ export default function FarmerDashboard({
           bottom: '26px',
           right: '26px',
           zIndex: 900,
-          background: 'linear-gradient(135deg, #00f5a0 0%, #00d9f5 100%)',
+          background: isLight ? '#059669' : 'linear-gradient(135deg, #00f5a0 0%, #00d9f5 100%)',
           border: 'none',
           borderRadius: '9999px',
           padding: '0.8rem 1.35rem',
-          color: '#030712',
+          color: isLight ? '#ffffff' : '#030712',
           fontSize: '0.92rem',
           fontWeight: '900',
           cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
           gap: '0.55rem',
-          boxShadow: '0 10px 30px rgba(0, 245, 160, 0.45), 0 0 20px rgba(0, 217, 245, 0.35)',
+          boxShadow: isLight
+            ? '0 10px 25px rgba(5, 150, 105, 0.35)'
+            : '0 10px 30px rgba(0, 245, 160, 0.45), 0 0 20px rgba(0, 217, 245, 0.35)',
           transition: 'all 0.25s ease',
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.transform = 'translateY(-3px) scale(1.04)';
-          e.currentTarget.style.boxShadow = '0 15px 40px rgba(0, 245, 160, 0.65)';
+          e.currentTarget.style.boxShadow = isLight
+            ? '0 14px 30px rgba(5, 150, 105, 0.45)'
+            : '0 15px 40px rgba(0, 245, 160, 0.65)';
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.transform = 'translateY(0) scale(1)';
-          e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 245, 160, 0.45), 0 0 20px rgba(0, 217, 245, 0.35)';
+          e.currentTarget.style.boxShadow = isLight
+            ? '0 10px 25px rgba(5, 150, 105, 0.35)'
+            : '0 10px 30px rgba(0, 245, 160, 0.45), 0 0 20px rgba(0, 217, 245, 0.35)';
         }}
         title="Open Conversational Voice & Chat Agronomist"
       >
-        <span style={{ fontSize: '1.25rem' }}>️</span>
         <span>Ask AI Agronomist</span>
       </button>
 
@@ -1469,6 +1557,7 @@ export default function FarmerDashboard({
           analysisData: cachedAnalysis,
         }}
         token={token}
+        theme={theme}
       />
 
       {/* Depth Analysis Modal (Leaf + Satellite Fusion) */}
@@ -1486,6 +1575,7 @@ export default function FarmerDashboard({
           } : null),
         }}
         token={token}
+        theme={theme}
       />
     </div>
   );
